@@ -25,10 +25,19 @@ OLD_END=b'<!-- development-workflow:managed:end -->'
 
 def source_manifest():
     from harness.history import _no_links
+    from harness import VERSION
     _no_links(SOURCE)
     files=[]
-    for p in sorted(SOURCE.rglob('*')):
-        if not p.is_file() or any(part in {'.git','__pycache__','.venv','test-results'} for part in p.relative_to(SOURCE).parts) or p.suffix in {'.pyc','.pyo'} or p.name=='release-manifest.json': continue
+    declaration=json.loads((SOURCE/'contracts/package-files.json').read_text(encoding='utf-8'))
+    paths=declaration['files']
+    if len(paths)!=len(set(paths)) or not paths: fail('invalid_package','Package allowlist must contain unique files.')
+    from harness.common import safe_relative
+    for name in sorted(paths):
+        relative=safe_relative(name)
+        if any(part in {'.git','__pycache__','.venv','test-results','environments','installation-backups'} for part in relative.parts):
+            fail('private_package_path','Personal state cannot be included in a release.')
+        p=SOURCE.joinpath(*relative.parts)
+        if not p.is_file(): fail('incomplete_package','Declared package file is missing: '+name)
         _no_links(p)
         if SOURCE.resolve() not in p.resolve().parents: fail('package_path_escape','Package content must remain inside the shared source.')
         if p.name=='.env' or (p.name.startswith('.env.') and p.name not in {'.env.example','.env.template'}) or p.suffix.lower() in {'.pem','.pfx','.p12','.key'}:
@@ -36,7 +45,11 @@ def source_manifest():
         raw=scan_secrets(p.read_bytes())
         files.append({'path':p.relative_to(SOURCE).as_posix(),'sha256':sha256(raw),'bytes':len(raw)})
     digest=sha256(encoded(files))
-    return {'schema_version':1,'version':'2.0.0','release_id':'2.0.0-'+digest[:16],'content_sha256':digest,'files':files}
+    release=json.loads((SOURCE/'contracts/release.json').read_text(encoding='utf-8'))
+    if release['version']!=VERSION: fail('version_mismatch','Core and release declaration must agree.')
+    return {'schema_version':1,'version':VERSION,'release_id':VERSION+'-'+digest[:16],'content_sha256':digest,'files':files,
+            'skills':release['skills'],'capability_contract':release['capability_contract'],
+            'tool_policy_version':release.get('tool_policy_version')}
 
 def managed_block(raw, replacement):
     for start,end in [(START,END),(OLD_START,OLD_END)]:
@@ -111,7 +124,9 @@ def routing():
 - 다음 단계는 정확한 artifact_id/revision_id/sha256를 참조한다. 자료 조회는 생성·승인·구현을 하지 않는다. 재작업은 새 revision으로 보존하며 필요한 범위만 재검토한다.
 - 제품 Git branch/index/refs/config를 기록 수단으로 조작하지 않는다. 사용자가 환경 구성에서 허용한 별도 개인 journal Git의 내부 기록만 자동 저장한다. 팀 원격·제품 commit/push 권한으로 확대하지 않는다.
 - 실제 편집 전 begin_implementation으로 승인·lease·baseline을 확보하고 편집 후 finish_implementation으로 실제 변경을 기록한다. run_checks의 실제 검사 근거 없이 검증 완료로 표시하지 않는다.
-- Figma·Context7·DB·Playwright는 필요한 단계에서 실제 노출·권한·출처를 확인한다. 특정 예제의 기능·DB·기술 구성을 다른 프로젝트에 자동 적용하지 않는다.
+- 개인 인증은 dev-environment의 profile별 .env로 관리한다. 채팅·공통 Git·소스 이력에 비밀을 복사하지 않고 실행 역할별로 주입한다. 환경·DB 실제 연결은 probe 근거로 판단한다.
+- Gate B에 scope-manifest의 정확한 화면·백엔드·설정 파일과 DB 객체·작업·수량을 함께 제시한다. 편집 전 check_edit_scope, DB 작업은 승인한 execute_database 계약, 최종 완료는 evaluate_completion으로 확인한다.
+- 새 run의 tool_policy_version=1은 system-design의 tool_plan으로 UI·문서·브라우저·DB 적용 단위를 명시한다. UI는 Figma 우선, 버전 의존 기술은 Context7 우선(OpenAI는 공식 Docs), 실제 UI/DB 검증은 required runner 증거로 연결한다. Gate A/B에 실제 관찰·허용된 대체 사유를 제시하고 필수 결과를 생략하지 않는다. 특정 예제의 기능·DB·기술 구성을 다른 프로젝트에 자동 적용하지 않는다.
 - 운영 배포·운영 데이터 변경·외부 발송은 개발 Gate와 별도다. 복원은 개인 기록의 검증된 사본과 구체적 계획 승인을 사용한다.
 - 이 도구는 협조적 절차 장치이며 동일 OS 계정의 다른 도구를 차단하거나 승인자 신원을 인증하지 않는다.
 '''.encode('utf-8')+END)
@@ -161,16 +176,19 @@ def build_plan(profile,state_root,python_path):
     add(release/'release-manifest.json',encoded(manifest),'release')
     metadata_file=SOURCE/'adapters/codex/skill-metadata.json'
     metadata=json.loads(metadata_file.read_text(encoding='utf-8'))['skills'] if metadata_file.is_file() else {}
-    names=sorted(p.name for p in (SOURCE/'skills').iterdir() if p.is_dir() and (p/'SKILL.md').is_file())
-    if len(names)!=11: fail('incomplete_package','Expected 11 completed common Skills.')
+    names=manifest['skills']
+    packaged={row['path'] for row in manifest['files']}
+    if not names or len(names)!=len(set(names)) or any('skills/'+name+'/SKILL.md' not in packaged for name in names):
+        fail('incomplete_package','Declared Skills must have packaged entrypoints.')
     for host in ['.codex','.claude']:
         for name in names:
             src=SOURCE/'skills'/name; dest=profile/host/'skills'/name
             existing=dest/'SKILL.md'
             if existing.exists() and not (dest/'runtime.json').exists() and name!='development-workflow':
                 fail('skill_conflict','An unmanaged Skill already occupies '+name)
-            for p in src.rglob('*'):
-                if p.is_file(): add(dest/p.relative_to(src),p.read_bytes(),'host-skill')
+            prefix='skills/'+name+'/'
+            for relative in sorted(p for p in packaged if p.startswith(prefix)):
+                add(dest/relative[len(prefix):],(SOURCE/relative).read_bytes(),'host-skill')
             add(dest/'runtime.json',encoded(runtime),'host-runtime')
             add(dest/'scripts/harness.py',LAUNCHER.encode('utf-8'),'host-launcher')
             if host=='.codex' and name in metadata:

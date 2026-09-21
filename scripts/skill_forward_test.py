@@ -21,7 +21,7 @@ sys.dont_write_bytecode = True
 sys.path.insert(0, str(STANDARD))
 SKILLS = ["development-workflow", "dev-discover", "dev-requirements", "dev-system-design",
           "dev-unit-design", "dev-test-design", "dev-review", "dev-implement",
-          "dev-verify", "dev-artifacts", "dev-restore"]
+          "dev-verify", "dev-artifacts", "dev-restore", "dev-environment"]
 OWNER = "synthetic-forward-owner"
 RUN = "synthetic-settings-run"
 UNIT = "settings-ui"
@@ -192,8 +192,12 @@ class Scenario:
         return self.command([self.git, "--git-dir", str(journal), "rev-parse", "refs/heads/history"])
 
     def publish(self, kind, payload, refs, report, unit=None, accept=True, artifact_id=None):
+        if kind == "system-design":
+            payload = {**payload, "tool_plan": [{"capability": name, "mode": "not_applicable",
+                       "reason": "SYNTHETIC workflow fixture; external product tools are not exercised", "unit_ids": []}
+                       for name in ("ui_design", "library_docs", "browser", "database")]}
         producer = {"discovery-context": "dev-discover", "requirements": "dev-requirements",
-                    "system-design": "dev-system-design", "unit-spec": "dev-unit-design",
+                    "system-design": "dev-system-design", "unit-spec": "dev-unit-design", "scope-manifest": "dev-unit-design",
                     "test-plan": "dev-test-design", "review-report": "dev-review"}[kind]
         stage_args = {"run_id": RUN, "skill": producer, "owner": OWNER, "input_refs": refs,
                       "request_id": "stage-" + str(self.sequence + 1)}
@@ -294,7 +298,7 @@ class Scenario:
              "decisions": [{"source": "synthetic fixture specification", "value": "Local document design; no Figma account required. Theme system/light/dark; page size 5..100 by 5."}]},
             [context], "# 설정 요구 — 합성 시험\n\n설정 진입, 기본값(system/20), 저장/재조회, 잘못된 입력 거절, 저장소 오류 전달을 요구한다. 실제 테마 적용·백엔드·계정·배포는 범위 밖이다. 값과 범위는 합성 fixture 명세이며 실제 사용자 답변이 아니다.")
         system = self.publish("system-design",
-            {"requirement_ids": ["req-settings"], "work_units": [{"id": UNIT, "profiles": ["ui"], "description": "Navigation/form and storage contract"}],
+            {"requirement_ids": ["req-settings"], "units": [{"unit_id": UNIT, "title": "Navigation/form and storage contract", "required": True, "depends_on": [], "requirement_ids": ["req-settings"], "case_ids": cases}],
              "flows": ["hash navigation -> form -> validate -> local storage -> feedback"],
              "impact": ["index.html", "src/app.js", "src/settings.js", "styles.css", "tests/settings-check.mjs"]},
             [context, requirements], "# 시스템 설계 — 합성 시험\n\n기존 웹과 홈 화면을 유지하고 한 UI 단위에 설정 form과 저장 helper를 추가한다. 새 라이브러리/API/DB는 없다. 순수 helper와 구조 계약을 Node로 검사하고 브라우저 상호작용은 별도 한계로 남긴다.")
@@ -308,7 +312,7 @@ class Scenario:
         gate_a = self.invoke("create_review", {"run_id": RUN, "gate": "A", "input_refs": [context, requirements, system]})
         self.synthetic_approval(gate_a)
 
-        unit_payload = {"requirement_ids": ["req-settings"], "case_ids": cases,
+        unit_payload = {"requirement_ids": ["req-settings"], "case_ids": cases, "environment": {"required": False, "reason": "Source-only local storage fixture"}, "database": {"required": False, "reason": "No DB in fixture"},
                         "profiles": ["ui"], "allowed_paths": ["index.html", "src/app.js", "src/settings.js", "styles.css", "tests/settings-check.mjs"],
                         "ui": {"layout": "Header navigation, main title, labelled form, persistent feedback", "tokens": {"text": "#17202a", "surface": "#ffffff", "accent": "#175cd3", "gap_px": 16},
                                "states": ["home", "settings-default", "settings-saved", "validation-error", "storage-error"],
@@ -326,7 +330,14 @@ class Scenario:
             [unit], "# 검사 계획 — 합성 시험\n\ncase-open은 navigation 선언과 기존 홈 계약을 확인한다. default/save/invalid/storage는 Node assert로 독립 고정 기대값을 확인한다. 실제 case 결과 marker를 출력한다. 이 검사는 브라우저 rendering/키보드 동작 검증이 아니며 배포 승인도 아니다.", UNIT)
         loaded_plan = self.invoke("get_artifact", {"ref": plan})
         self.check("exact-unit-test-pin", loaded_plan["payload"]["unit_ref"] == unit, "TestPlan pins the exact UnitSpec revision and hash.")
-        gate_b = self.invoke("create_review", {"run_id": RUN, "gate": "B", "unit_id": UNIT, "input_refs": [unit, plan]})
+        baseline_files = {row["path"]: row for row in baseline["manifest"]["files"]}
+        scope_files = []
+        for name in unit_payload["allowed_paths"]:
+            entry = {"path": name, "layer": "test" if name.startswith("tests/") else "ui", "action": "modify" if name in baseline_files else "create", "reason": "Approved synthetic settings implementation", "requirement_ids": ["req-settings"], "case_ids": cases, "required": True}
+            entry.update({"before_sha256": baseline_files[name]["sha256"]} if name in baseline_files else {"expected_absent": True})
+            scope_files.append(entry)
+        scope = self.publish("scope-manifest", {"run_id": RUN, "workspace_id": "workspace-main", "unit_id": UNIT, "unit_ref": unit, "requirement_ids": ["req-settings"], "mode": "change", "source_baseline": {"sha256": baseline["manifest_sha256"], "snapshot_id": baseline["snapshot_id"]}, "files": scope_files, "db_objects": []}, [system, unit], "# Synthetic exact scope", UNIT)
+        gate_b = self.invoke("create_review", {"run_id": RUN, "gate": "B", "unit_id": UNIT, "input_refs": [unit, plan, scope]})
         before = self.state_bytes()
         self.invoke("begin_implementation", {"run_id": RUN, "unit_id": UNIT, "owner": OWNER,
                     "request_id": "blocked-before-b"}, error="gate_b_required")

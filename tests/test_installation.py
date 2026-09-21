@@ -5,16 +5,21 @@ import unittest
 from pathlib import Path
 from unittest.mock import patch
 import install
+from harness import VERSION
 from harness.common import HarnessError
 
 class InstallationTests(unittest.TestCase):
     def fixture(self,base):
         shared=base/'shared'; profile=base/'profile'; private=base/'private'
-        names=['development-workflow','dev-discover','dev-requirements','dev-system-design','dev-unit-design','dev-test-design','dev-implement','dev-verify','dev-review','dev-artifacts','dev-restore']
+        names=['development-workflow','dev-discover','dev-environment','dev-requirements','dev-system-design','dev-unit-design','dev-test-design','dev-implement','dev-verify','dev-review','dev-artifacts','dev-restore']
         for name in names:
             path=shared/'skills'/name/'SKILL.md'; path.parent.mkdir(parents=True,exist_ok=True)
             path.write_text('---\nname: '+name+'\ndescription: Fixture only\n---\nFixture source\n',encoding='utf-8')
         (shared/'team_harness.py').write_text('print("fixture")',encoding='utf-8')
+        contract=shared/'contracts'; contract.mkdir()
+        (contract/'release.json').write_text(json.dumps({'version':VERSION,'skills':names,'capability_contract':'2.1'}))
+        paths=[p.relative_to(shared).as_posix() for p in shared.rglob('*') if p.is_file()]+['contracts/package-files.json']
+        (contract/'package-files.json').write_text(json.dumps({'files':paths}))
         config=profile/'.codex/config.toml'; config.parent.mkdir(parents=True)
         original=b'theme = "fixture-theme"\n\n[mcp_servers.unrelated]\ncommand = "keep-me"\n\n[mcp_servers.development_workflow]\ncommand = "legacy.py"\nenabled = true\n'
         config.write_bytes(original)
@@ -31,7 +36,7 @@ class InstallationTests(unittest.TestCase):
                 plan=install.build_plan(profile,private,__import__('sys').executable)
                 self.assertFalse(private.exists())
                 result=install.install(profile,private,__import__('sys').executable)
-                self.assertEqual(11,result['skill_count_per_host'])
+                self.assertEqual(12,result['skill_count_per_host'])
                 current=(profile/'.codex/config.toml').read_bytes()
                 self.assertIn(b'[mcp_servers.unrelated]\ncommand = "keep-me"',current)
                 self.assertIn(b'enabled = false',current)
@@ -82,9 +87,20 @@ class InstallationTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as folder:
             shared,profile,private,_,_=self.fixture(Path(folder))
             (shared/'.env').write_text('SECRET=synthetic')
+            package=shared/'contracts/package-files.json'; data=json.loads(package.read_text()); data['files'].append('.env'); package.write_text(json.dumps(data))
             with patch.object(install,'SOURCE',shared):
                 with self.assertRaises(HarnessError) as error: install.build_plan(profile,private,__import__('sys').executable)
                 self.assertEqual('secret_path',error.exception.code)
+
+    def test_allowlist_excludes_personal_outputs_and_unlisted_skill_files(self):
+        with tempfile.TemporaryDirectory() as folder:
+            shared,profile,private,_,_=self.fixture(Path(folder))
+            secret=shared/'skills/dev-environment/local-notes.txt'; secret.write_text('synthetic-unpublished-personal-note')
+            (shared/'.env').write_text('SECRET=synthetic')
+            with patch.object(install,'SOURCE',shared):
+                plan=install.build_plan(profile,private,__import__('sys').executable)
+            self.assertNotIn('skills/dev-environment/local-notes.txt',{row['path'] for row in plan['manifest']['files']})
+            self.assertFalse(any('local-notes' in row['path'] for row in plan['writes']))
 
     def test_quoted_toml_header_is_updated_without_duplicate_table(self):
         for header in ['[mcp_servers."team_harness"]', "[ 'mcp_servers' . 'team_harness' ]"]:

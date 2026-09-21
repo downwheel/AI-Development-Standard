@@ -4,12 +4,26 @@
 
 | 서비스 | 역할 | 필요한 때 | 상세 |
 |---|---|---|---|
-| Figma MCP Server — Figma | 디자인 문맥 조회, 노출된 쓰기 기능으로 native 화면/구조도 작성·검사 | UI native 산출물 또는 기존 Figma가 입력일 때 | [Figma](figma.md) |
-| Context7 MCP Server — Upstash | 정확한 library ID와 버전에 맞는 문서 검색 | API/SDK/라이브러리 근거가 필요할 때 | [Context7](context7.md) |
-| Microsoft Playwright MCP | 실제 브라우저 탐색·재현·구조/화면 관찰 | UI 조사·테스트 설계·실패 분석 | [Playwright](playwright.md) |
+| Figma MCP Server — Figma | 기존 component/token 조사, native 화면·상태 작성·재조회 | UI는 기본 우선 시도; native 필수이면 대체 완료 불가 | [Figma](figma.md) |
+| Context7 MCP Server — Upstash | library 식별·문서 조회·버전별 설계 근거 | 프레임워크/라이브러리 선택, SDK/API·설정·테스트 도구의 버전 의존 결정 | [Context7](context7.md) |
+| OpenAI Docs MCP — OpenAI | OpenAI 제품/API의 공식 문서 조회 | OpenAI 관련 기술 결정은 Context7보다 우선 | [OpenAI Docs](openai-docs.md) |
+| Microsoft Playwright MCP 또는 호스트 동등 브라우저 도구 | 실제 브라우저 탐색·재현·구조/화면 관찰 | UI 단위의 실제 과업 검증 필수; 지속 회귀 runner는 별도 | [Playwright](playwright.md) |
 | 프로젝트별 DB MCP | 허용 DB의 metadata·제한된 읽기 조사 | 실제 데이터 구조가 요구와 관련될 때 | [DB](database.md) |
 
 호스트의 현재 MCP 관리 화면/명령과 공급자 공식 연결 가이드를 사용한다. 다른 호스트의 JSON/TOML이나 도구명을 그대로 복사하지 않는다. 기존 서버가 있으면 중복 등록하지 않고 실제 기능을 확인한다.
+
+## 초기 설정에서 준비할 항목
+
+선택한 호스트마다 기존 연결을 조사하고 아래 표를 개인 보고서에 채운다. 다른 호스트의 성공이나 설정 파일만으로 확인되지 않은 칸을 채우지 않는다. 사용할 호스트가 하나면 다른 호스트는 미선택으로 표시한다. 기존 플러그인/MCP를 우선 재사용하고 승인된 설치 범위 안에서 필요한 연결만 준비한다. 공급자 계정 로그인·키 입력·조직 권한은 사용자 후속 작업이며 자동 계정 변경·중복 등록을 하지 않는다.
+
+| 호스트 / 서비스 | 설정 존재 | 현재 도구 노출 | 인증 상태 | 허용 대상 읽기 | 허용 대상 쓰기 | 차단 원인 / 다음 작업 |
+|---|---|---|---|---|---|---|
+| 선택한 호스트 / Figma | 실제 관찰 | 실제 관찰 | 확인/미확인 | 파일 지정 후 | 허용된 디자인 작업에서 | 권한·쿼터 등을 구분 |
+| 선택한 호스트 / Context7·OpenAI Docs | 실제 관찰 | 실제 관찰 | 필요 여부 포함 | 작은 공개 문서 조회 | 해당 없음 | 버전 조회 가능 여부 |
+| 선택한 호스트 / 브라우저 | 실제 관찰 | 실제 관찰 | profile 기준 | 허용된 테스트 페이지 | 제품 승인 이후 | 브라우저 실행 가능 여부 |
+| 선택한 호스트 / DB | profile/도구 확인 | 실제 관찰 | 역할 probe | 허용 DB가 정해진 후 | Gate B 범위 승인 이후 | 실제 계정·드라이버 등 |
+
+설치 요청만으로 업무 DB 조회나 임의 Figma 파일 생성 시험을 하지 않는다. 작은 공개 문서 조회와 읽기 진단은 가능하며, 대상 권한이 필요한 시험은 해당 대상이 정해질 때 수행한다. [실행 정책과 Gate 판정](../docs/v2.2-tools.md)을 함께 확인한다.
 
 ## 연결 확인 결과
 

@@ -25,3 +25,5 @@
 ## 실제 자료와 다음 단계
 
 MD/JSON·native refs·필요 증거와 다음 Skill의 정확한 입력을 연결한다. 현재 승인·적용·검사 상태는 조회 projection과 구분한다.
+
+환경/DB가 있는 단위는 안전한 profile/역할별 probe refs·정량 DB 계획과 scope refs를 연결한다. 개인 `.env`, 연결 문자열, secret-state, 원문 인증값은 이 양식에 넣지 않는다. 완료 보고는 next_actions/evaluate_completion의 실제 현재 판정과 구분하여 해당 단계의 산출물 작성 결과를 설명한다.

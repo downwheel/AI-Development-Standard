@@ -2,6 +2,8 @@
 
 “DB MCP”는 하나의 제품명이 아니다. 실제 DB 엔진·조직 권한·필요한 기능에 맞춰 선택한 서버의 정확한 이름·공급자/저장소·버전·transport·노출 도구를 개인 프로젝트 등록 자료에 기록한다. 기존 다른 프로젝트의 연결 별칭을 팀 공통 서버로 적용하지 않는다.
 
+정책 1에서는 DB를 사용하는 단위에 database required를 지정한다. DB MCP와 Team Harness의 typed SQL Server adapter는 상호 보완 역할이며, 특정 외부 DB MCP 제품의 설치 자체를 모든 프로젝트에 요구하지 않는다. 설계의 실제 관찰과 실행 후 재조회 증거를 각각 확보한다.
+
 ## 연결 전 정보
 
 - 제품/프로젝트 ID와 DB 엔진·대상 서버/DB, 필요한 schema 및 조사 목적.
@@ -18,4 +20,4 @@
 
 질의 조건·대상·관찰 시각·실제 결과/오류·부분 반환 여부를 보존한다. 실패/timeout을 “자료 없음”으로, mock 결과를 실제 DB 결과로 표시하지 않는다. 사용자가 원하는 현재 현황은 오래된 query cache로 확정하지 않는다.
 
-DDL/migration/rollback은 설계할 수 있으나 실행 권한은 별도다. 소스 snapshot은 DB 데이터 백업이나 복원 기능이 아니다.
+2.1의 `team_harness`는 별도 DB MCP 공급자를 연결하지 않아도 개인 SQL Server profile과 `inspect_database`, `preview_database`, `execute_database`로 제한된 관찰·정량 작업을 제공한다. 개발 DB의 정확한 범위와 수량을 Gate B에 승인한 경우 그 범위 실행을 진행한다. 운영 대상 권한으로 확대하지 않는다. [지원 작업·한도·실제 사용법](../docs/v2.1-operations.md)을 확인한다. 임의 SQL이나 복잡한 migration은 이 adapter의 지원으로 간주하지 않는다. 소스 snapshot은 DB 데이터 백업이나 복원 기능이 아니다.

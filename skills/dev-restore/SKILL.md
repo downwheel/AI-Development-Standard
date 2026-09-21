@@ -22,6 +22,8 @@ description: Export preserved source snapshots, prepare a concrete restore previ
 
 부분 적용은 실제 변경 목록과 복구 근거를 보여주고 추가 관리 쓰기를 멈춘다. `reconcile_recovery`는 실제 공개 기능·현재 journal 상태·기존 허용 범위를 확인하여 사용한다. 불분명한 사용자 변경을 자동 rollback으로 덮어쓰지 않는다.
 
+DB의 불확실한 commit 결과는 소스 복원과 분리한다. controller 종료를 확인한 뒤 `plan_database_recovery`의 읽기 관찰 자료를 사용자에게 보여 주고 실제 응답만 `record_database_recovery`로 기록한다. 수락은 원래 결과·변경 요청을 보존하고 새 설계·승인으로 연결한다. 이 기능은 DB 백업 복원이나 SQL 자동 재시도가 아니다.
+
 동일 request ID 재전달은 기존 operation 결과를 조회하며 삭제/적용을 중복 실행하지 않는다. baseline 변경은 옛 plan의 계속 적용 사유가 아니다. snapshot 조회·export 성공과 원본 적용 성공, 복원 후 제품 테스트 통과를 따로 보고한다.
 
 DB·Figma·SaaS·운영 서버·비밀·제외된 파일은 소스 snapshot으로 복원되지 않는다. 개인 history tip과 과거 승인·attempt를 되감지 않는다. 제품 Git reset/revert/checkout/stash/restore를 복원 실행기로 쓰지 않는다.

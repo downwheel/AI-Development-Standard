@@ -22,8 +22,8 @@ label·semantic·키보드·tab/focus·알림, 값/단위/precision/시간대·�
 
 ## 디자인 근거
 
-Figma가 필수인지 문서 방식인지 표시한다. 실제 file/node refs·구조 확인·스크린샷·관찰 시각 또는 로컬 배치안을 연결한다. mock·native·실제품 결과를 구분한다.
+Gate A tool_plan의 ui_design mode(required/preferred/local_only)와 적용 단위를 표시한다. Figma를 먼저 사용하고 preferred의 실제 차단은 승인한 로컬 대안 및 실패 근거와 연결한다. local_only는 실제 사용자의 명시 선택 출처가 필요하다. 실제 file/node refs·구조 확인·스크린샷·관찰 시각 또는 로컬 배치안을 연결한다. mock·native·실제품 결과를 구분한다.
 
 ## 구현·검사 인계
 
-변경 파일/계층·재사용 component·연결 API·요구/case별 예상 결과, 외부 의존·미결을 적는다. TestPlan hash를 UnitSpec에 역참조하지 않는다.
+변경 파일/계층·재사용 component·연결 API·요구/case별 예상 결과, 환경/DB 적용 여부와 N/A 이유를 적는다. 파일별 정확한 action과 baseline은 후속 scope-manifest에 고정하며 해당 표를 Gate B에서 사용자에게 보여준다. 프런트엔드에는 DB 자격증명을 주입하지 않는다. UnitSpec은 후속 TestPlan·scope·environment hash를 역참조하지 않는다.

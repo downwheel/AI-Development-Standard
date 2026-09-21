@@ -15,9 +15,10 @@ description: Investigate an existing or planned software project and record its 
 2. 공개 스키마를 조회하고 `dev-discover` StageRun을 시작한다. 재조사는 기존 discovery pin과 사실 확인 항목을 고정한다. 시작 전 소스 사본이 없으면 관찰 범위와 한계를 기록한다.
 3. 적용 지침, README, 솔루션·패키지·lockfile, 런타임, CI, 관련 모듈·호출부·기존 검사·미커밋 변경을 좁은 범위부터 조사한다. 선언 버전과 실제 확인한 버전을 구분한다.
 4. 빌드·타입·lint·테스트 명령을 **읽어서 추출**한다. 검사·설치 스크립트를 환경 조사라는 이유로 실행하지 않는다. 기존 재사용 기능과 영향 후보를 찾는다.
-5. 데이터가 관련되면 DTO·API·schema·migration을 읽는다. DB MCP는 등록된 대상과 읽기 전용 권한으로 metadata→제한 집계→필요 표본 순서로 사용한다. 실제 비밀 값이나 업무 원문을 보고서에 복사하지 않는다.
-6. 사실·추론·미확인, 근거와 관찰 시각, 조사한 범위·제외·도구 차단을 구분하여 `discovery-context` JSON payload와 Markdown을 발행한다. 필수 자료가 없으면 완료로 속이지 말고 대기/실패와 다음 해소 동작을 기록한다.
-7. 받은 정확한 output ref로 단계를 종료하고 `dev-requirements` 인계 자료를 제시한다. 다음 단계를 자동 승인하지 않는다.
+5. 데이터가 관련되면 DTO·API·schema·migration을 읽는다. 개인 환경의 profile ID·역할별 probe 상태를 확인하고 미설정이면 `dev-environment`로 연결 준비를 인계한다. DB MCP는 해당 작업에 등록된 대상과 읽기 역할로 metadata→제한 집계 순서로 사용한다. 기존 다른 프로젝트의 DB 연결을 자동 재사용하거나 실제 비밀·업무 원문을 보고서에 복사하지 않는다. DB 객체 baseline·관찰 시각·예상 영향 후보를 다음 설계에 넘긴다.
+6. 현재 호스트의 Figma·Context7/OpenAI Docs·브라우저·DB 기능을 필요한 범위로 확인한다. 설정 존재/세션 노출/인증/대상 읽기/쓰기 준비를 구분한다. 기존 UI·Figma 입력은 실제 허용된 읽기로 조사하고, 외부 버전 선택이 필요하면 Context7 또는 OpenAI Docs와 공식 원문/설치 타입으로 근거를 확보한다. 조사만으로 파일 생성·편집·계정 변경·새 의존성 설치를 시작하지 않는다.
+7. 사실·추론·미확인, 근거와 관찰 시각, 조사한 범위·제외·도구 차단을 구분하여 `discovery-context` JSON payload와 Markdown을 발행한다. 필수 자료가 없으면 완료로 속이지 말고 대기/실패와 다음 해소 동작을 기록한다.
+8. 받은 정확한 output ref로 단계를 종료하고 `dev-requirements` 인계 자료를 제시한다. 다음 단계를 자동 승인하지 않는다.
 
 ## 산출물과 종료
 

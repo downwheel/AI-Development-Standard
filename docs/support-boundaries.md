@@ -2,6 +2,10 @@
 
 이 문서는 현재 로컬 실행기를 기준으로 한다. 제안 문서의 향후 기능, 파일 설치, 실제 실행 검증을 구분한다. 공개 operation과 입력 schema는 실행기의 `describe`, artifact payload는 같은 고정 release의 `contracts/artifact-payloads.json`이 권위다.
 
+2.1의 개인 환경, 정확한 파일·DB 범위, typed SQL Server adapter, 서비스/fixture/증거와 완료 판정은 [2.1 실행 계약](v2.1-operations.md)에 정리했다. 실제 DB 계정·권한이 없으면 연결은 미검증이며 합성 adapter 시험을 live DB 결과로 표현하지 않는다. 모든 범용 SQL·자료형·migration의 실행을 지원하는 것은 아니다.
+
+2.2의 외부 도구 정책 1은 system/unit의 도구 계획·관찰과 TestPlan의 필수 실행 증거를 연결한다. [2.2 안내](v2.2-tools.md)를 참고한다. core 계약 버전은 2.1이며 이전 run의 정책/승인을 자동 전환하지 않는다.
+
 ## 기록과 승인
 
 지원: 프로젝트 외부 registry, 개인 bare Git 원장, 불변 artifact revision/pin, candidate/accepted 발행, 두 Gate의 사용자 결정 기록, 변경 의도와 freshness 검사, CLI/STDIO MCP의 공통 core.
@@ -42,7 +46,7 @@
 
 승인된 argv 배열·상대 cwd·1~300초 시간 제한으로 실제 프로세스를 실행하고 attempt별 출력을 보존한다. Windows .cmd/.bat shim과 직접 Git 명령은 차단한다. 검사 안에서 실행되는 외부 side effect까지 완전 격리하는 sandbox는 아니다.
 
-검사 전에 실행 파일/스크립트·환경·권한·비용·출력의 민감 정보 가능성을 확인한다. 현재 환경 전달/출력 redaction은 제한된 규칙이며 모든 비밀 유출을 보장해서 막지 않는다. 원문 업무 데이터를 로그에 넣지 않는다.
+검사 전에 실행 파일/스크립트·환경·권한·비용·출력의 민감 정보 가능성을 확인한다. 2.1은 OS 환경 허용 목록과 프로필 역할별 주입, 알려진 비밀 제거를 사용한다. 변환·암호화된 비밀이나 같은 OS 계정의 외부 프로세스까지 완전하게 차단하지는 않는다. 원문 업무 데이터를 로그에 넣지 않는다.
 
 반환 코드, 실제 case 결과, 소스·승인·환경 변경 여부를 함께 판정해야 한다. 미실행·timeout·인증/쿼터 차단·drift는 pass가 아니다. 테스트를 다시 요청하면 새 실제 실행으로 기록하고 이전 실패도 남긴다. 지원 parser와 중단 실행 정리 절차는 아래 공개 계약 확인 절차를 따른다.
 
@@ -82,6 +86,8 @@ Windows의 관리 child는 Job Object를 사용해 controller 종료 시 함께 
 
 Codex 파일 설치 뒤에는 재시작/새 세션의 실제 Skill/MCP 노출 확인이 필요하다. Claude용 개인 설정 생성과 Claude native discovery 성공은 다르다. Claude CLI가 없는 호스트에서는 native discovery/MCP 실행을 미검증으로 남긴다.
 
-기존 외부 MCP는 보존 대상이다. Figma·Context7·DB·Playwright는 실제 노출·로그인·대상 권한·쿼터를 단계에 맞게 확인한다. Figma 이미지 한 장은 native 편집 설계가 아니며, Playwright MCP 탐색 한 번은 지속 회귀 검사 체계를 대신하지 않는다.
+기존 외부 MCP는 보존 대상이다. Figma·Context7/OpenAI Docs·DB·브라우저는 선택한 호스트마다 설정 존재·실제 노출·로그인·대상 읽기/쓰기·쿼터를 단계에 맞게 확인한다. 공통 설치는 외부 계정·제품 대상 권한을 자동 획득하지 않는다. Figma 이미지 한 장은 native 편집 설계가 아니며, Playwright MCP 탐색 한 번은 지속 회귀 검사 체계를 대신하지 않는다.
+
+정책 1은 필수 계획/관찰/검사 연결의 구조와 제출 증거를 검사한다. `tool_observations`와 runner JSON/stdout로 제출한 MCP 근거는 협조적 기록이다. 실제 공급자 호출·호출자 신원·원격 Figma의 계속된 동일성까지 core가 독립 인증하지 않는다. 허위 관찰을 정상으로 만들 권한을 주는 것이 아니며, AI는 실제 도구 결과에만 근거해 기록해야 한다. UI/문서 미적용 여부의 제품적 타당성은 사용자 검토가 필요하다.
 
 Team Git 접근 및 외부 계정 연결은 각 팀원의 환경에서 별도로 확인한다. [연결 작업 목록](account-next-steps.md)

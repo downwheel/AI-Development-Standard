@@ -3,6 +3,7 @@ import argparse
 import json
 import os
 from pathlib import Path
+import importlib.util
 import queue
 import shutil
 import subprocess
@@ -56,11 +57,16 @@ class JsonProcess:
 
 
 def probe(profile,state_root,codex=False):
-    names=sorted(p.name for p in (ROOT/'skills').iterdir() if (p/'SKILL.md').is_file())
     installed=json.loads((state_root/'settings.json').read_text(encoding='utf-8'))
     release=Path(installed['active_release'])
+    declaration=json.loads((release/'contracts/release.json').read_text(encoding='utf-8')) if (release/'contracts/release.json').is_file() else None
+    names=declaration['skills'] if declaration else sorted(p.name for p in (release/'skills').iterdir() if (p/'SKILL.md').is_file())
     from harness.release import verify_release
     result={'release':verify_release(release),'hosts':{},'accounts':'not_connected_by_doctor','team_git':'not_modified_by_doctor'}
+    result['optional_dependencies']={'pyodbc':importlib.util.find_spec('pyodbc') is not None,'sqlserver_connection':'not_probed'}
+    if result['optional_dependencies']['pyodbc']:
+        import pyodbc
+        result['optional_dependencies']['odbc_drivers']=pyodbc.drivers()
     for host in ['codex','claude']:
         paths=[profile/('.'+host)/'skills'/name for name in names]
         result['hosts'][host]={'skill_files_present':all((p/'SKILL.md').is_file() and (p/'runtime.json').is_file() and (p/'scripts/harness.py').is_file() for p in paths),
@@ -87,7 +93,7 @@ def probe(profile,state_root,codex=False):
         mcp_env={**os.environ,**(transport.get('env') or {})}
         client=JsonProcess([executable,'app-server'],cwd=ROOT,env=host_env)
         try:
-            client.request('initialize',{'clientInfo':{'name':'team-standard-doctor','version':'2.0.0'}})
+            client.request('initialize',{'clientInfo':{'name':'team-standard-doctor','version':'2.2.0'}})
             client.request('initialized',notify=True)
             data=client.request('skills/list',{'cwds':[str(ROOT)],'forceReload':True})
             matches=[]; errors=[]
@@ -99,7 +105,7 @@ def probe(profile,state_root,codex=False):
         finally: client.close()
     client=JsonProcess(mcp_command,cwd=mcp_cwd,env=mcp_env)
     try:
-        protocol=client.request('initialize',{'protocolVersion':'2025-11-25','capabilities':{},'clientInfo':{'name':'team-standard-doctor','version':'2.0.0'}},jsonrpc=True)
+        protocol=client.request('initialize',{'protocolVersion':'2025-11-25','capabilities':{},'clientInfo':{'name':'team-standard-doctor','version':'2.2.0'}},jsonrpc=True)
         client.request('notifications/initialized',notify=True,jsonrpc=True)
         inventory=client.request('tools/list',{},jsonrpc=True)
         info=client.request('tools/call',{'name':'team_info','arguments':{}},jsonrpc=True)

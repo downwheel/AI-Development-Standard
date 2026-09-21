@@ -303,4 +303,5 @@ def runtime_release():
         if not isinstance(release_id, str) or not release_id or len(release_id) > 200:
             fail('invalid_release', 'Executing runtime manifest has no valid release ID.')
         return release_id
-    return 'development-2.0.0'
+    from . import VERSION
+    return 'development-'+VERSION

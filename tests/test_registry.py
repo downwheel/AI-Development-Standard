@@ -163,7 +163,8 @@ class RegistryTest(unittest.TestCase):
         runtime_root = self.root / "development-runtime"
         (runtime_root / "harness").mkdir(parents=True)
         with patch("harness.registry.__file__", str(runtime_root / "harness" / "registry.py")):
-            self.assertEqual("development-2.0.0", self.registry._release())
+            from harness import VERSION
+            self.assertEqual("development-"+VERSION, self.registry._release())
 
     def test_legacy_import_rejects_nested_junction_before_reading_external_files(self):
         row = self.registry.register(self.product, "fixture")

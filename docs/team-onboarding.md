@@ -23,7 +23,7 @@ Windows에서는 `python --version`과 `git --version`을 확인한다. `<python
 python -B -X utf8 install.py plan --profile "<personal-profile>" --state-root "<personal-state>" --python "<python-executable>"
 ```
 
-계획에는 고정 release, 두 호스트의 11개 Skill과 runtime/launcher, 관리 라우팅 구간, MCP 항목, 개인 설정이 표시된다. 검토된 범위에 설치한다.
+계획에는 고정 release, release manifest에 선언한 12개 Skill과 runtime/launcher, 관리 라우팅 구간, MCP 항목, 개인 설정이 표시된다. 검토된 범위에 설치한다.
 
 ```text
 python -B -X utf8 install.py install --profile "<personal-profile>" --state-root "<personal-state>" --python "<python-executable>"
@@ -42,14 +42,22 @@ python -B -X utf8 install.py install --profile "<personal-profile>" --state-root
 ## 호스트에서 확인
 
 1. 사용할 Codex 또는 Claude Code를 설치·인증하고 새 세션을 연다. 이미 실행 중인 세션의 도구 목록은 설정 변경만으로 갱신됐다고 가정하지 않는다.
-2. 해당 도구에서 11개 Skill이 보이는지 확인하고 `dev-artifacts` 또는 길잡이를 호출한다. 설치 파일 수와 실제 도구의 Skill 인식은 별도로 확인한다.
+2. 해당 도구에서 manifest의 12개 Skill이 보이는지 확인하고 `dev-artifacts` 또는 길잡이를 호출한다. 설치 파일 수와 실제 도구의 Skill 인식은 별도로 확인한다.
 3. `team_harness`의 `info`/`describe`로 고정 release와 개인 state 경계를 확인한다. 필요하면 해당 Skill launcher로 같은 조회를 수행한다. CLI 대안 성공만으로 호스트의 native MCP 연결까지 성공했다고 표시하지 않는다.
-4. 기존 외부 MCP가 유지됐는지 실제 목록을 확인한다. 로그인/파일 권한은 서비스별로 확인한다.
+4. [연결 가이드](../integrations/connection-guide.md)의 호스트별 준비표로 Figma·Context7/OpenAI Docs·브라우저·DB의 기존 MCP를 실제 확인한다. 설정 존재/현재 도구 노출/인증/대상 읽기/쓰기 권한을 분리한다. 기존 플러그인이나 MCP가 있으면 중복 등록하지 않는다. 로그인이 필요한 서비스는 개인 보고서의 후속 작업으로 남긴다.
 5. Claude CLI가 없는 호스트에서는 파일 준비까지 확인하고 native 실행은 미검증으로 남긴다. 호스트 인증·모델 호출·로컬 MCP·각 외부 MCP는 서로 다른 확인 항목이다.
 
 읽기만 하는 첫 요청 예시: “development-workflow를 사용해서 현재 연결된 Team Harness의 release와 개인 기록 경로를 확인해 줘. 프로젝트를 새로 등록하거나 개발을 시작하지는 마.” 이 확인이 끝난 뒤 원하는 제품 경로와 개발 목적을 전달한다.
 
+## 외부 도구 활용 기본값
+
+2.2는 core 계약 2.1과 외부 도구 정책 1을 함께 사용한다. 새 run의 UI는 Figma 우선이며 편집 native 필수와 승인된 로컬 대안을 구분한다. 버전 의존 결정은 Context7, OpenAI 관련 결정은 OpenAI Docs를 우선 사용한다. UI의 실제 브라우저 관찰과 지속 회귀 runner는 별도 결과다. DB의 실제 관찰·정량 적용·재조회는 기존 계약을 유지한다. [정책·실패 판정](v2.2-tools.md)을 읽는다.
+
+공통 설치가 외부 서비스 계정이나 특정 제품 DB를 연결하는 것은 아니다. 첫 설정에서는 개인 연결 준비까지 진행하고 실제 인증은 사용자에게 안내한다. Figma 파일 생성·업무 DB 조회·외부 쓰기 시험은 해당 대상과 범위가 허용된 시점에 한다. Codex의 연결을 Claude의 성공으로 복사하지 않는다.
+
 ## 프로젝트 등록과 첫 실행
+
+2.1의 개인 `.env`와 역할별 DB 연결은 `dev-environment`로 준비한다. 생성 파일의 경로를 안내하고 실제 값은 사용자가 로컬에서 입력한다. 빈 파일·드라이버 설치·실제 역할 probe·제품 DB 시험은 별도 상태다. [2.1 실행 계약](v2.1-operations.md)에 파일·DB 범위 승인과 서비스/fixture/증거 계약을 설명한다.
 
 기존 제품을 `project_register`로 개인 registry에 등록한다. 제품 안에 .git/.harness/포인터 파일을 만들 필요가 없다. 신규 제품 폴더 생성은 지정한 범위에서 명시적으로 선택한다.
 
@@ -59,7 +67,7 @@ python -B -X utf8 install.py install --profile "<personal-profile>" --state-root
 
 Sourcetree의 fetch/pull은 공통 원본만 갱신한다. 호스트의 설치된 Skill과 고정 release는 자동으로 바뀌지 않는다. 공통 원본의 미커밋 변경과 배포 revision을 확인한 뒤 새 공통 버전에서 다시 plan→검토→install한다. 기존 run의 승인/소스/검사 기록을 새 버전의 성공으로 바꾸지 않는다. 중단된 writer·복원 journal이 있으면 먼저 해소한다.
 
-run은 실행을 시작한 release에 고정된다. 새 Skill launcher가 새 release를 가리켜도 이전 run의 쓰기는 release_mismatch로 차단될 수 있다. 이때 개인 이력과 이전 release를 지우지 말고, 이전 release의 team_harness.py에 **같은 개인 state와 같은 공통 source_root**를 전달하여 재개한다. 새 run은 현재 release에서 시작할 수 있다. 이전 run을 새 release로 묵시적으로 재승인하거나 입력을 바꿔 끼우지 않는다.
+run은 실행을 시작한 release와 도구 정책 버전에 고정된다. 정책 1이 없는 이전 run을 새 필수 근거 검사로 조용히 변환하지 않는다. 새 Skill launcher가 새 release를 가리켜도 이전 run의 쓰기는 release_mismatch로 차단될 수 있다. 이때 개인 이력과 이전 release를 지우지 말고, 이전 release의 team_harness.py에 **같은 개인 state와 같은 공통 source_root**를 전달하여 재개한다. 새 run은 현재 release에서 시작할 수 있다. 이전 run을 새 release로 묵시적으로 재승인하거나 입력을 바꿔 끼우지 않는다.
 
 설치 자체를 되돌릴 때는 자신의 설치 receipt로 먼저 preview한다.
 

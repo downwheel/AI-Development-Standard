@@ -7,7 +7,7 @@ from unittest.mock import patch
 from pathlib import Path
 
 from harness.common import HarnessError, encoded, sha256
-from harness.workflow import Workflow, KINDS, PAYLOADS, SCHEMAS, slot
+from harness.workflow import Workflow, KINDS, PAYLOADS, SCHEMAS, PRODUCERS, slot
 
 
 class MemoryJournal:
@@ -54,7 +54,14 @@ class WorkflowTest(unittest.TestCase):
         self.assertEqual(before, encoded(self.journal.state), "Failed transaction changed state")
 
     def publish(self, kind, payload, refs=None, unit=None, accept=True, artifact_id=None, report=None):
-        names = dict(zip(KINDS, ("dev-discover", "dev-requirements", "dev-system-design", "dev-unit-design", "dev-test-design", "dev-review")))
+        names = PRODUCERS
+        payload = copy.deepcopy(payload)
+        if kind == "system-design":
+            from tests.tool_fixtures import no_tool_plan
+            payload.setdefault("tool_plan", no_tool_plan())
+        if kind == "unit-spec":
+            payload.setdefault("environment", {"required": False, "reason": "Isolated source-only fixture"})
+            payload.setdefault("database", {"required": False, "reason": "No database in fixture"})
         params = dict(run_id="run", skill=names[kind], owner="fixture-owner", input_refs=refs or [])
         if unit:
             params["unit_id"] = unit
@@ -76,7 +83,7 @@ class WorkflowTest(unittest.TestCase):
     def system(self):
         context = self.publish("discovery-context", {"facts": ["SYNTHETIC FIXTURE"]})
         req = self.publish("requirements", {"requirements": [{"id": "req-1", "description": "Fixture behavior", "case_ids": ["case-1", "case-2"]}]}, [context])
-        system = self.publish("system-design", {"requirement_ids": ["req-1"]}, [context, req])
+        system = self.publish("system-design", {"requirement_ids": ["req-1"], "units": [{"unit_id": "ui-1", "title": "Synthetic unit", "required": True, "depends_on": [], "requirement_ids": ["req-1"], "case_ids": ["case-1", "case-2"]}]}, [context, req])
         review = self.call("create_review", run_id="run", gate="A", input_refs=[context, req, system])
         self.approve(review)
         return context, req, system, review
@@ -87,19 +94,27 @@ class WorkflowTest(unittest.TestCase):
         payload = {"unit_ref": unit, "checks": [{"check_id": "check-1", "argv": ["python", "--version"], "cwd": ".", "timeout_seconds": 30,
                    "required": True, "expected_exit": 0, "case_ids": ["case-1", "case-2"], "expected": "Fixture expected output", "oracle": "Fixture independent specification"}]}
         test = self.publish("test-plan", payload, [unit], "ui-1")
-        gate_b = self.call("create_review", run_id="run", gate="B", unit_id="ui-1", input_refs=[unit, test])
+        self.scope = self.publish("scope-manifest", {
+            "run_id": "run", "workspace_id": "work", "unit_id": "ui-1", "unit_ref": unit, "requirement_ids": ["req-1"],
+            "mode": "change", "source_baseline": {"sha256": "0" * 64}, "db_objects": [],
+            "files": [{"path": "fixture.txt", "layer": "test", "action": "create", "reason": "Synthetic fixture change", "requirement_ids": ["req-1"], "case_ids": ["case-1", "case-2"], "required": True, "expected_absent": True}]
+        }, [system, unit], "ui-1")
+        gate_b = self.call("create_review", run_id="run", gate="B", unit_id="ui-1", input_refs=self.contract_refs(unit, test))
         self.approve(gate_b)
         return context, req, system, unit, test, gate_a, gate_b
+
+    def contract_refs(self, unit, test):
+        return [unit, test, self.scope]
 
     def test_exact_basis_and_artifact_bytes(self):
         _, _, _, unit, test, gate_a, gate_b = self.unit()
         basis = self.workflow.implementation_basis("run", "ui-1")
-        self.assertEqual({"review_id": gate_b["review_id"], "unit_ref": unit, "test_ref": test, "gate_a_review_id": gate_a["review_id"], "workspace_id": "work"}, basis)
+        self.assertEqual({"review_id": gate_b["review_id"], "unit_ref": unit, "test_ref": test, "gate_a_review_id": gate_a["review_id"], "workspace_id": "work", "contract_version": "2.1", "scope_ref": self.scope, "environment_refs": [], "db_plan_refs": [], "presentation_sha256": gate_b["presentation_sha256"]}, basis)
         self.assertEqual(unit, self.workflow.load_artifact(test)["payload"]["unit_ref"])
 
     def test_candidate_does_not_replace_head_or_approval(self):
         _, _, system, unit, _, _, _ = self.unit()
-        candidate = self.publish("unit-spec", {"requirement_ids": ["req-1"], "case_ids": ["case-1"]}, [system], "ui-1", False)
+        candidate = self.publish("unit-spec", {"requirement_ids": ["req-1"], "case_ids": ["case-1", "case-2"], "revision_note": "Synthetic new wording"}, [system], "ui-1", False)
         self.assertNotEqual(unit, candidate)
         self.assertEqual(unit, self.workflow.implementation_basis("run", "ui-1")["unit_ref"])
 
@@ -113,7 +128,7 @@ class WorkflowTest(unittest.TestCase):
 
     def test_accept_invalidates_dependency_without_deleting_old_records(self):
         _, _, system, unit, test, _, gate_b = self.unit()
-        replacement = self.publish("unit-spec", {"requirement_ids": ["req-1"], "case_ids": ["case-1"]}, [system], "ui-1")
+        replacement = self.publish("unit-spec", {"requirement_ids": ["req-1"], "case_ids": ["case-1", "case-2"], "revision_note": "Synthetic new wording"}, [system], "ui-1")
         with self.assertRaises(HarnessError) as exc:
             self.workflow.implementation_basis("run", "ui-1")
         self.assertEqual("gate_b_required", exc.exception.code)
@@ -131,7 +146,7 @@ class WorkflowTest(unittest.TestCase):
 
     def test_gate_b_rejects_mismatched_unit_plan(self):
         _, _, system, unit, test, _, _ = self.unit()
-        replacement = self.publish("unit-spec", {"requirement_ids": ["req-1"], "case_ids": ["case-1"]}, [system], "ui-1")
+        replacement = self.publish("unit-spec", {"requirement_ids": ["req-1"], "case_ids": ["case-1", "case-2"], "revision_note": "Synthetic new wording"}, [system], "ui-1")
         self.assertCode("stale_input", "create_review", run_id="run", gate="B", unit_id="ui-1", input_refs=[replacement, test])
 
     def test_decision_is_idempotent_and_immutable(self):
@@ -178,8 +193,8 @@ class WorkflowTest(unittest.TestCase):
 
     def test_workspace_lease_owner_and_conflict(self):
         _, _, _, unit, test, _, _ = self.unit()
-        a = self.call("start_stage", run_id="run", skill="dev-implement", owner="one", unit_id="ui-1", input_refs=[unit, test])
-        b = self.call("start_stage", run_id="run", skill="dev-verify", owner="two", unit_id="ui-1", input_refs=[unit, test])
+        a = self.call("start_stage", run_id="run", skill="dev-implement", owner="one", unit_id="ui-1", input_refs=self.contract_refs(unit, test))
+        b = self.call("start_stage", run_id="run", skill="dev-verify", owner="two", unit_id="ui-1", input_refs=self.contract_refs(unit, test))
         lease = self.call("acquire_lease", run_id="run", unit_id="ui-1", stage_run_id=a["stage_run_id"], owner="one")
         self.assertCode("lease_conflict", "acquire_lease", run_id="run", unit_id="ui-1", stage_run_id=b["stage_run_id"], owner="two")
         self.assertCode("owner_mismatch", "release_lease", lease_id=lease["lease_id"], owner="two")
@@ -236,8 +251,18 @@ class WorkflowTest(unittest.TestCase):
 
     def test_contract_files_equal_runtime_schema(self):
         base = Path(__file__).resolve().parents[1] / "contracts"
-        self.assertEqual(SCHEMAS, json.loads((base / "workflow-operations.json").read_text(encoding="utf-8")))
+        from harness.api import API
+        with tempfile.TemporaryDirectory(prefix="contract-surface-fixture-") as directory:
+            surface = API(Path(directory) / "private", base.parent).operations()
+        self.assertEqual(surface, json.loads((base / "workflow-operations.json").read_text(encoding="utf-8")))
+        for operation, expected in SCHEMAS.items():
+            core = copy.deepcopy(surface[operation])
+            core["properties"].pop("project_id")
+            core["required"].remove("project_id")
+            self.assertEqual(expected, core, operation + " public project wrapper differs from its core contract")
         self.assertEqual(PAYLOADS, json.loads((base / "artifact-payloads.json").read_text(encoding="utf-8")))
+        from scripts.update_contracts import tool_contract
+        self.assertEqual(tool_contract(), json.loads((base / "tool-policy.json").read_text(encoding="utf-8")))
 
     def test_retry_start_stage_does_not_duplicate_and_changed_input_conflicts(self):
         params = dict(run_id="run", skill="dev-discover", owner="fixture-owner", input_refs=[], request_id="request-one")
@@ -302,15 +327,15 @@ class WorkflowTest(unittest.TestCase):
 
     def test_expired_lease_never_proves_previous_writer_stopped(self):
         _, _, _, unit, test, _, _ = self.unit()
-        a = self.call("start_stage", run_id="run", skill="dev-implement", owner="one", unit_id="ui-1", input_refs=[unit, test])
-        b = self.call("start_stage", run_id="run", skill="dev-verify", owner="two", unit_id="ui-1", input_refs=[unit, test])
+        a = self.call("start_stage", run_id="run", skill="dev-implement", owner="one", unit_id="ui-1", input_refs=self.contract_refs(unit, test))
+        b = self.call("start_stage", run_id="run", skill="dev-verify", owner="two", unit_id="ui-1", input_refs=self.contract_refs(unit, test))
         lease = self.call("acquire_lease", run_id="run", unit_id="ui-1", stage_run_id=a["stage_run_id"], owner="one")
         self.journal.state["leases"][lease["lease_id"]]["expires_at"] = "2000-01-01T00:00:00+00:00"
         self.assertCode("lease_conflict", "acquire_lease", run_id="run", unit_id="ui-1", stage_run_id=b["stage_run_id"], owner="two")
 
     def test_rejected_new_review_does_not_fall_back_to_old_approval(self):
         _, _, _, unit, test, _, _ = self.unit()
-        later = self.call("create_review", run_id="run", gate="B", unit_id="ui-1", input_refs=[unit, test])
+        later = self.call("create_review", run_id="run", gate="B", unit_id="ui-1", input_refs=self.contract_refs(unit, test))
         self.call("record_decision", review_id=later["review_id"], decision="rejected", user_message="SYNTHETIC new rejection", source="fixture")
         # Git JSON serialization sorts keys; ordering must never depend on UUID order.
         self.journal.state = json.loads(encoded(self.journal.state))
@@ -328,11 +353,11 @@ class WorkflowTest(unittest.TestCase):
         _, _, _, unit, test, _, _ = self.unit()
         output = self.journal.transaction(lambda state: self.workflow.store_evidence_artifact(state,
             artifact_id="verification-fixture", kind="verification-report", run_id="run", unit_id="ui-1",
-            payload={"outcome": "SYNTHETIC RUNNER FIXTURE"}, report="# Synthetic runner evidence", input_refs=[unit, test]))
+            payload={"outcome": "SYNTHETIC RUNNER FIXTURE"}, report="# Synthetic runner evidence", input_refs=self.contract_refs(unit, test)))
         self.assertEqual("SYNTHETIC RUNNER FIXTURE", self.workflow.load_artifact(output["ref"])["payload"]["outcome"])
-        stage = self.call("start_stage", run_id="run", skill="dev-review", owner="fixture-owner", input_refs=[unit, test])
+        stage = self.call("start_stage", run_id="run", skill="dev-review", owner="fixture-owner", input_refs=self.contract_refs(unit, test))
         self.assertCode("invalid_input", "publish_artifact", run_id="run", stage_run_id=stage["stage_run_id"], owner="fixture-owner",
-                        artifact_id="forged", kind="verification-report", payload={"outcome": "passed"}, report="# forged", input_refs=[unit, test])
+                        artifact_id="forged", kind="verification-report", payload={"outcome": "passed"}, report="# forged", input_refs=self.contract_refs(unit, test))
         head = self.journal.read()["heads"]["run/verification-fixture"]
         self.assertCode("invalid_kind", "accept_artifact", ref=output["ref"], expected_head=head)
 
@@ -347,22 +372,22 @@ class WorkflowTest(unittest.TestCase):
 
     def test_execution_receipt_can_finish_its_producing_stage(self):
         _, _, _, unit, test, _, _ = self.unit()
-        stage = self.call("start_stage", run_id="run", skill="dev-implement", owner="fixture-owner", unit_id="ui-1", input_refs=[unit, test])
+        stage = self.call("start_stage", run_id="run", skill="dev-implement", owner="fixture-owner", unit_id="ui-1", input_refs=self.contract_refs(unit, test))
         output = self.journal.transaction(lambda state: self.workflow.store_evidence_artifact(state,
             artifact_id="implementation-fixture", kind="implementation-receipt", run_id="run", unit_id="ui-1",
-            payload={"outcome": "SYNTHETIC FIXTURE"}, report="# Fixture applied receipt", input_refs=[unit, test], stage_run_id=stage["stage_run_id"]))
+            payload={"outcome": "SYNTHETIC FIXTURE"}, report="# Fixture applied receipt", input_refs=self.contract_refs(unit, test), stage_run_id=stage["stage_run_id"]))
         finished = self.call("finish_stage", stage_run_id=stage["stage_run_id"], owner="fixture-owner", status="succeeded", output_refs=[output["ref"]])
         self.assertEqual([output["ref"]], finished["output_refs"])
         self.assertEqual("completed", finished["stage_run_status"])
 
     def test_execution_receipt_cannot_claim_a_different_stage_kind(self):
         _, _, _, unit, test, _, _ = self.unit()
-        stage = self.call("start_stage", run_id="run", skill="dev-verify", owner="fixture-owner", unit_id="ui-1", input_refs=[unit, test])
+        stage = self.call("start_stage", run_id="run", skill="dev-verify", owner="fixture-owner", unit_id="ui-1", input_refs=self.contract_refs(unit, test))
         before = encoded(self.journal.state)
         with self.assertRaises(HarnessError) as caught:
             self.journal.transaction(lambda state: self.workflow.store_evidence_artifact(state,
                 artifact_id="implementation-fixture", kind="implementation-receipt", run_id="run", unit_id="ui-1", payload={}, report="# Fixture",
-                input_refs=[unit, test], stage_run_id=stage["stage_run_id"]))
+                input_refs=self.contract_refs(unit, test), stage_run_id=stage["stage_run_id"]))
         self.assertEqual("scope_mismatch", caught.exception.code)
         self.assertEqual(before, encoded(self.journal.state))
 

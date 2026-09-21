@@ -1,0 +1,11 @@
+{
+  "schema_version": 1,
+  "version": "2.2.0",
+  "capability_contract": "2.1",
+  "tool_policy_version": "1",
+  "skills": [
+    "dev-artifacts", "dev-discover", "dev-environment", "dev-implement",
+    "dev-requirements", "dev-restore", "dev-review", "dev-system-design",
+    "dev-test-design", "dev-unit-design", "dev-verify", "development-workflow"
+  ]
+}

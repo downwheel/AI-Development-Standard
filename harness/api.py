@@ -24,6 +24,9 @@ def base_operations():
         'reconcile_recovery':obj({'project_id':STR,'plan_id':STR,'action':STR},['project_id','plan_id','action']),
         'journal_check':obj({'project_id':STR},['project_id']),
         'render_artifact':obj({'project_id':STR,'ref':{'type':'object'},'format':{'type':'string','enum':['markdown','html']}},['project_id','ref']),
+        'preview_database':obj({'operation':{'type':'object'}},['operation']),
+        'inspect_database':obj({'profile_id':STR,'role':STR,'tables':{'type':'array','minItems':1,'maxItems':20,'items':obj({'schema':STR,'table':STR},['schema','table'])},
+                                'max_rows':{'type':'integer','minimum':1,'maximum':1000}},['profile_id','role','tables']),
     }
 
 class API:
@@ -33,7 +36,9 @@ class API:
     def operations(self):
         from .workflow import Workflow
         from .execution import execution_operations
+        from .environment import environment_operations
         schemas = base_operations()
+        schemas.update(environment_operations())
         workflow = Workflow.operations()
         for name, schema in {**workflow, **execution_operations()}.items():
             # The workflow core deliberately receives no external project_id.
@@ -49,7 +54,9 @@ class API:
             fail('request_too_large','Request exceeds 2 MiB.')
         if operation == 'info':
             from . import VERSION
+            from .capabilities import capabilities
             return {'version':VERSION,'standard_root':str(self.registry.standard_root),'state_root':str(self.registry.state_root),
+                    'capabilities':capabilities(),
                     'runtime_release':self.registry._release(),
                     'notice':'Local cooperative records; not an OS sandbox or identity-authenticated approval service.',
                     'history_remote_default':False,'source_git_mutations':False,'account_connection':'deferred','team_git_connection':'deferred'}
@@ -57,11 +64,32 @@ class API:
             return self.registry.list_projects()
         if operation == 'project_register':
             return self.registry.register(**params)
+        from .environment import Environment, environment_operations
+        if operation in environment_operations():
+            return Environment(self.registry.state_root).execute(operation, params)
+        if operation == 'preview_database':
+            from .database import compile_migration
+            return compile_migration(params['operation'])
+        if operation == 'inspect_database':
+            from .database import inspect_database
+            manager=Environment(self.registry.state_root)
+            resolved=manager.resolve(params['profile_id'],role=params['role'])
+            return inspect_database(resolved,params['tables'],max_rows=params.get('max_rows',1000))
         if operation == 'import_legacy':
             return self.registry.import_legacy(**params)
         values = dict(params)
         project_id = values.pop('project_id')
         journal = self.registry.journal(project_id)
+        from .sensitive import guard_journal
+        from .environment import Environment
+        additional=[]
+        if operation=='publish_artifact' and values.get('kind')=='environment-contract':
+            profile_id=values.get('payload',{}).get('profile_id')
+            if profile_id: additional.append(profile_id)
+        # A new environment contract selects its profile before its own body is
+        # journaled. Later source/evidence writes reuse only this project's pins.
+        if operation not in {'snapshot_list','journal_check','render_artifact','get_artifact','list_artifacts','diff_artifacts','workflow_status','next_actions','evaluate_completion','get_verification','get_database_execution','list_implementations','check_edit_scope'}:
+            guard_journal(journal,Environment(self.registry.state_root),additional)
         from . import history
         if operation in {'capture_snapshot','export_snapshot','plan_restore','record_restore_decision','apply_restore','reconcile_recovery'}:
             return getattr(history, operation)(journal, **values)

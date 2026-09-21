@@ -39,4 +39,16 @@ status는 passed/failed/skipped 중 하나다. declared case_ids와 결과 case_
 
 build/lint/typecheck처럼 명령 완료 자체가 승인 인수 기준인 경우 evidence_mode=command-exit와 parser=exit-code를 둘 다 명시한다. 일반 기능 검증을 이 모드로 낮추지 않는다. 현재 JUnit/unittest parser와 case_map 자동 매핑은 지원하지 않는다.
 
-현재 snapshot은 workspace 전체이므로 다른 단위의 편집 뒤 이전 receipt는 source_changed가 될 수 있다. 현재 소스에 대한 새 관찰 receipt와 모든 required check를 다시 실행하며 새 소스의 자동 부분 결과 승계를 가정하지 않는다.
+## 준비와 첨부 계약
+
+외부 서비스와 fixture가 필요하면 check의 `runner.kind`를 `project-runner`로 선언한다. 프로젝트의 기존 runner를 사용하며 공통 실행기는 시작/관찰/정리와 기록을 맡는다. runner와 health/fixture 구현 파일도 Gate B의 정확한 scope에 포함한다.
+
+- `services`: service_id, argv, 상대 cwd, 사용할 role, 로컬 HTTP health_url, readiness_seconds. health는 `{build_id,run_id}`를 반환하고 값은 주입된 `HARNESS_BUILD_ID`/`HARNESS_RUN_ID`와 일치해야 한다. 점유된 포트는 기존 서버를 재사용하거나 종료하지 않고 차단한다.
+- `fixture`: namespace와 setup/cleanup 각각의 argv/cwd/timeout/role/case_ids. setup과 cleanup에도 실제 team-json case marker가 필요하다. 소유한 namespace/키만 생성·검증·정리하고 기존 데이터 손실 없이 반복 실행한다. DB 자격증명은 해당 역할에서만 받는다.
+- `evidence`: evidence_id, `HARNESS_EVIDENCE_DIR` 아래의 상대 path, text 또는 json format, required, max_bytes. 승인된 경로·한도·형식만 첨부하며 cookies/origins/auth token은 증거로 보관하지 않는다. 현재 binary screenshot/trace 자동 안전 첨부는 지원하지 않는다.
+
+준비 실패, service build 불일치, fixture cleanup 실패, 필수 evidence 누락/초과는 제품 case가 통과해도 검증 완료가 아니다. Windows에서는 소유한 Job Object의 프로세스를 종료하며 사용자의 다른 서버나 DB 서비스를 중지하지 않는다.
+
+기능이 DB 저장을 요구하면 사용자 흐름 → 서버 요청 → 실제 DB 관찰 → 새 연결/새로고침 후 복원까지 독립 기대값을 정의한다. mock을 사용하는 검사는 준비 없이 실행할 수 있는 범위를 표시하고 실제 DB 저장 성공을 대체하지 않는다. DB 작업의 예상/실제 객체·행 수·commit/rollback·cleanup receipt를 제품 E2E 증거와 연결한다.
+
+현재 snapshot은 workspace 전체이므로 다른 단위의 편집 뒤 이전 receipt는 source_changed가 될 수 있다. 현재 소스에 대한 새 `observe` 구현 receipt와 모든 required check를 다시 실행하며 새 소스의 자동 부분 결과 승계를 가정하지 않는다. 모든 필수 단위/case를 마치면 `evaluate_completion`의 판정과 남은 blocker를 확인한다.

@@ -30,6 +30,38 @@ _DEFAULT_POLICY = {'exclude_patterns': [], 'max_file_bytes': 8 * 1024 * 1024,
                    'max_total_bytes': 64 * 1024 * 1024, 'max_files': 10000}
 
 
+def _git_failure_details(command, result):
+    """Classify failures without echoing paths, object content, or raw stderr.
+
+    A subprocess startup/resource failure is not evidence that a ref disappeared.
+    Keep its exact status and safe error categories for later correlation.
+    """
+    stderr = result.stderr or b''
+    lowered = stderr.lower()
+    category = 'unclassified'
+    classifications = (
+        ('permission_denied', (b'permission denied', b'access is denied')),
+        ('resource_exhausted', (b'resource temporarily unavailable', b'cannot fork', b'fork failed', b'unable to create thread', b'not enough memory')),
+        ('process_start_failed', (b'cannot spawn', b'failed to start', b'createprocess failed')),
+        ('not_repository', (b'not a git repository',)),
+        ('reference_unresolved', (b'needed a single revision', b'unable to resolve reference', b'reference broken', b'bad ref')),
+        ('object_unavailable', (b'bad object', b'invalid object name', b'could not get object info', b'unable to read', b'could not read')),
+        ('storage_full', (b'no space left on device', b'disk full')),
+        ('lock_conflict', (b'unable to create', b'file exists', b'cannot lock ref')),
+    )
+    for name, patterns in classifications:
+        if any(pattern in lowered for pattern in patterns):
+            category = name
+            break
+    status = result.returncode & 0xffffffff
+    windows_status = {0xc0000142: 'process_initialization_failed', 0xc0000135: 'dependency_missing',
+                      0xc0000005: 'access_violation', 0xc0000017: 'insufficient_memory'}.get(status)
+    if windows_status:
+        category = windows_status
+    return (f'command={command}; exit_code={result.returncode}; status_hex=0x{status:08x}; '
+            f'diagnostic={category}; stderr_bytes={len(stderr)}')
+
+
 def _no_links(path):
     path = Path(os.path.abspath(path))
     for part in [*reversed(path.parents), path]:
@@ -90,7 +122,7 @@ class Journal:
         except (OSError, subprocess.TimeoutExpired) as error:
             fail('git_unavailable', 'Private journal Git could not complete: ' + type(error).__name__)
         if check and result.returncode:
-            fail('git_error', 'Private journal Git operation failed: ' + arguments[0])
+            fail('git_error', 'Private journal Git operation failed: ' + _git_failure_details(arguments[0], result))
         return result
 
     def _require(self):
@@ -141,10 +173,18 @@ class Journal:
             stream.close()
 
     def _tip(self):
-        result = self._git('rev-parse', '--verify', REF, check=False)
+        result = self._git('rev-parse', '--verify', '--quiet', REF, check=False)
+        if result.returncode == 1:
+            fail('journal_corrupt', 'The private journal authoritative ref could not be resolved. ' + _git_failure_details('rev-parse', result))
         if result.returncode:
-            fail('journal_corrupt', 'The private journal authoritative ref is missing.')
-        return result.stdout.decode('ascii').strip()
+            fail('git_error', 'Private journal tip observation failed; no ref deletion is inferred. ' + _git_failure_details('rev-parse', result))
+        try:
+            tip = result.stdout.decode('ascii').strip()
+        except UnicodeError:
+            fail('journal_corrupt', 'Private journal tip observation returned non-ASCII output.')
+        if not _OID.fullmatch(tip):
+            fail('journal_corrupt', 'Private journal tip observation returned an invalid object identifier.')
+        return tip
 
     def _read_tip(self, tip):
         try:

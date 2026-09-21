@@ -10,6 +10,14 @@
 4. 필요한 파일을 지정해 읽기 가능한지 확인한다. 쓰기 확인은 사용자가 허용한 파일/범위에서 한다.
 5. 호스트에 맞는 Figma 전문 Skill이 있으면 실제 쓰기 동작 전에 읽는다. 계정 연결만으로 편집 기능까지 확인됐다고 보고하지 않는다.
 
+## 기본 적용과 차단
+
+새 UI 작업은 Figma를 먼저 사용하는 preferred가 기본이다. 시스템 설계의 tool_plan에서 적용 unit과 로컬 대체 허용 범위를 Gate A에 제시한다. 편집 가능한 Figma가 명시 요구이면 required, 사용자가 명시적으로 로컬 설계를 선택하면 local_only다. 도구가 없다는 이유만으로 local_only나 not_applicable을 선택하지 않는다.
+
+preferred는 실제 Figma 호출 실패/미노출/권한·쿼터 차단을 기록한 뒤 Gate A에 승인한 HTML/SVG 배치안과 화면 계약으로 대체할 수 있다. required이면 로컬 초안을 제공하더라도 필수 native 결과 완료는 보류한다. 새 계정 사용·권한 확대·결제·다른 서비스로의 이전을 자동 해결책으로 실행하지 않는다.
+
+호출 rate limit, 저장 공간/파일 생성 제한, 파일별 읽기/편집 권한은 서로 다른 관찰이다. 공급자가 반환하지 않은 잔여 용량·호출량은 추정하지 않는다. [공식 권한·한도 안내](https://developers.figma.com/docs/figma-mcp-server/rate-limits-access/)를 현재 실제 결과와 대조한다.
+
 ## 작업 연결
 
 시스템 설계는 필요한 구조도, 단위 UI 설계는 frame/component/variant/variables와 상태별 배치, 구현은 승인 노드의 문맥과 실제 코드 대응에 사용한다. 생성 후 구조 조회와 screenshot으로 편집 가능성·배치·주요 상태를 확인한다.

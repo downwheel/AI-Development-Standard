@@ -37,7 +37,7 @@ python -B -X utf8 install.py install --profile "<personal-profile>" --state-root
 
 `<personal-profile>`은 사용할 도구의 사용자 홈, `<personal-state>`는 두 도구에서 접근할 별도 개인 로컬 폴더, `<python-executable>`은 실제 Python 실행 파일의 절대 경로다. 앱에 따라 경로가 달라질 수 있는 AppData 자동 기본값 대신 개인 기록 위치를 명시한다. 설치 결과와 백업은 개인 영역에만 남긴다.
 
-설치기는 두 호스트용 Skill/MCP 설정을 준비하지만 Codex나 Claude Code 자체를 설치·로그인시키지는 않는다. 각자 사용할 호스트를 준비한 뒤 새 세션에서 11개 Skill과 `team_harness`의 실제 로딩을 확인한다. 한 호스트만 써도 된다. 외부 MCP는 필요한 서비스를 각자 연결하며, 다른 사람의 설정 파일을 통째로 복사하지 않는다.
+설치기는 두 호스트용 Skill/MCP 설정을 준비하지만 Codex나 Claude Code 자체를 설치·로그인시키지는 않는다. [START-HERE.md](../START-HERE.md)를 통해 사용할 호스트를 준비한 뒤 새 세션에서 release에 선언된 Skill(2.1은 12개)과 `team_harness`의 실제 로딩을 확인한다. 한 호스트만 써도 된다. 외부 MCP는 필요한 서비스를 각자 연결하며, 다른 사람의 설정 파일을 통째로 복사하지 않는다.
 
 공통 clone에는 제품 소스·설계 결과·승인 기록·검사 로그·설치 receipt·소스 snapshot·가상환경·의존성·개인 JSON을 만들지 않는다. `.gitignore`는 Git의 기본 추적 선택을 돕는 파일이며, 개인 데이터의 저장 위치를 분리하거나 배포 내용을 검토하는 일을 대신하지 않는다.
 

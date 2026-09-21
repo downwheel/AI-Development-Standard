@@ -1,6 +1,6 @@
 # Team Development Standard
 
-자연어 개발 요청을 조사·요구사항·시스템 설계·단위 설계·테스트 설계·구현·실제 검증으로 연결하는 로컬 개발 표준이다. 11개 Skill이 독립적으로 동작하고, Team Harness의 동일 core를 CLI와 STDIO MCP로 사용한다.
+자연어 개발 요청을 조사·요구사항·시스템 설계·단위 설계·테스트 설계·구현·실제 검증으로 연결하는 로컬 개발 표준이다. 2.2.0의 12개 Skill이 독립적으로 동작하고, Team Harness의 동일 core를 CLI와 STDIO MCP로 사용한다.
 
 프로젝트별 산출물과 소스 사본은 **별도 개인 이력**에 보존한다. 이 공통 원본은 팀의 Skill·실행기·계약·양식·시험·가이드만 배포한다. 제품 Git이나 운영 환경을 자동 관리하는 도구가 아니다.
 
@@ -9,18 +9,20 @@
 1. [배포 저장소](https://github.com/downwheel/AI-Development-Standard)의 접근 권한을 받은 뒤 [Sourcetree 배포 가이드](docs/git-distribution.md)에 따라 공통 원본을 clone한다.
 2. Codex 또는 Claude Code에 **[START-HERE.md](START-HERE.md)를 읽고 초기 설정을 진행해 달라고 요청한다.** AI가 개인 경로·기존 설정을 조사하고 설치·진단·개인 보고서 작성을 진행한다. 직접 설치하려면 [팀원 온보딩](docs/team-onboarding.md)을 따른다.
 3. [사용자 가이드](docs/user-guide.md)의 자연어 예시로 원하는 단계를 요청한다.
-4. 필요한 외부 서비스만 [계정 연결 후속 작업](docs/account-next-steps.md)에 따라 연결한다.
+4. [외부 MCP 연결 가이드](integrations/connection-guide.md)로 호스트별 Figma·Context7/OpenAI Docs·브라우저·DB 준비도를 확인한다. 필요한 계정은 [연결 후속 작업](docs/account-next-steps.md)에 따라 연결한다.
 5. [지원 범위와 한계](docs/support-boundaries.md)를 확인한다. 실제 실행과 문서상 계획은 구분된다.
 
-사용자별 `.env`, 정량 DB 작업, 파일·DB 객체별 필수 범위 승인의 **추가 구현 설계**는 [2.1 보완 계약](docs/designs/development-contract-v2.1.md)에 있다. 현재 2.0.0에 이 기능이 이미 구현됐다는 뜻은 아니다. 스타터도 실제 도구와 schema로 지원 여부를 확인한다.
+2.1.0은 개인 `.env` 프로필, 역할별 주입, 필수 파일·DB 범위 승인, SQL Server의 제한된 정량 실행, 서비스·fixture·증거 수집과 완료 판정을 제공한다. [실제 사용법과 지원 한계](docs/v2.1-operations.md)를 먼저 확인한다. 설치 성공과 실제 DB·계정 연결 성공은 별도이며, [최종 설계](docs/designs/development-contract-v2.1.md)의 모든 DB 작업 유형이 실행 가능한 것은 아니다.
+
+2.2.0은 위 core 계약 2.1을 유지하고 **외부 도구 활용 정책 1**을 새 run에 고정한다. UI는 Figma 우선, 버전 의존 결정은 Context7/OpenAI Docs 우선, UI는 실제 브라우저 관찰, DB는 실제 정량 근거를 적용 단위별로 계획·검사한다. Gate A의 사용 계획과 대안, Gate B의 설계 근거·검증 계획, 완료 시 실행 증거를 연결한다. [MCP 활용 정책과 실제 한계](docs/v2.2-tools.md)를 확인한다.
 
 ## 단계와 승인
 
 `dev-discover → dev-requirements → dev-system-design → Gate A → dev-unit-design → dev-test-design → Gate B → dev-implement → dev-verify`
 
-Gate A는 조사·요구·시스템 설계의 정확한 버전 세 개, Gate B는 단위 설계·그 단위를 참조한 테스트 계획 두 개를 사용자에게 제시한다. AI 검토나 문서 작성 완료는 인간 승인이 아니다. 이미 승인된 같은 범위를 수정·검증할 때는 불필요하게 재승인을 요구하지 않는다.
+Gate A는 조사·요구·시스템 설계의 정확한 버전, Gate B는 단위 설계·변경 범위·테스트 계획과 필요한 환경·DB 계약을 사용자에게 제시한다. 실행기가 같은 scope로 만든 파일·DB 표와 문서 묶음을 승인에 고정한다. AI 검토나 문서 작성 완료는 인간 승인이 아니다. 이미 승인된 같은 범위를 수정·검증할 때는 불필요하게 재승인을 요구하지 않는다.
 
-보조 Skill은 `dev-review`(검토/실제 결정 기록), `dev-artifacts`(조회/비교), `dev-restore`(소스 복원)다. `development-workflow`는 현재 단계를 찾아 주는 선택적 길잡이다. “보여줘”는 자료를 새로 만들거나 승인하지 않는다.
+보조 Skill은 `dev-environment`(개인 연결 설정), `dev-review`(검토/실제 결정 기록), `dev-artifacts`(조회/비교), `dev-restore`(소스 복원)다. `development-workflow`는 현재 단계를 찾아 주는 선택적 길잡이다. “보여줘”는 자료를 새로 만들거나 승인하지 않는다.
 
 ## 세 저장 영역
 
@@ -39,7 +41,7 @@ Python 3.10+와 Git을 사용한다. 공개 입력은 `team_harness.py describe 
 공통 테스트는 공통 원본에서 다음과 같이 실행한다. 테스트 fixture에서만 합성 승인과 임시 제품 Git을 사용하며 실제 사용자 승인으로 취급하지 않는다.
 
 ```text
-python -B -X utf8 -m unittest discover -s tests -v
+python -B -X utf8 -m unittest discover -s tests -t . -v
 ```
 
 개인 JSON 시험 기록은 scripts/validate_standard.py --output "<personal-test-report.json>"으로 남긴다. 설치된 호스트 진단은 scripts/doctor.py를 사용하며 [온보딩의 진단 명령](docs/team-onboarding.md#진단과-공통-시험)을 따른다.

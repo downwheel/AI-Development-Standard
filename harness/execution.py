@@ -24,8 +24,13 @@ CAMPAIGN_BUDGET_SECONDS = 900
 CASE_MARKER = 'HARNESS_CASE_RESULTS='
 
 def execution_operations():
+    from .database_recovery import database_recovery_operations
     return {
-        'begin_implementation':obj({'run_id':STR,'unit_id':STR,'owner':STR,'request_id':STR},['run_id','unit_id','owner','request_id']),
+        **database_recovery_operations(),
+        'begin_implementation':obj({'run_id':STR,'unit_id':STR,'owner':STR,'request_id':STR,'mode':{'type':'string','enum':['change','observe']}},['run_id','unit_id','owner','request_id']),
+        'check_edit_scope':obj({'session_id':STR,'owner':STR,'changes':{'type':'array','minItems':1,'maxItems':1000,'items':obj({'path':STR,'action':{'type':'string','enum':['create','modify','delete']}},['path','action'])}},['session_id','owner','changes']),
+        'execute_database':obj({'session_id':STR,'owner':STR,'request_id':STR},['session_id','owner','request_id']),
+        'get_database_execution':obj({'request_id':STR},['request_id']),
         'finish_implementation':obj({'session_id':STR,'owner':STR,'summary':STR,'outcome':{'type':'string','enum':['completed','partial','failed']}},['session_id','owner','summary','outcome']),
         'list_implementations':obj({'run_id':STR},['run_id']),
         'run_checks':obj({'implementation_id':STR,'owner':STR,'request_id':STR,'check_ids':{'type':'array','items':STR,'minItems':1,'maxItems':100}},['implementation_id','owner','request_id']),
@@ -148,9 +153,8 @@ def _executable(argv,cwd):
 
 
 def _process_environment():
-    env={k:v for k,v in os.environ.items() if not re.search(r'(TOKEN|PASSWORD|SECRET|API_KEY|CREDENTIAL|CONNECTION_STRING)',k,re.I) and not k.upper().startswith('GIT_')}
-    env['PYTHONDONTWRITEBYTECODE']='1'
-    return env
+    from .environment import base_process_environment
+    return base_process_environment({'PYTHONDONTWRITEBYTECODE':'1'})
 
 
 def case_result(check,result):
@@ -199,7 +203,12 @@ def environment_fingerprint(checks,root):
         after=path.stat()
         if (before.st_size,before.st_mtime_ns,before.st_ino)!=(after.st_size,after.st_mtime_ns,after.st_ino): fail('environment_changed','Runtime input changed while being observed.')
         files[key]=digest.hexdigest()
+    expanded=list(checks)
     for check in checks:
+        runner=check.get('runner',{})
+        expanded.extend(runner.get('services',[]))
+        if runner.get('fixture'): expanded.extend([runner['fixture']['setup'],runner['fixture']['cleanup']])
+    for check in expanded:
         cwd=root if check['cwd']=='.' else root.joinpath(*safe_relative(check['cwd']).parts)
         executable=_executable(check['argv'],cwd)
         if not executable: fail('missing_executable','Approved executable was not found.')
@@ -219,7 +228,7 @@ def environment_fingerprint(checks,root):
             for directory in dirs: normal_root(Path(folder)/directory)
             for name in names: add(Path(folder)/name)
     return {'platform':platform.platform(),'python':sys.version,'path_digest':sha256(os.environ.get('PATH','').encode()),'process_environment_digest':sha256(encoded(_process_environment())),'files':files,
-        'scope':'executable bytes, existing argv file bytes, root node_modules/.venv/venv and inherited filtered environment; external services and system libraries are not snapshotted'}
+        'scope':'executable bytes, existing argv file bytes, root node_modules/.venv/venv and allowlisted process environment; external services and system libraries are not snapshotted'}
 
 def redact(raw):
     text=raw.decode('utf-8',errors='replace')
@@ -242,7 +251,7 @@ def _terminate(process):
     except subprocess.TimeoutExpired:
         process.kill(); process.wait(timeout=5)
 
-def run_process(argv,cwd,timeout,cancel,on_started):
+def run_process(argv,cwd,timeout,cancel,on_started,env=None,secret_values=()):
     if not argv or not all(isinstance(v,str) and '\x00' not in v for v in argv):
         fail('invalid_command','Command must be a nonempty argv array.')
     executable=_executable(argv,cwd)
@@ -253,7 +262,9 @@ def run_process(argv,cwd,timeout,cancel,on_started):
     if Path(executable).stem.lower()=='git':
         fail('product_git_command','Verification does not run Git commands in the product.')
     actual=[str(executable),*argv[1:]]
-    env=_process_environment()
+    if any(value and any(value in argument for argument in actual) for value in secret_values):
+        fail('secret_in_argv','Secrets cannot be supplied in process arguments.')
+    env=_process_environment() if env is None else env
     options={'creationflags':subprocess.CREATE_NO_WINDOW|subprocess.CREATE_NEW_PROCESS_GROUP} if os.name=='nt' else {'start_new_session':True}
     process=subprocess.Popen(actual,cwd=cwd,env=env,stdin=subprocess.DEVNULL,stdout=subprocess.PIPE,stderr=subprocess.PIPE,**options)
     close_job=_windows_job(process)
@@ -287,6 +298,10 @@ def run_process(argv,cwd,timeout,cancel,on_started):
     streams={}; changed=False
     for name,raw in buffers.items():
         streams[name],redacted=redact(bytes(raw)); changed=changed or redacted
+        from .environment import redact_output
+        cleaned=redact_output(streams[name],secret_values)
+        if isinstance(cleaned,tuple): cleaned=cleaned[0]
+        changed=changed or cleaned!=streams[name]; streams[name]=cleaned
     return {'argv':actual,'pid':process.pid,'exit_code':process.returncode,'duration_seconds':round(time.monotonic()-started,3),
             'termination':reason,'streams':streams,'truncated':any(truncated.values()) or any(w.is_alive() for w in workers),'redacted':changed}
 
@@ -300,6 +315,17 @@ class Execution:
         if operation=='begin_implementation': return self.begin(**p)
         if operation=='finish_implementation': return self.finish(**p)
         if operation=='run_checks': return self.run_checks(**p)
+        if operation=='check_edit_scope': return self.check_edit_scope(**p)
+        if operation=='execute_database':
+            from .execution_database import execute_database
+            return execute_database(self,**p)
+        if operation in {'plan_database_recovery','record_database_recovery'}:
+            from .database_recovery import DatabaseRecovery
+            return DatabaseRecovery(self).execute(operation,p)
+        if operation=='get_database_execution':
+            result=self.journal.read().get('db_executions',{}).get('database/'+p['request_id'])
+            if result is None: fail('unknown_database_execution','Database request is not recorded.')
+            return result
         if operation=='reconcile_execution': return self.reconcile(**p)
         if operation=='cancel_verification':
             def change(state):
@@ -318,6 +344,59 @@ class Execution:
     def _root(self,workspace_id):
         return Path(self.journal.read()['workspaces'][workspace_id]['root'])
 
+    def _environment_manager(self):
+        from .environment import Environment
+        return Environment(self.journal.path.parents[2])
+
+    def _environment_bindings(self,basis):
+        if not basis.get('environment_refs'): return []
+        manager=self._environment_manager()
+        return [manager.validate_contract(self.workflow.load_artifact(ref)['payload'])
+                for ref in basis.get('environment_refs',[])]
+
+    def _role_environment(self,basis,environment_ref=None,role=None):
+        refs=basis.get('environment_refs',[])
+        if role is None:
+            if environment_ref is not None and environment_ref not in refs: fail('unapproved_environment','Runner environment must be pinned by the current Gate B.')
+            return {},(),None
+        if environment_ref is None and len(refs)==1: environment_ref=refs[0]
+        if environment_ref not in refs: fail('unapproved_environment','Runner environment must be pinned by the current Gate B.')
+        contract=self.workflow.load_artifact(environment_ref)['payload']
+        if role not in contract['roles']: fail('unapproved_environment_role','The process role was not approved for this unit.')
+        manager=self._environment_manager(); manager.validate_contract(contract)
+        resolved=manager.resolve(contract['profile_id'],role=role)
+        return resolved.env,resolved.secret_values,resolved.binding
+
+    @staticmethod
+    def _in_scope(payload,path):
+        if any(item['path']==path for item in payload['files']): return True
+        return any(path.startswith(group['output_root']+'/') and any(fnmatch.fnmatchcase(path[len(group['output_root'])+1:],pattern) for pattern in group['patterns'])
+                   for group in payload.get('generated_files',[]))
+
+    def check_edit_scope(self,session_id,owner,changes):
+        state=self.journal.read(); session=state.get('execution_sessions',{}).get(session_id)
+        if not session or session['owner']!=owner or session['status']!='open': fail('owner_mismatch','An open owned implementation session is required.')
+        self._lease_state(state,session['lease_id'],owner)
+        if self.workflow._basis(state,session['run_id'],session['unit_id'])!=session['basis']: fail('basis_changed','Approval changed before edit.')
+        if session.get('mode')=='observe': fail('observation_readonly','Observation sessions do not authorize edits.')
+        payload=self.workflow.load_artifact(session['basis']['scope_ref'])['payload']
+        root=self._root(session['workspace_id']); declared={item['path']:item for item in payload['files']}
+        from .scope import _observe
+        # Compare every proposed action with the current filesystem, then with the
+        # approved net action. A prior approved create may receive a same-scope fix.
+        for change in changes:
+            path=change['path']; actual=_observe(root,path)
+            if not self._in_scope(payload,path): fail('outside_scope','Proposed path is outside the approved scope.')
+            if (change['action']=='create') != (actual is None): fail('edit_action_mismatch','Proposed action does not match the current file state.')
+            item=declared.get(path)
+            if item:
+                allowed={item['action']}
+                if session.get('continued_from') and item['action']=='create': allowed.add('modify')
+                if change['action'] not in allowed: fail('edit_action_mismatch','Proposed action differs from the approved net action.')
+            elif not any(change['action'] in group['actions'] and path.startswith(group['output_root']+'/') and any(fnmatch.fnmatchcase(path[len(group['output_root'])+1:],pattern) for pattern in group['patterns']) for group in payload.get('generated_files',[])):
+                fail('edit_action_mismatch','Generated action is not approved.')
+        return {'allowed':True,'scope_ref':session['basis']['scope_ref'],'changes':changes,'notice':'Preflight only; native editors are not intercepted.'}
+
     @staticmethod
     def _lease_state(state,lease_id,owner):
         lease=state.get('leases',{}).get(lease_id)
@@ -333,7 +412,10 @@ class Execution:
                 if prior['fingerprint']!=fingerprint: fail('request_conflict','Request id was reused with different inputs.')
                 return prior,False
             basis=self.workflow._basis(state,run_id,unit_id)
-            stage=self.workflow._operate(state,'start_stage',{'run_id':run_id,'unit_id':unit_id,'owner':owner,'skill':skill,'input_refs':[basis['unit_ref'],basis['test_ref']]})
+            pins=[basis['unit_ref'],basis['test_ref']]
+            if basis.get('scope_ref'): pins.append(basis['scope_ref'])
+            pins.extend(basis.get('environment_refs',[])); pins.extend(basis.get('db_plan_refs',[]))
+            stage=self.workflow._operate(state,'start_stage',{'run_id':run_id,'unit_id':unit_id,'owner':owner,'skill':skill,'input_refs':pins})
             lease=self.workflow._operate(state,'acquire_lease',{'run_id':run_id,'unit_id':unit_id,'owner':owner,'stage_run_id':stage['stage_run_id'],'ttl_seconds':3600})
             row={'request_key':key,'fingerprint':fingerprint,'run_id':run_id,'unit_id':unit_id,'owner':owner,'workspace_id':basis['workspace_id'],
                  'basis':basis,'stage_run_id':stage['stage_run_id'],'lease_id':lease['lease_id'],'controller':process_identity(os.getpid()),
@@ -369,16 +451,35 @@ class Execution:
         if row.get('campaign_id') in state.get('verification',{}): return state['verification'][row['campaign_id']]
         return {**row,'pending':row['status'] in ['starting','running','active']}
 
-    def begin(self,run_id,unit_id,owner,request_id):
+    def begin(self,run_id,unit_id,owner,request_id,mode='change'):
         key='implementation/'+request_id
-        fingerprint=sha256(encoded({'run_id':run_id,'unit_id':unit_id,'owner':owner}))
+        fingerprint=sha256(encoded({'run_id':run_id,'unit_id':unit_id,'owner':owner,'mode':mode}))
         row,new=self._reserve(key,fingerprint,run_id,unit_id,owner,'dev-implement')
         if not new: return self._prior(self.journal.read(),row)
         try:
             before=capture_snapshot(self.journal,row['workspace_id'],label='before implementation',request_id=uid('capture'))
             metadata=git_metadata(self._root(row['workspace_id']))
             if not snapshot_matches(self.journal,before['snapshot_id'],row['workspace_id']): fail('source_changed','Source changed before implementation handoff.')
-            session={**row,'session_id':uid('implementation-session'),'snapshot_before':before['snapshot_id'],'git_before':metadata,'status':'open'}
+            extra={'mode':mode}
+            if row['basis'].get('contract_version')=='2.1':
+                from .scope import preflight_scope
+                payload=self.workflow.load_artifact(row['basis']['scope_ref'])['payload']
+                state=self.journal.read()
+                prior=state.get('implementations',{}).get(state.get('applied',{}).get(run_id+'/'+unit_id),{})
+                if prior.get('basis')==row['basis'] and prior.get('outcome')=='completed':
+                    prior_files={f['path']:f for f in state['snapshots'][prior['snapshot_after']]['manifest']['files']}
+                    actual_files={f['path']:f for f in before['manifest']['files']}
+                    for path in set(prior_files)|set(actual_files):
+                        if self._in_scope(payload,path) and prior_files.get(path,{}).get('sha256')!=actual_files.get(path,{}).get('sha256'):
+                            fail('scope_baseline_changed','Previously applied scoped files changed outside this implementation; preserve and reconcile them.')
+                    extra.update(continued_from=prior['implementation_id'],scope_origin_snapshot=prior.get('scope_origin_snapshot',prior['snapshot_before']),
+                                 scope_preflight={'passed':True,'kind':'prior_approved_scoped_baseline','snapshot_id':before['snapshot_id']})
+                else:
+                    if mode=='observe' and payload['mode']!='observe': fail('observation_requires_implementation','Fresh observation requires a prior completed implementation or an approved observation-only scope.')
+                    extra.update(scope_preflight=preflight_scope(payload,self._root(row['workspace_id']),run_id=run_id,workspace_id=row['workspace_id'],unit_id=unit_id,source_digest=before['manifest_sha256']),scope_origin_snapshot=before['snapshot_id'])
+                if payload['mode']=='observe' and mode!='observe': fail('observation_mode_required','The approved scope permits observation only.')
+                extra['environment_bindings']=self._environment_bindings(row['basis'])
+            session={**row,**extra,'session_id':uid('implementation-session'),'snapshot_before':before['snapshot_id'],'git_before':metadata,'status':'open'}
             def change(state):
                 self._lease_state(state,row['lease_id'],owner)
                 if self.workflow._basis(state,run_id,unit_id)!=row['basis']: fail('basis_changed','Approval basis changed before implementation.')
@@ -406,6 +507,7 @@ class Execution:
                 return state['implementations'][session['implementation_id']]
             return self.journal.transaction(replay)
         if session['status']!='open': fail('session_interrupted','Start a new implementation request after reconciliation.')
+        self._require_database_idle(initial,session_id)
         self._lease_state(self.journal.read(),session['lease_id'],owner)
         try:
             after=capture_snapshot(self.journal,session['workspace_id'],label='after implementation',request_id=uid('capture'))
@@ -419,6 +521,7 @@ class Execution:
             self.workflow._require_runtime(state,session['run_id'])
             current=state['execution_sessions'][session_id]
             if current['status']=='closed': return state['implementations'][current['implementation_id']]
+            self._require_database_idle(state,session_id)
             self._lease_state(state,session['lease_id'],owner)
             before=state['snapshots'][session['snapshot_before']]
             old={f['path']:f['sha256'] for f in before['manifest']['files']}
@@ -428,14 +531,35 @@ class Execution:
             except HarnessError: basis_ok=False
             git_ok=git_metadata(self._root(session['workspace_id']))==session['git_before']
             source_ok=snapshot_matches(self.journal,after['snapshot_id'],session['workspace_id'])
-            allowed=self.workflow.load_artifact(session['basis']['unit_ref'])['payload'].get('allowed_paths',[])
-            outside=[p for p in changed if allowed and not any(fnmatch.fnmatchcase(p,pattern) for pattern in allowed)]
-            actual=outcome if basis_ok and git_ok and source_ok and not outside else 'needs_reconciliation'
+            scope_result=None; database_result=None; environment_ok=True
+            if session['basis'].get('contract_version')=='2.1':
+                from .scope import compare_scope
+                payload=self.workflow.load_artifact(session['basis']['scope_ref'])['payload']
+                origin=state['snapshots'][session['scope_origin_snapshot']]['manifest']['files']
+                cumulative={f['path']:f for f in before['manifest']['files'] if not self._in_scope(payload,f['path'])}
+                cumulative.update({f['path']:f for f in origin if self._in_scope(payload,f['path'])})
+                scope_result=compare_scope(payload,list(cumulative.values()),after['manifest']['files'])
+                if session.get('mode')=='observe' and changed:
+                    scope_result['passed']=False; scope_result['violations'].append({'reason':'observation_changed_source','paths':changed})
+                outside=[item['path'] for item in scope_result['violations'] if item.get('reason')=='outside_scope']
+                from .execution_database import database_completion
+                database_result=database_completion(self,session['basis'],session=session,state=state)
+                try: environment_ok=self._environment_bindings(session['basis'])==session.get('environment_bindings',[])
+                except HarnessError: environment_ok=False
+            else:
+                allowed=self.workflow.load_artifact(session['basis']['unit_ref'])['payload'].get('allowed_paths',[])
+                outside=[p for p in changed if not allowed or not any(fnmatch.fnmatchcase(p,pattern) for pattern in allowed)]
+            scope_ok=scope_result['passed'] if scope_result is not None else not outside
+            database_ok=database_result['passed'] if database_result is not None else True
+            actual=outcome if basis_ok and git_ok and source_ok and scope_ok and database_ok and environment_ok else 'needs_reconciliation'
             receipt={'implementation_id':uid('implementation'),'session_id':session_id,'run_id':session['run_id'],'unit_id':session['unit_id'],
                 'workspace_id':session['workspace_id'],'stage_run_id':session['stage_run_id'],'basis':session['basis'],
                 'snapshot_before':session['snapshot_before'],'snapshot_after':after['snapshot_id'],'source_digest':after['manifest_sha256'],
                 'created_at':now(),'outcome':actual,'summary':summary,'changed_files':changed,'outside_declared_paths':outside,
-                'source_git_unchanged':git_ok,'basis_current':basis_ok,'source_current':source_ok}
+                'source_git_unchanged':git_ok,'basis_current':basis_ok,'source_current':source_ok,
+                'scope_origin_snapshot':session.get('scope_origin_snapshot',session['snapshot_before']),
+                'scope_result':scope_result,'database_comparison':database_result,'environment_current':environment_ok,
+                'environment_bindings':session.get('environment_bindings',[]),'mode':session.get('mode','change')}
             report='# 구현 결과\n\n'+summary+'\n\n결과: '+actual+'\n\n변경 파일:\n'+''.join('- '+p+'\n' for p in changed)
             receipt['ref']=self._artifact(state,'implementation-receipt',receipt,report,session,[session['basis']['unit_ref'],session['basis']['test_ref']],'implementation-'+session['unit_id'])
             state.setdefault('implementations',{})[receipt['implementation_id']]=receipt
@@ -447,6 +571,12 @@ class Execution:
             return receipt
         return self.journal.transaction(record)
 
+    @staticmethod
+    def _require_database_idle(state,session_id):
+        if any(row.get('session_id')==session_id and row.get('status')=='running'
+               for row in state.get('db_executions',{}).values()):
+            fail('db_adapter_active','Wait for the database attempt or reconcile an exited controller before finishing implementation.')
+
     def _implementation(self,implementation_id):
         state=self.journal.read()
         implementation=state.get('implementations',{}).get(implementation_id)
@@ -454,7 +584,39 @@ class Execution:
         if state.get('applied',{}).get(implementation['run_id']+'/'+implementation['unit_id'])!=implementation_id: fail('implementation_superseded','This is not the currently applied implementation.')
         if self.workflow.implementation_basis(implementation['run_id'],implementation['unit_id'])!=implementation['basis']: fail('basis_changed','Implementation was made for a different approval basis.')
         if not snapshot_matches(self.journal,implementation['snapshot_after'],implementation['workspace_id']): fail('source_changed','Workspace differs from the recorded implementation snapshot.')
+        self._environment_bindings(implementation['basis'])
         return implementation
+
+    def _run_check_process(self,check,root,basis,implementation,attempt,deadline,cancel,launched):
+        env,values,binding=self._role_environment(basis,check.get('environment_ref'),check.get('role'))
+        cwd=root if check['cwd']=='.' else root.joinpath(*safe_relative(check['cwd']).parts)
+        if not check.get('runner'):
+            if binding:
+                result=run_process(check['argv'],cwd,min(check['timeout_seconds'],deadline-time.monotonic()),cancel,launched,env=env,secret_values=values)
+                result['environment_binding']=binding
+                return result
+            return run_process(check['argv'],cwd,min(check['timeout_seconds'],deadline-time.monotonic()),cancel,launched)
+        from .runner import PreparedRunner
+        runner=PreparedRunner(check['runner'],root,self.journal.path.parent/'evidence'/attempt['attempt_id'],implementation['source_digest'],attempt['attempt_id'],
+                              lambda role:self._role_environment(basis,check.get('environment_ref'),role),cancel,deadline)
+        result={}
+        try:
+            runner.start()
+            env,values,binding=runner._env(check.get('role'))
+            remaining=deadline-time.monotonic()
+            if remaining<=0: fail('budget_exhausted','Preparation consumed the verification budget.')
+            result=run_process(check['argv'],cwd,min(check['timeout_seconds'],remaining),cancel,launched,env=env,secret_values=values)
+            result['environment_binding']=binding
+        except (HarnessError,OSError) as exc:
+            result={'error':getattr(exc,'code',type(exc).__name__),'exit_code':None,'termination':None,'streams':{},'truncated':False}
+        finally:
+            prepared=runner.close()
+            try: runner.attach(self.journal)
+            except (HarnessError,OSError) as exc:
+                prepared['passed']=False; prepared['evidence_error']=getattr(exc,'code',type(exc).__name__)
+            prepared['passed']=prepared['passed'] and all(item['status']=='attached' for item in prepared['evidence'] if item['required'])
+            result['preparation']=prepared
+        return result
 
     def run_checks(self,implementation_id,owner,request_id,check_ids=None):
         deadline=time.monotonic()+CAMPAIGN_BUDGET_SECONDS
@@ -476,7 +638,8 @@ class Execution:
         root=self._root(row['workspace_id'])
         try:
             environment=environment_fingerprint(checks,root); initial_git=git_metadata(root)
-            campaign={**row,'test_ref':basis['test_ref'],'snapshot_id':implementation['snapshot_after'],'environment':environment,'environment_digest':sha256(encoded(environment)),'git_metadata':initial_git,
+            profile_bindings=self._environment_bindings(basis)
+            campaign={**row,'test_ref':basis['test_ref'],'snapshot_id':implementation['snapshot_after'],'environment':environment,'environment_digest':sha256(encoded(environment)),'git_metadata':initial_git,'profile_bindings':profile_bindings,
                       'outcome':'running','check_results':{},'selected_checks':sorted(selected),'requested_checks':sorted(requested),'cancel_requested':False,'budget_seconds':CAMPAIGN_BUDGET_SECONDS}
             def begin(state):
                 self._lease_state(state,row['lease_id'],owner)
@@ -507,6 +670,7 @@ class Execution:
                 result={}
                 try:
                     self._implementation(implementation_id)
+                    if self._environment_bindings(basis)!=profile_bindings: fail('environment_changed','Selected profile changed during verification.')
                     if environment_fingerprint(checks,root)!=environment or git_metadata(root)!=initial_git: fail('environment_changed','Source Git or runtime changed before check launch.')
                     if cancel(): fail('cancelled','Verification was cancelled before this check.')
                     cwd=root if check['cwd']=='.' else root.joinpath(*safe_relative(check['cwd']).parts)
@@ -522,11 +686,11 @@ class Execution:
                     self.journal.transaction(pending)
                     remaining=deadline-time.monotonic()
                     if remaining<=0: fail('budget_exhausted','Total verification budget exhausted.')
-                    result=run_process(check['argv'],cwd,min(check['timeout_seconds'],remaining),cancel,launched)
+                    result=self._run_check_process(check,root,basis,implementation,attempt,deadline,cancel,launched)
                     applicable=snapshot_matches(self.journal,implementation['snapshot_after'],row['workspace_id']) and git_metadata(root)==initial_git
                     parsed=case_result(check,result); result['case_evidence']=parsed
-                    if result['termination']=='cancelled': status='interrupted'
-                    elif not applicable or result['truncated']: status='blocked'
+                    if result.get('termination')=='cancelled': status='interrupted'
+                    elif result.get('error') or not applicable or result.get('truncated') or not result.get('preparation',{}).get('passed',True): status='blocked'
                     elif result['termination']=='timeout' or result['exit_code']!=check['expected_exit']: status='failed'
                     else: status=parsed['result']
                     result['source_applicable']=applicable
@@ -550,9 +714,15 @@ class Execution:
                 outcome='passed' if statuses and all(s=='passed' for s in statuses) else 'failed' if 'failed' in statuses else 'interrupted' if 'interrupted' in statuses else 'blocked'
                 try:
                     basis_current=self.workflow._basis(state,row['run_id'],row['unit_id'])==basis and state['applied'].get(row['run_id']+'/'+row['unit_id'])==implementation_id
-                    applicable=basis_current and snapshot_matches(self.journal,implementation['snapshot_after'],row['workspace_id']) and git_metadata(root)==initial_git and environment_fingerprint(checks,root)==environment
+                    applicable=basis_current and snapshot_matches(self.journal,implementation['snapshot_after'],row['workspace_id']) and git_metadata(root)==initial_git and environment_fingerprint(checks,root)==environment and self._environment_bindings(basis)==profile_bindings
                 except (HarnessError,OSError): applicable=False; basis_current=False
                 if not applicable or time.monotonic()>=deadline: outcome='blocked'
+                if outcome == 'passed':
+                    try:
+                        current['tool_evidence'] = self._tool_evidence(state, implementation, current)
+                    except (HarnessError, OSError) as exc:
+                        current['tool_evidence_error'] = getattr(exc, 'code', type(exc).__name__)
+                        outcome = 'blocked'
                 if current.get('cancel_requested'): outcome='interrupted'
                 current.update(outcome=outcome,finished_at=now(),basis_current=basis_current,source_and_environment_current=applicable,budget_exhausted=time.monotonic()>=deadline)
                 report='# 검증 결과\n\n결과: '+outcome+'\n\n구현: '+implementation_id+'\n\n'+''.join('- '+c['check_id']+': '+current['check_results'].get(c['check_id'],{}).get('result','not_run')+'\n' for c in checks)+'\n승인된 검사 계약과 실행 증거에 한정된 결과입니다.\n'
@@ -576,6 +746,32 @@ class Execution:
                 emit(state,'verification_interrupted',{'campaign_id':row['campaign_id'],'error':getattr(exc,'code',type(exc).__name__)})
             self.journal.transaction(interrupted)
             raise
+
+    def _tool_evidence(self, state, implementation, campaign):
+        """Validate declared external observations from the actual runner's blobs."""
+        run = state['runs'][implementation['run_id']]
+        if run.get('tool_policy_version') != '1':
+            return []
+        from .tool_policy import validate_completion_evidence
+        basis = implementation['basis']
+        review = state['reviews'][basis['gate_a_review_id']]
+        system = self.workflow._one([self.workflow._load(state, ref) for ref in review['input_refs']], 'system-design')
+        test = self.workflow._load(state, basis['test_ref'])
+        gate_b = state['reviews'][basis['review_id']]
+        approved_refs = review['input_refs'] + gate_b['input_refs'] + test['manifest']['input_refs']
+        loaded = [self.workflow._load(state, ref) for ref in gate_b['input_refs']]
+        targets = self.workflow._tool_database_targets(system['payload']['tool_plan'], implementation['unit_id'], loaded)
+        def validate_source(source):
+            if not source.startswith('artifact:'):
+                return
+            artifact_id, revision_id, digest = source[len('artifact:'):].split('/')
+            ref = {'artifact_id': artifact_id, 'revision_id': revision_id, 'sha256': digest}
+            self.workflow._require_refs(state, [ref], implementation['run_id'])
+            if ref not in approved_refs:
+                fail('pin_mismatch', 'Runner artifact sources must belong to the exact approved input refs.')
+        return validate_completion_evidence(system['payload']['tool_plan'], implementation['unit_id'], test['payload'],
+                                            campaign, self.journal.get_blob, build_id=implementation['source_digest'],
+                                            expected_database_targets=targets, validate_source_ref=validate_source)
 
     def _fulfill_changes(self,state,implementation,basis,campaign):
         for change in state.get('changes',{}).values():
@@ -649,6 +845,11 @@ class Execution:
             checks=self.workflow.load_artifact(implementation['basis']['test_ref'])['payload']['checks']
             if environment_fingerprint(checks,self._root(implementation['workspace_id']))!=latest['environment']: fail('environment_changed','Observed runtime differs from this verification.')
             if git_metadata(self._root(implementation['workspace_id']))!=latest.get('git_metadata'): fail('git_metadata_changed','Observed source Git metadata differs from this verification.')
+            if self._environment_bindings(implementation['basis'])!=latest.get('profile_bindings',[]): fail('environment_changed','Personal environment changed since verification.')
+            if implementation['basis'].get('db_plan_refs'):
+                from .execution_database import database_completion
+                if not database_completion(self,implementation['basis'],state=state).get('passed'): fail('database_incomplete','Current DB plan verification is incomplete.')
+            self._tool_evidence(state, implementation, latest)
         except (HarnessError,OSError) as exc: current=False; reason=getattr(exc,'code',type(exc).__name__)
         valid=bool(latest['check_results'])
         for result in latest['check_results'].values():

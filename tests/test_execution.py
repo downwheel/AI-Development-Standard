@@ -16,17 +16,19 @@ from harness.execution import run_process, case_result, process_identity, observ
 
 STANDARD=Path(__file__).resolve().parents[1]
 
-def approved_fixture(api,product,marker,checks=None):
+def approved_fixture(api,product,marker,checks=None,scope_files=None,scope_mode='observe',unit_graph=None,tool_plan=None,system_observations=None,unit_observations=None,tool_checks=None):
     project=api.call('project_register',{'project_root':str(product),'name':'SYNTHETIC isolated test'})
     pid=project['project_id']
-    def call(op,**params): return api.call(op,{'project_id':pid,**params})
+    def call(op,**params):
+        if op=='begin_implementation': params.setdefault('mode',scope_mode)
+        return api.call(op,{'project_id':pid,**params})
     call('create_run',run_id='fixture-run',workspace_id='workspace-main',goal='SYNTHETIC TEST ONLY: independent assertions')
-    producers={'discovery-context':'dev-discover','requirements':'dev-requirements','system-design':'dev-system-design','unit-spec':'dev-unit-design','test-plan':'dev-test-design'}
-    def publish(kind,payload,refs,unit=None):
+    producers={'discovery-context':'dev-discover','requirements':'dev-requirements','system-design':'dev-system-design','unit-spec':'dev-unit-design','test-plan':'dev-test-design','scope-manifest':'dev-unit-design'}
+    def publish(kind,payload,refs,unit=None,artifact_id=None):
         args={'run_id':'fixture-run','skill':producers[kind],'owner':'fixture-owner','input_refs':refs}
         if unit: args['unit_id']=unit
         stage=call('start_stage',**args)
-        values={'run_id':'fixture-run','stage_run_id':stage['stage_run_id'],'owner':'fixture-owner','artifact_id':kind,'kind':kind,
+        values={'run_id':'fixture-run','stage_run_id':stage['stage_run_id'],'owner':'fixture-owner','artifact_id':artifact_id or kind,'kind':kind,
                 'payload':payload,'report':'# SYNTHETIC ISOLATED TEST\n\nNot an actual user decision.','input_refs':refs,'accept':True,'expected_head':{'revision_id':None,'generation':0}}
         if unit: values['unit_id']=unit
         ref=call('publish_artifact',**values)['ref']
@@ -39,12 +41,20 @@ def approved_fixture(api,product,marker,checks=None):
         call('record_decision',review_id=review['review_id'],decision='approved',user_message='SYNTHETIC TEST FIXTURE approval',source='isolated automated test fixture')
         return review
     context=publish('discovery-context',{'facts':['Isolated fixture']},[])
-    requirements=publish('requirements',{'requirements':[{'id':'req-1','description':'Fixture independently verifies two invariants','case_ids':['case-1','case-2']}]},[context])
-    system=publish('system-design',{'requirement_ids':['req-1']},[context,requirements])
+    graph=unit_graph or [{'unit_id':'unit-1','title':'Synthetic check unit','required':True,'depends_on':[],'requirement_ids':['req-1'],'case_ids':['case-1','case-2']}]
+    all_cases=sorted({case for unit in graph for case in unit['case_ids']})
+    requirements=publish('requirements',{'requirements':[{'id':'req-1','description':'Fixture independently verifies fixed invariants','case_ids':all_cases}]},[context])
+    from tests.tool_fixtures import no_tool_plan
+    system=publish('system-design',{'requirement_ids':['req-1'],'units':graph,
+                  'tool_plan':tool_plan if tool_plan is not None else no_tool_plan(),
+                  'tool_observations':system_observations or []},[context,requirements])
     approve('A',[context,requirements,system])
-    unit=publish('unit-spec',{'requirement_ids':['req-1'],'case_ids':['case-1','case-2'],'allowed_paths':['check.py']},[system],'unit-1')
-    plan=publish('test-plan',{'unit_ref':unit,'checks':checks or [{'check_id':'check-1','argv':[sys.executable,str(product/'check.py'),str(marker)],'cwd':'.','timeout_seconds':10,'required':True,'expected_exit':0,'case_ids':['case-1','case-2'],'expected':'Both explicit fixture assertions pass','oracle':'Fixed arithmetic and caller-controlled fixture flag independent of implementation'}]},[unit],'unit-1')
-    approve('B',[unit,plan],'unit-1')
+    unit=publish('unit-spec',{'requirement_ids':['req-1'],'case_ids':['case-1','case-2'],'environment':{'required':False,'reason':'Synthetic source-only tests'},'database':{'required':False,'reason':'No DB in fixture'},'tool_observations':unit_observations or []},[system],'unit-1')
+    plan=publish('test-plan',{'tool_checks':tool_checks or [],'unit_ref':unit,'checks':checks or [{'check_id':'check-1','argv':[sys.executable,str(product/'check.py'),str(marker)],'cwd':'.','timeout_seconds':10,'required':True,'expected_exit':0,'case_ids':['case-1','case-2'],'expected':'Both explicit fixture assertions pass','oracle':'Fixed arithmetic and caller-controlled fixture flag independent of implementation'}]},[unit],'unit-1')
+    baseline=call('capture_snapshot',workspace_id='workspace-main',label='Synthetic approved source baseline')
+    scope=publish('scope-manifest',{'run_id':'fixture-run','workspace_id':'workspace-main','unit_id':'unit-1','unit_ref':unit,'requirement_ids':['req-1'],'mode':scope_mode,'reason':'Explicit synthetic observation' if scope_mode=='observe' else 'Synthetic bounded implementation','source_baseline':{'snapshot_id':baseline['snapshot_id'],'sha256':baseline['manifest_sha256']},'files':scope_files or [],'db_objects':[]},[system,unit],'unit-1')
+    approve('B',[unit,plan,scope],'unit-1')
+    call.publish=publish; call.approve=approve; call.system_ref=system; call.unit_ref=unit; call.plan_ref=plan; call.scope_ref=scope
     return pid,call
 
 class ProcessTests(unittest.TestCase):
@@ -139,7 +149,9 @@ class ContractBoundaryTests(unittest.TestCase):
     def test_change_fulfillment_uses_same_currentness_as_completion_projection(self):
         raw=b'independent stored execution evidence'
         refs={unit:{'artifact_id':unit,'revision_id':'revision-'+unit,'sha256':'fixed'} for unit in ['one','two']}
-        initial={'verification':{},'verification_order':[],'implementations':{},'applied':{},'execution_requests':{},'execution_order':[],
+        # Stored legacy runs have a run entry even before tool policy is introduced.
+        initial={'runs':{'run':{'run_id':'run','standard_release':'legacy-release'}},
+            'verification':{},'verification_order':[],'implementations':{},'applied':{},'execution_requests':{},'execution_order':[],
             'changes':{'change':{'change_id':'change','run_id':'run','status':'contract_resolved','target_refs':[refs['two']], 'resolved_unit_ids':['one','two'],'verified_units':{'one':'campaign-one'}}}}
         for unit in ['one','two']:
             implementation={'implementation_id':'impl-'+unit,'outcome':'completed','run_id':'run','unit_id':unit,'workspace_id':'workspace','snapshot_after':'snapshot','basis':{'unit_ref':refs[unit],'test_ref':refs[unit]}}
@@ -189,7 +201,7 @@ class IntegrationTests(unittest.TestCase):
             self.assertEqual('failed',journal.read()['stages'][failed['stage_run_id']]['status'])
 
             # A genuine process exit occurs after durable reservation and before capture.
-            worker='import os,sys\nfrom pathlib import Path\nfrom harness.api import API\nimport harness.execution as execution\nexecution.capture_snapshot=lambda *a,**k:os._exit(73)\napi=API(Path(sys.argv[1]),Path(sys.argv[2]))\napi.call("begin_implementation",{"project_id":sys.argv[3],"run_id":"fixture-run","unit_id":"unit-1","owner":"fixture-owner","request_id":"crashed-begin"})\n'
+            worker='import os,sys\nfrom pathlib import Path\nfrom harness.api import API\nimport harness.execution as execution\nexecution.capture_snapshot=lambda *a,**k:os._exit(73)\napi=API(Path(sys.argv[1]),Path(sys.argv[2]))\napi.call("begin_implementation",{"project_id":sys.argv[3],"run_id":"fixture-run","unit_id":"unit-1","owner":"fixture-owner","request_id":"crashed-begin","mode":"observe"})\n'
             process=subprocess.run([sys.executable,'-B','-c',worker,str(base/'private'),str(STANDARD),pid],cwd=STANDARD,timeout=90,creationflags=subprocess.CREATE_NO_WINDOW if os.name=='nt' else 0)
             self.assertEqual(73,process.returncode)
             pending=call('begin_implementation',run_id='fixture-run',unit_id='unit-1',owner='fixture-owner',request_id='crashed-begin')
@@ -324,5 +336,115 @@ class IntegrationTests(unittest.TestCase):
             self.assertFalse(call('get_verification',implementation_id=receipt['implementation_id'])['eligible_complete'])
             self.assertFalse((product/'.git').exists())
             self.assertTrue(journal.fsck()['ok'])
+
+
+
+def exact_create(path, case_ids=None):
+    return {'path':path,'layer':'test' if path.startswith('check') else 'backend','action':'create',
+            'reason':'Synthetic approved exact source change','requirement_ids':['req-1'],
+            'case_ids':case_ids or ['case-1','case-2'],'required':True,'expected_absent':True}
+
+
+class ExactScopeIntegrationTests(unittest.TestCase):
+    def setup_product(self, base, script=None):
+        product=base/'product'; product.mkdir()
+        marker=base/'flag'; marker.write_text('pass')
+        (product/'check.py').write_text(script or 'import json\nassert 2+3==5\nprint("HARNESS_CASE_RESULTS="+json.dumps({"cases":[{"case_id":"case-1","status":"passed"},{"case_id":"case-2","status":"passed"}]}))\n',encoding='utf-8')
+        return product,marker
+
+    def test_real_baseline_edit_preflight_missing_required_and_outside_file_detection(self):
+        with tempfile.TemporaryDirectory() as folder:
+            base=Path(folder); product,marker=self.setup_product(base)
+            api=API(base/'private',STANDARD)
+            pid,call=approved_fixture(api,product,marker,scope_files=[exact_create('feature.py')],scope_mode='change')
+            original=(product/'check.py').read_bytes()
+            (product/'check.py').write_bytes(original+b'\n# Synthetic concurrent edit\n')
+            with self.assertRaises(HarnessError) as caught:
+                call('begin_implementation',run_id='fixture-run',unit_id='unit-1',owner='fixture-owner',request_id='changed-baseline')
+            self.assertEqual('scope_baseline_changed',caught.exception.code)
+            self.assertTrue((product/'check.py').read_bytes().endswith(b'# Synthetic concurrent edit\n'))
+            # This fixture owns these temporary bytes; restore solely to test another boundary.
+            (product/'check.py').write_bytes(original)
+            session=call('begin_implementation',run_id='fixture-run',unit_id='unit-1',owner='fixture-owner',request_id='missing-required')
+            with self.assertRaises(HarnessError) as caught:
+                call('check_edit_scope',session_id=session['session_id'],owner='fixture-owner',changes=[{'path':'outside.py','action':'create'}])
+            self.assertEqual('outside_scope',caught.exception.code,str(caught.exception))
+            receipt=call('finish_implementation',session_id=session['session_id'],owner='fixture-owner',summary='Synthetic missing required creation',outcome='completed')
+            self.assertEqual('needs_reconciliation',receipt['outcome'])
+            self.assertEqual(['feature.py'],receipt['scope_result']['missing_required'])
+            session=call('begin_implementation',run_id='fixture-run',unit_id='unit-1',owner='fixture-owner',request_id='outside-scope')
+            (product/'feature.py').write_bytes(b'1\n'); (product/'outside.py').write_bytes(b'preserve synthetic concurrent edit')
+            receipt=call('finish_implementation',session_id=session['session_id'],owner='fixture-owner',summary='Synthetic native editor scope drift',outcome='completed')
+            self.assertEqual('needs_reconciliation',receipt['outcome'])
+            self.assertEqual(['outside.py'],receipt['outside_declared_paths'])
+            self.assertEqual(b'preserve synthetic concurrent edit',(product/'outside.py').read_bytes())
+            self.assertFalse(call('evaluate_completion',run_id='fixture-run')['eligible_complete'])
+            self.assertFalse((product/'.git').exists())
+
+    def test_same_approved_create_allows_scoped_fix_and_fresh_observation(self):
+        with tempfile.TemporaryDirectory() as folder:
+            base=Path(folder)
+            script='from pathlib import Path\nimport json\nassert 2+3==5\nassert int(Path("feature.py").read_text()) in (1,2)\nprint("HARNESS_CASE_RESULTS="+json.dumps({"cases":[{"case_id":"case-1","status":"passed"},{"case_id":"case-2","status":"passed"}]}))\n'
+            product,marker=self.setup_product(base,script)
+            api=API(base/'private',STANDARD); pid,call=approved_fixture(api,product,marker,scope_files=[exact_create('feature.py')],scope_mode='change')
+            first=call('begin_implementation',run_id='fixture-run',unit_id='unit-1',owner='fixture-owner',request_id='create-feature')
+            (product/'feature.py').write_bytes(b'1\n')
+            receipt=call('finish_implementation',session_id=first['session_id'],owner='fixture-owner',summary='Synthetic create',outcome='completed')
+            self.assertEqual('completed',receipt['outcome'])
+            self.assertEqual('passed',call('run_checks',implementation_id=receipt['implementation_id'],owner='fixture-owner',request_id='check-create')['outcome'])
+            fix=call('begin_implementation',run_id='fixture-run',unit_id='unit-1',owner='fixture-owner',request_id='fix-feature')
+            self.assertTrue(call('check_edit_scope',session_id=fix['session_id'],owner='fixture-owner',changes=[{'path':'feature.py','action':'modify'}])['allowed'])
+            (product/'feature.py').write_bytes(b'2\n')
+            updated=call('finish_implementation',session_id=fix['session_id'],owner='fixture-owner',summary='Synthetic fix within same approved contract',outcome='completed')
+            self.assertEqual('completed',updated['outcome'])
+            self.assertEqual(receipt['basis'],updated['basis'])
+            self.assertEqual([{'path':'feature.py','action':'create'}],updated['scope_result']['changes'])
+            self.assertEqual('passed',call('run_checks',implementation_id=updated['implementation_id'],owner='fixture-owner',request_id='check-fix')['outcome'])
+            (product/'unrelated.txt').write_text('Synthetic user-owned file')
+            self.assertFalse(call('evaluate_completion',run_id='fixture-run')['eligible_complete'])
+            observe=call('begin_implementation',run_id='fixture-run',unit_id='unit-1',owner='fixture-owner',request_id='observe-current',mode='observe')
+            observed=call('finish_implementation',session_id=observe['session_id'],owner='fixture-owner',summary='Synthetic fresh observation',outcome='completed')
+            self.assertEqual('completed',observed['outcome'])
+            self.assertEqual([],observed['changed_files'])
+            self.assertEqual('passed',call('run_checks',implementation_id=observed['implementation_id'],owner='fixture-owner',request_id='check-observed')['outcome'])
+            self.assertTrue(call('evaluate_completion',run_id='fixture-run')['eligible_complete'])
+            self.assertEqual('Synthetic user-owned file',(product/'unrelated.txt').read_text())
+
+    def test_all_required_units_need_current_full_workspace_verification(self):
+        with tempfile.TemporaryDirectory() as folder:
+            base=Path(folder); product,marker=self.setup_product(base)
+            graph=[{'unit_id':'unit-1','title':'First source observation','required':True,'depends_on':[],'requirement_ids':['req-1'],'case_ids':['case-1','case-2']},
+                   {'unit_id':'unit-2','title':'Integrated added file','required':True,'depends_on':['unit-1'],'requirement_ids':['req-1'],'case_ids':['case-3'],'integration':True}]
+            api=API(base/'private',STANDARD); pid,call=approved_fixture(api,product,marker,unit_graph=graph)
+            first=call('begin_implementation',run_id='fixture-run',unit_id='unit-1',owner='fixture-owner',request_id='observe-one')
+            first=call('finish_implementation',session_id=first['session_id'],owner='fixture-owner',summary='Synthetic first unit',outcome='completed')
+            self.assertEqual('passed',call('run_checks',implementation_id=first['implementation_id'],owner='fixture-owner',request_id='verify-one')['outcome'])
+            payload={'requirement_ids':['req-1'],'case_ids':['case-3'],'environment':{'required':False,'reason':'Source-only fixture'},'database':{'required':False,'reason':'No DB'}}
+            unit=call.publish('unit-spec',payload,[call.system_ref],'unit-2','unit-two')
+            check={'check_id':'check-two','argv':[sys.executable,'check-two.py'],'cwd':'.','timeout_seconds':10,'required':True,'expected_exit':0,'case_ids':['case-3'],'expected':'Integration reads both source files','oracle':'Fixed fixture files and values'}
+            plan=call.publish('test-plan',{'unit_ref':unit,'checks':[check]},[unit],'unit-2','plan-two')
+            baseline=call('capture_snapshot',workspace_id='workspace-main',label='Synthetic second unit baseline')
+            scope=call.publish('scope-manifest',{'run_id':'fixture-run','workspace_id':'workspace-main','unit_id':'unit-2','unit_ref':unit,'requirement_ids':['req-1'],'mode':'change','source_baseline':{'sha256':baseline['manifest_sha256']},'files':[exact_create('other.txt',['case-3']),exact_create('check-two.py',['case-3'])],'db_objects':[]},[call.system_ref,unit],'unit-2','scope-two')
+            call.approve('B',[unit,plan,scope],'unit-2')
+            second=call('begin_implementation',run_id='fixture-run',unit_id='unit-2',owner='fixture-owner',request_id='implement-two',mode='change')
+            (product/'other.txt').write_text('42')
+            (product/'check-two.py').write_text('from pathlib import Path\nimport json\nassert Path("check.py").is_file()\nassert int(Path("other.txt").read_text())==42\nprint("HARNESS_CASE_RESULTS="+json.dumps({"cases":[{"case_id":"case-3","status":"passed"}]}))\n',encoding='utf-8')
+            second=call('finish_implementation',session_id=second['session_id'],owner='fixture-owner',summary='Synthetic second unit',outcome='completed')
+            self.assertEqual('completed',second['outcome'])
+            self.assertEqual('passed',call('run_checks',implementation_id=second['implementation_id'],owner='fixture-owner',request_id='verify-two')['outcome'])
+            evaluation=call('evaluate_completion',run_id='fixture-run')
+            self.assertFalse(evaluation['eligible_complete'])
+            self.assertEqual(2,evaluation['required_unit_count'])
+            self.assertIn('unit-1:source_changed',evaluation['blockers'])
+            action=next(row for row in call('next_actions',run_id='fixture-run')['actions'] if row['unit_id']=='unit-1')
+            self.assertEqual(('dev-implement','observe'),(action['skill'],action['suggested_mode']))
+            refresh=call('begin_implementation',run_id='fixture-run',unit_id='unit-1',owner='fixture-owner',request_id='refresh-one',mode='observe')
+            refresh=call('finish_implementation',session_id=refresh['session_id'],owner='fixture-owner',summary='Synthetic first unit current-source observation',outcome='completed')
+            self.assertEqual('passed',call('run_checks',implementation_id=refresh['implementation_id'],owner='fixture-owner',request_id='reverify-one')['outcome'])
+            evaluation=call('evaluate_completion',run_id='fixture-run')
+            self.assertTrue(evaluation['eligible_complete'],evaluation['blockers'])
+            self.assertEqual(2,evaluation['completed_unit_count'])
+            self.assertTrue(next(row for row in evaluation['units'] if row['unit_id']=='unit-2')['integration'])
+            self.assertTrue(api.registry.journal(pid).fsck()['ok'])
 
 if __name__=='__main__': unittest.main()

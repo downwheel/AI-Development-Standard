@@ -8,7 +8,7 @@ from . import VERSION
 from .common import HarnessError, encoded
 
 PROTOCOLS=('2024-11-05','2025-03-26','2025-06-18','2025-11-25')
-READ_ONLY={'info','project_list','workflow_status','get_artifact','list_artifacts','diff_artifacts','snapshot_list','get_verification','list_implementations'}
+READ_ONLY={'info','project_list','workflow_status','get_artifact','list_artifacts','diff_artifacts','snapshot_list','get_verification','list_implementations','next_actions','evaluate_completion','preview_database','inspect_database','check_edit_scope','get_database_execution'}
 
 def serve(api):
     lock=threading.Lock()
@@ -32,7 +32,7 @@ def serve(api):
                 result={}
             elif method=='tools/list':
                 result={'tools':[{'name':'team_'+name,'description':f'Team Harness {name}. Read schema before calling; all records are local.', 'inputSchema':schema,
-                                  'annotations':{'readOnlyHint':name in READ_ONLY,'destructiveHint':name in {'apply_restore','reconcile_recovery','run_checks'},'openWorldHint':name=='run_checks'}}
+                                  'annotations':{'readOnlyHint':name in READ_ONLY,'destructiveHint':name in {'apply_restore','reconcile_recovery','run_checks','execute_database'},'openWorldHint':name in {'run_checks','execute_database','inspect_database','environment_probe','plan_database_recovery','record_database_recovery'}}}
                                  for name,schema in api.operations().items()]}
             elif method=='tools/call':
                 params=request.get('params',{})

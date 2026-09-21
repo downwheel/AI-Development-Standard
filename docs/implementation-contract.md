@@ -1,4 +1,4 @@
-# 실행 인터페이스 계약 — 2.0.0
+# 실행 인터페이스 계약 — 2.1.0
 
 CLI와 STDIO MCP는 같은 core를 호출한다. 실제 입력은 해당 고정 release의 `describe <operation>`, 산출물별 payload는 `contracts/artifact-payloads.json`을 따른다. 없는 필드·도구·성공 receipt를 만들어 전송하지 않는다.
 
@@ -19,11 +19,14 @@ python "<release>/team_harness.py" --state-root "<personal-state>" --standard-ro
 | 목적 | operation |
 |---|---|
 | 등록/진단 | info, project_list, project_register, import_legacy |
+| 개인 환경 | environment_plan, environment_apply, environment_inspect, environment_probe |
+| DB | inspect_database, preview_database, execute_database, get_database_execution |
 | 단계 | create_run, start_stage, finish_stage, resume_stage |
 | 산출물 | publish_artifact, accept_artifact, get_artifact, list_artifacts, diff_artifacts, render_artifact |
 | 검토/변경 | create_review, record_decision, record_change, resolve_change, workflow_status |
+| 다음 단계/완료 | next_actions, evaluate_completion |
 | 협조적 소유권 | acquire_lease, release_lease |
-| 구현/검사 | begin_implementation, finish_implementation, list_implementations, run_checks, get_verification, cancel_verification, reconcile_execution |
+| 구현/검사 | begin_implementation, check_edit_scope, finish_implementation, list_implementations, run_checks, get_verification, cancel_verification, reconcile_execution |
 | 사본/복원 | capture_snapshot, snapshot_list, export_snapshot, plan_restore, record_restore_decision, apply_restore, reconcile_recovery, journal_check |
 
 MCP에서는 실제 tools/list의 이름·schema를 사용한다. 호스트 접두어나 자동 Skill 호출 API를 추측하지 않는다.
@@ -38,13 +41,15 @@ artifact ref는 `{artifact_id, revision_id, sha256}`다. publish_artifact에는 
 
 manifest는 payload/report의 bytes/hash를 연결하고 자기 hash는 외부 ref에만 둔다. render_artifact는 개인 MD/HTML 조회 파일을 만들며 canonical 원장과 승인을 바꾸지 않는다.
 
-최소 payload는 requirements의 id/description/case_ids, system-design의 requirement_ids, unit-spec의 requirement_ids/case_ids, test-plan의 정확한 unit_ref/checks다. 구현 범위를 제한할 때 UnitSpec에 allowed_paths를 명시한다. 상세 계약·실패 정책·근거는 각 Skill/profile을 따른다. 구현 receipt와 verification-report는 실제 실행 경로가 생성하며 일반 artifact 발행으로 꾸며 제출하지 않는다.
+2.1은 system-design의 typed units와 의존성/사례 범위, unit-spec의 요구·case 및 환경/DB 적용 여부, 정확한 scope-manifest와 test-plan을 요구한다. 환경·DB가 필요하면 environment-contract와 db-work-plan도 고정한다. 선택적인 allowed_paths로 필수 scope를 대체할 수 없다. 상세 schema와 [2.1 실행 계약](v2.1-operations.md)을 따른다. 구현·DB·검증 receipt는 실제 실행 경로가 생성하며 일반 artifact 발행으로 꾸며 제출하지 않는다.
 
 ## 두 Gate와 구현
 
-Gate A는 discovery-context + requirements + system-design 세 refs, Gate B는 unit-spec + 그 단위를 참조한 test-plan 두 refs와 유효 Gate A다. create_review가 만든 구체적 bundle에 실제 사용자 응답/source를 record_decision으로 연결한다.
+Gate A는 discovery-context + requirements + system-design 세 refs다. Gate B는 유효 Gate A, unit-spec + scope-manifest + test-plan과 해당 단위에 필요한 환경·DB refs다. create_review가 만든 범위표·예산을 포함한 정확한 presentation을 사용자에게 보여주고 실제 응답/source를 record_decision으로 연결한다.
 
 begin_implementation은 현재 Gate·ChangeIntent·소스·lease를 확인하고 baseline을 확보한다. finish_implementation은 실제 변경과 post-snapshot을 기록한다. snapshot은 workspace 전체 기준이므로 다른 단위 변경 뒤 옛 receipt가 source_changed가 될 수 있다. 현재 workspace의 새 관찰 receipt와 모든 required check를 재실행해야 적용성을 갱신한다.
+
+이미 적용한 같은 승인 범위의 관찰은 begin_implementation의 mode=observe를 명시한다. 실제 파일 변경이 발생하면 관찰 완료가 아니다. 변경 시작 전에는 check_edit_scope를 확인한다. 이 사전 확인은 native 편집기를 가로채는 OS 격리 기능이 아니다.
 
 ## 검사 parser와 중단 복구
 
