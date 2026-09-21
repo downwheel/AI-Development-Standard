@@ -7,10 +7,12 @@
 ## 사용 시작
 
 1. [배포 저장소](https://github.com/downwheel/AI-Development-Standard)의 접근 권한을 받은 뒤 [Sourcetree 배포 가이드](docs/git-distribution.md)에 따라 공통 원본을 clone한다.
-2. [팀원 온보딩](docs/team-onboarding.md)에 따라 개인 경로를 지정해 설치하고, 사용할 Codex 또는 Claude Code의 새 세션에서 Skill과 `team_harness` MCP를 확인한다.
+2. Codex 또는 Claude Code에 **[START-HERE.md](START-HERE.md)를 읽고 초기 설정을 진행해 달라고 요청한다.** AI가 개인 경로·기존 설정을 조사하고 설치·진단·개인 보고서 작성을 진행한다. 직접 설치하려면 [팀원 온보딩](docs/team-onboarding.md)을 따른다.
 3. [사용자 가이드](docs/user-guide.md)의 자연어 예시로 원하는 단계를 요청한다.
 4. 필요한 외부 서비스만 [계정 연결 후속 작업](docs/account-next-steps.md)에 따라 연결한다.
 5. [지원 범위와 한계](docs/support-boundaries.md)를 확인한다. 실제 실행과 문서상 계획은 구분된다.
+
+사용자별 `.env`, 정량 DB 작업, 파일·DB 객체별 필수 범위 승인의 **추가 구현 설계**는 [2.1 보완 계약](docs/designs/development-contract-v2.1.md)에 있다. 현재 2.0.0에 이 기능이 이미 구현됐다는 뜻은 아니다. 스타터도 실제 도구와 schema로 지원 여부를 확인한다.
 
 ## 단계와 승인
 
