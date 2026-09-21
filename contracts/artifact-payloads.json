@@ -1,0 +1,254 @@
+{
+  "discovery-context": {
+    "type": "object",
+    "properties": {},
+    "required": [],
+    "additionalProperties": true
+  },
+  "requirements": {
+    "type": "object",
+    "properties": {
+      "requirements": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "pattern": "^[a-z0-9][a-z0-9_-]{0,95}$",
+              "minLength": 1,
+              "maxLength": 96
+            },
+            "description": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 10000
+            },
+            "case_ids": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "pattern": "^[a-z0-9][a-z0-9_-]{0,95}$",
+                "minLength": 1,
+                "maxLength": 96
+              },
+              "minItems": 1,
+              "maxItems": 100
+            }
+          },
+          "required": [
+            "id",
+            "description",
+            "case_ids"
+          ],
+          "additionalProperties": true
+        },
+        "minItems": 1,
+        "maxItems": 100
+      }
+    },
+    "required": [
+      "requirements"
+    ],
+    "additionalProperties": true
+  },
+  "system-design": {
+    "type": "object",
+    "properties": {
+      "requirement_ids": {
+        "type": "array",
+        "items": {
+          "type": "string",
+          "pattern": "^[a-z0-9][a-z0-9_-]{0,95}$",
+          "minLength": 1,
+          "maxLength": 96
+        },
+        "minItems": 1,
+        "maxItems": 100
+      }
+    },
+    "required": [
+      "requirement_ids"
+    ],
+    "additionalProperties": true
+  },
+  "unit-spec": {
+    "type": "object",
+    "properties": {
+      "requirement_ids": {
+        "type": "array",
+        "items": {
+          "type": "string",
+          "pattern": "^[a-z0-9][a-z0-9_-]{0,95}$",
+          "minLength": 1,
+          "maxLength": 96
+        },
+        "minItems": 1,
+        "maxItems": 100
+      },
+      "case_ids": {
+        "type": "array",
+        "items": {
+          "type": "string",
+          "pattern": "^[a-z0-9][a-z0-9_-]{0,95}$",
+          "minLength": 1,
+          "maxLength": 96
+        },
+        "minItems": 1,
+        "maxItems": 100
+      }
+    },
+    "required": [
+      "requirement_ids",
+      "case_ids"
+    ],
+    "additionalProperties": true
+  },
+  "test-plan": {
+    "type": "object",
+    "properties": {
+      "unit_ref": {
+        "type": "object",
+        "properties": {
+          "artifact_id": {
+            "type": "string",
+            "pattern": "^[a-z0-9][a-z0-9_-]{0,95}$",
+            "minLength": 1,
+            "maxLength": 96
+          },
+          "revision_id": {
+            "type": "string",
+            "pattern": "^[a-z0-9][a-z0-9_-]{0,95}$",
+            "minLength": 1,
+            "maxLength": 96
+          },
+          "sha256": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{64}$"
+          }
+        },
+        "required": [
+          "artifact_id",
+          "revision_id",
+          "sha256"
+        ],
+        "additionalProperties": false
+      },
+      "checks": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "check_id": {
+              "type": "string",
+              "pattern": "^[a-z0-9][a-z0-9_-]{0,95}$",
+              "minLength": 1,
+              "maxLength": 96
+            },
+            "argv": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 4000
+              },
+              "minItems": 1,
+              "maxItems": 100
+            },
+            "cwd": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 512
+            },
+            "timeout_seconds": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 300
+            },
+            "required": {
+              "type": "boolean"
+            },
+            "expected_exit": {
+              "type": "integer",
+              "enum": [
+                0
+              ]
+            },
+            "case_ids": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "pattern": "^[a-z0-9][a-z0-9_-]{0,95}$",
+                "minLength": 1,
+                "maxLength": 96
+              },
+              "minItems": 1,
+              "maxItems": 100
+            },
+            "expected": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 10000
+            },
+            "oracle": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 10000
+            },
+            "evidence_mode": {
+              "type": "string",
+              "enum": [
+                "command-exit",
+                "case-results"
+              ]
+            },
+            "parser": {
+              "type": "string",
+              "enum": [
+                "exit-code",
+                "team-json"
+              ]
+            }
+          },
+          "required": [
+            "check_id",
+            "argv",
+            "cwd",
+            "timeout_seconds",
+            "required",
+            "expected_exit",
+            "case_ids",
+            "expected",
+            "oracle"
+          ],
+          "additionalProperties": false
+        },
+        "minItems": 1,
+        "maxItems": 100
+      }
+    },
+    "required": [
+      "unit_ref",
+      "checks"
+    ],
+    "additionalProperties": true
+  },
+  "review-report": {
+    "type": "object",
+    "properties": {},
+    "required": [],
+    "additionalProperties": true
+  },
+  "implementation-receipt": {
+    "type": "object",
+    "properties": {},
+    "required": [],
+    "additionalProperties": true
+  },
+  "verification-report": {
+    "type": "object",
+    "properties": {},
+    "required": [],
+    "additionalProperties": true
+  }
+}

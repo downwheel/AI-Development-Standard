@@ -1,0 +1,9 @@
+# Release identities hash file bytes. Keep text identical across Git clients.
+* text=auto eol=lf
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.ico binary
+*.pdf binary
+*.zip binary

@@ -1,0 +1,27 @@
+# Shared standards only. Product and personal records must live outside this root.
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.venv/
+runtime.json
+*.local.json
+test-results/
+node_modules/
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.pfx
+
+# Host-generated files and private records never belong in the team repository.
+/settings.json
+/installation.json
+/release-manifest.json
+/installation-backups/
+/releases/
+/state/
+/history/
+/evidence/
+/outputs/
+/work/
