@@ -1,53 +1,68 @@
-# Team Development Standard
+# 팀 개발 표준
 
-자연어 개발 요청을 조사·요구사항·시스템 설계·단위 설계·테스트 설계·구현·실제 검증으로 연결하는 로컬 개발 표준이다. 2.2.0의 12개 Skill이 독립적으로 동작하고, Team Harness의 동일 core를 CLI와 STDIO MCP로 사용한다.
+27개 한국어 개발 스킬과 공통 하네스를 **Codex와 Claude Code**에 배포하는 Git 저장소다. 같은 개발 기준을 유지하면서 호스트별 호출 문법과 설정을 구분한다. 배포 버전은 `manifest.json`이 기준이다.
 
-프로젝트별 산출물과 소스 사본은 **별도 개인 이력**에 보존한다. 이 공통 원본은 팀의 Skill·실행기·계약·양식·시험·가이드만 배포한다. 제품 Git이나 운영 환경을 자동 관리하는 도구가 아니다.
+| 사용 도구 | 시작 문서 | 호출 | 공통 하네스 | 기본 설치 위치 |
+|---|---|---|---|---|
+| Codex | [START-HERE-CODEX.md](START-HERE-CODEX.md) | `$작업길잡이` | `AGENTS.md` | `~/.codex` 또는 `CODEX_HOME` |
+| Claude Code | [START-HERE-CLAUDE.md](START-HERE-CLAUDE.md) | `/작업길잡이` | `CLAUDE.md` | `~/.claude` 또는 `CLAUDE_CONFIG_DIR` |
 
-## 사용 시작
+팀원은 Git clone/pull 후 사용하는 도구에 해당 시작 문서를 읽히면 된다. **Pull만으로 설치된 환경이 갱신되지는 않는다.** Python 3.10 이상으로 설치하며, stdio MCP 실행에는 Node.js 20.18.1 이상과 npm이 필요하다. 두 호스트를 함께 사용하면 각각 설치한다.
 
-1. [배포 저장소](https://github.com/downwheel/AI-Development-Standard)의 접근 권한을 받은 뒤 [Sourcetree 배포 가이드](docs/git-distribution.md)에 따라 공통 원본을 clone한다.
-2. Codex 또는 Claude Code에 **[START-HERE.md](START-HERE.md)를 읽고 초기 설정을 진행해 달라고 요청한다.** AI가 개인 경로·기존 설정을 조사하고 설치·진단·개인 보고서 작성을 진행한다. 직접 설치하려면 [팀원 온보딩](docs/team-onboarding.md)을 따른다.
-3. [사용자 가이드](docs/user-guide.md)의 자연어 예시로 원하는 단계를 요청한다.
-4. [외부 MCP 연결 가이드](integrations/connection-guide.md)로 호스트별 Figma·Context7/OpenAI Docs·브라우저·DB 준비도를 확인한다. 필요한 계정은 [연결 후속 작업](docs/account-next-steps.md)에 따라 연결한다.
-5. [지원 범위와 한계](docs/support-boundaries.md)를 확인한다. 실제 실행과 문서상 계획은 구분된다.
+## 패키지 구성
 
-2.1.0은 개인 `.env` 프로필, 역할별 주입, 필수 파일·DB 범위 승인, SQL Server의 제한된 정량 실행, 서비스·fixture·증거 수집과 완료 판정을 제공한다. [실제 사용법과 지원 한계](docs/v2.1-operations.md)를 먼저 확인한다. 설치 성공과 실제 DB·계정 연결 성공은 별도이며, [최종 설계](docs/designs/development-contract-v2.1.md)의 모든 DB 작업 유형이 실행 가능한 것은 아니다.
+- `skills/codex`, `skills/claude`: 동일한 27개 역할의 호스트별 스킬. 한국어 이름·설명과 LICENSE를 유지한다.
+- `adapters/codex/AGENTS.md`, `adapters/claude/CLAUDE.md`: 개인 지침에 병합할 공통 규칙 블록.
+- `scripts/install_codex.py`, `scripts/install_claude.py`: 미리보기, 백업, 설치·업데이트. 개인 수정과 소유권 충돌을 보존한다.
+- `scripts/verify_codex.py`, `scripts/verify_claude.py`: 패키지·설치 파일 검사와 `--native` 실제 명령 인식 검사.
+- `scripts/configure_tools.py`: Figma·Context7·Awesome Design·GitHub·Playwright 기본 구성. [연결과 인증 안내](docs/INTEGRATIONS.md).
+- `integrations/default-tools.json`: 기본 MCP 주소와 npm 버전. `integrations/awesome-design-md`: 계정 없이 사용하는 디자인 스킬과 공개 참조.
+- `manifest.json`: 패키지 버전과 전체 파일 해시. `scripts/build_package.py`: 검증된 파일만 ZIP으로 생성.
 
-2.2.0은 위 core 계약 2.1을 유지하고 **외부 도구 활용 정책 1**을 새 run에 고정한다. UI는 Figma 우선, 버전 의존 결정은 Context7/OpenAI Docs 우선, UI는 실제 브라우저 관찰, DB는 실제 정량 근거를 적용 단위별로 계획·검사한다. Gate A의 사용 계획과 대안, Gate B의 설계 근거·검증 계획, 완료 시 실행 증거를 연결한다. [MCP 활용 정책과 실제 한계](docs/v2.2-tools.md)를 확인한다.
+팀 스킬 설치는 다른 호스트·외부 MCP 설정을 변경하지 않는다. 시작 문서가 이어서 별도 외부 도구 구성 명령을 실행한다. 기존 설정은 보존하며 계정별 인증 상태를 설치 성공과 구분한다. 기본 27개 팀 스킬과 별도로 디자인 스킬 1개를 설치하거나 기존 플러그인을 재사용한다.
 
-## 단계와 승인
+## 개발과 저장 기준
 
-`dev-discover → dev-requirements → dev-system-design → Gate A → dev-unit-design → dev-test-design → Gate B → dev-implement → dev-verify`
+요구 확인 → 필요한 화면·처리·DB·검증 설계와 시안 → 사용자 승인 → 구현 → 실제 기능·화면 검증 순서로 진행한다. 기존 합의는 재사용하며 승인 후 작업 분할·검사마다 같은 결정을 다시 묻지 않는다. 기존 솔루션에서는 기존 화면과 컴포넌트를 우선하고, Figma가 없어도 로컬 시안으로 설계한다. 사용자 지정 테스트 URL을 재사용하고 실행한 변경이 실제 반영됐는지 확인한다.
 
-Gate A는 조사·요구·시스템 설계의 정확한 버전, Gate B는 단위 설계·변경 범위·테스트 계획과 필요한 환경·DB 계약을 사용자에게 제시한다. 실행기가 같은 scope로 만든 파일·DB 표와 문서 묶음을 승인에 고정한다. AI 검토나 문서 작성 완료는 인간 승인이 아니다. 이미 승인된 같은 범위를 수정·검증할 때는 불필요하게 재승인을 요구하지 않는다.
+16개 직접 호출형과 11개 자동 선택 가능 스킬을 유지한다. Codex는 `agents/openai.yaml`, Claude Code는 `disable-model-invocation`으로 표현한다. 길잡이가 읽기·적용으로 필요한 절차를 연결할 수 있지만 직접 호출형을 자동 모델 호출 허용으로 바꾸지는 않는다. 현재 대화에 예전 목록이 남으면 새 대화에서 확인한다.
 
-보조 Skill은 `dev-environment`(개인 연결 설정), `dev-review`(검토/실제 결정 기록), `dev-artifacts`(조회/비교), `dev-restore`(소스 복원)다. `development-workflow`는 현재 단계를 찾아 주는 선택적 길잡이다. “보여줘”는 자료를 새로 만들거나 승인하지 않는다.
+제품 소스·빌드 설정·프로젝트 하네스는 제품 영역에 둔다. 신규 AI 테스트와 fixture는 외부 Workspace의 `tests`, 설계·중간 문서는 `artifacts`, 검사 결과·cache는 `results`에 둔다. 기존 제품 테스트·문서는 자동 이동하지 않는다. 이미 지정한 Workspace는 유지하고 없으면 사용자 홈의 `AI-Workspace`를 기본으로 사용한다.
 
-## 세 저장 영역
+## 배포 관리
 
-| 영역 | 보관하는 것 |
-|---|---|
-| 공통 원본과 개인 고정 release | Skill·core·schema·template·테스트·가이드 |
-| 개인 state/history/evidence | 프로젝트 등록·설계 revision·승인 근거·검사 attempt·제한된 소스 snapshot |
-| 제품 폴더 | 실제 소스·프로젝트 테스트·lockfile·프로젝트 문서 |
+[운영 기준](docs/ADAPTATIONS.md), [배포 유지보수](docs/MAINTENANCE.md), [구 표준 전환](docs/MIGRATION.md)을 참고한다. 수정은 배포 원본에 반영하고 두 호스트를 검증한다. 개인 경로·인증·백업·설치 receipt는 Git에 넣지 않는다. 원본 LICENSE를 유지하며 패키지를 공유한다.
 
-제품의 정상 편집으로 working-tree diff는 생긴다. Harness 기록을 위해 제품 Git의 index/refs/config/hooks를 바꾸거나 commit/push하지 않는다. 개인 history Git은 별개의 bare 저장소이며 기본 remote가 없다.
+원격 Git 배포는 검토한 변경을 commit/push한 이후 가능하다. 설치나 패키지 생성 요청을 Git 게시 권한으로 해석하지 않는다.
 
-## 실행과 검증
+## 스킬 목록
 
-Python 3.10+와 Git을 사용한다. 공개 입력은 `team_harness.py describe <operation>`과 `contracts/artifact-payloads.json`이 정의한다. 설치된 Skill의 `scripts/harness.py`는 개인 runtime 설정으로 같은 실행기를 호출한다. [실행 예시](docs/user-guide.md#cli로-확인할-때)
-
-공통 테스트는 공통 원본에서 다음과 같이 실행한다. 테스트 fixture에서만 합성 승인과 임시 제품 Git을 사용하며 실제 사용자 승인으로 취급하지 않는다.
-
-```text
-python -B -X utf8 -m unittest discover -s tests -t . -v
-```
-
-개인 JSON 시험 기록은 scripts/validate_standard.py --output "<personal-test-report.json>"으로 남긴다. 설치된 호스트 진단은 scripts/doctor.py를 사용하며 [온보딩의 진단 명령](docs/team-onboarding.md#진단과-공통-시험)을 따른다.
-
-단계별 실제 CLI 연결·승인 차단·조회 불변 확인은 [웹 설정 화면 forward-test](docs/skill-forward-test-report.md)에 기록한다. 이 시험은 브라우저·Figma·외부 계정의 통합 검증을 뜻하지 않는다.
-
-## 후속 연결
-
-공통 Git을 clone해도 개인 호스트 설치나 서비스 로그인이 자동으로 완료되지는 않는다. 팀원은 자신의 GitHub 계정으로 저장소에 접근하고, Codex 또는 Claude Code와 필요한 Figma·Context7·DB·브라우저 MCP를 자신의 환경에 연결한다. 계정·토큰·개인 기록은 공유하지 않는다. Claude CLI가 없는 호스트에서는 파일 준비와 native Skill discovery/MCP 실행 확인을 구분한다.
+| 호출 이름 | 역할 | 선택 방식 |
+|---|---|---|
+| `작업길잡이` | 요청과 진행 상태를 파악해 적합한 개발 절차와 스킬로 연결합니다. | 직접 호출 |
+| `오류진단` | 오류를 재현하고 원인을 검증해 수정과 회귀 검사까지 진행합니다. | 자동 선택 가능 |
+| `요구정리` | 요구사항을 질문으로 구체화하고 확정된 용어와 중요 결정을 기록합니다. | 직접 호출 |
+| `요청분류` | 접수 요청의 중복과 재현 여부를 확인하고 처리 상태와 작업 설명을 정리합니다. | 직접 호출 |
+| `구조개선` | 코드 구조의 문제와 개선 후보를 조사하고 전후 비교 보고서를 만듭니다. | 직접 호출 |
+| `프로젝트설정` | 프로젝트의 이슈 관리와 문서 경로를 설정하고 하네스에 연결합니다. | 직접 호출 |
+| `테스트주도` | 실패 테스트와 최소 구현을 반복해 공개 인터페이스의 동작을 검증합니다. | 자동 선택 가능 |
+| `설계작성` | 화면과 처리, 데이터, 검증 설계를 묶어 제시하고 사용자 승인을 받습니다. | 직접 호출 |
+| `작업분할` | 설계를 검증 가능한 구현 작업으로 나누고 완료 조건과 의존 관계를 정리합니다. | 직접 호출 |
+| `방향탐색` | 크고 불확실한 작업의 결정 지도를 만들고 조사와 질문으로 방향을 정합니다. | 직접 호출 |
+| `구현` | 승인된 작업을 구현하고 관련 검사와 코드 검토까지 완료합니다. | 직접 호출 |
+| `통합구현` | 여러 구현 작업의 의존 관계를 관리하고 통합과 기능 및 화면 검증을 수행합니다. | 직접 호출 |
+| `시제품` | 상태와 로직을 조작하거나 화면 대안을 비교하는 실험용 시제품을 만듭니다. | 자동 선택 가능 |
+| `자료조사` | 공식 문서와 소스를 조사하고 출처가 있는 결과를 외부 작업 공간에 기록합니다. | 자동 선택 가능 |
+| `도메인정리` | 업무 용어를 명확히 하고 코드와 대조해 용어집과 중요한 설계 결정을 정리합니다. | 자동 선택 가능 |
+| `모듈설계` | 모듈의 책임과 인터페이스를 설계하고 교체 지점과 테스트 경계를 검토합니다. | 자동 선택 가능 |
+| `코드검토` | 코드 변경을 저장소 규칙과 요구사항 충족의 두 관점에서 검토합니다. | 자동 선택 가능 |
+| `변경요약` | 변경 구조와 검증 증거, 영향 범위를 정리해 검토할 변경 제안 본문을 작성합니다. | 자동 선택 가능 |
+| `개발회고` | 개발 기록을 분석해 반복 실수와 병목, 스킬 및 하네스의 개선점을 찾습니다. | 직접 호출 |
+| `수동안내` | 사람이 직접 해야 하는 인증과 설정 작업을 단계별 실행 안내로 만듭니다. | 자동 선택 가능 |
+| `구상검토` | 문서 축적 없이 구상의 가정과 결정을 질문으로 검토하고 구체화합니다. | 직접 호출 |
+| `심층질문` | 계획과 결정의 의존 관계를 따져 필요한 질문과 권장안을 묶어 제시합니다. | 자동 선택 가능 |
+| `인수인계` | 결정과 진행 상태, 남은 작업과 참고 경로를 다음 담당자에게 전달합니다. | 직접 호출 |
+| `학습` | 학습 목적과 기록에 맞춰 짧은 수업과 연습, 참고 자료를 만듭니다. | 직접 호출 |
+| `질문서` | 다른 담당자에게 확인할 사실과 결정을 회의나 비동기 응답용 질문서로 만듭니다. | 직접 호출 |
+| `쉬운설명` | 직전 설명에 필요한 맥락을 보태고 익숙한 업무 용어로 쉽게 다시 설명합니다. | 직접 호출 |
+| `지침작성` | 스킬과 하네스의 호출 조건과 절차를 명확히 하고 중복되거나 과한 지침을 줄입니다. | 자동 선택 가능 |

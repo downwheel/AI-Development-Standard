@@ -1,0 +1,5 @@
+interface:
+  display_name: "코드검토"
+  short_description: "코드 변경을 저장소 규칙과 요구사항 충족의 두 관점에서 검토합니다."
+policy:
+  allow_implicit_invocation: true

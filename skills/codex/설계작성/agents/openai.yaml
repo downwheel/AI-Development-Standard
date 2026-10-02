@@ -1,0 +1,5 @@
+interface:
+  display_name: "설계작성"
+  short_description: "화면과 처리, 데이터, 검증 설계를 묶어 제시하고 사용자 승인을 받습니다."
+policy:
+  allow_implicit_invocation: false

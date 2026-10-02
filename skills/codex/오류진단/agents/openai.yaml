@@ -1,0 +1,5 @@
+interface:
+  display_name: "오류진단"
+  short_description: "오류를 재현하고 원인을 검증해 수정과 회귀 검사까지 진행합니다."
+policy:
+  allow_implicit_invocation: true

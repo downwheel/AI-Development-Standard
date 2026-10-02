@@ -1,0 +1,5 @@
+interface:
+  display_name: "구상검토"
+  short_description: "문서 축적 없이 구상의 가정과 결정을 질문으로 검토하고 구체화합니다."
+policy:
+  allow_implicit_invocation: false

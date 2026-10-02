@@ -1,0 +1,5 @@
+interface:
+  display_name: "변경요약"
+  short_description: "변경 구조와 검증 증거, 영향 범위를 정리해 검토할 변경 제안 본문을 작성합니다."
+policy:
+  allow_implicit_invocation: true

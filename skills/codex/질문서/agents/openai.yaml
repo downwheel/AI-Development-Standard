@@ -1,0 +1,5 @@
+interface:
+  display_name: "질문서"
+  short_description: "다른 담당자에게 확인할 사실과 결정을 회의나 비동기 응답용 질문서로 만듭니다."
+policy:
+  allow_implicit_invocation: false

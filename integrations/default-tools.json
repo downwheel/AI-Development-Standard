@@ -1,0 +1,32 @@
+{
+  "schema_version": 1,
+  "tools": {
+    "figma": {
+      "transport": "http",
+      "url": "https://mcp.figma.com/mcp",
+      "authentication": "oauth"
+    },
+    "context7": {
+      "transport": "stdio",
+      "package": "@upstash/context7-mcp@4.1.1",
+      "authentication": "optional CONTEXT7_API_KEY"
+    },
+    "github": {
+      "transport": "http",
+      "url": "https://api.githubcopilot.com/mcp/",
+      "authentication": "GITHUB_PAT_TOKEN"
+    },
+    "playwright": {
+      "transport": "stdio",
+      "package": "@playwright/mcp@0.0.83",
+      "authentication": "none",
+      "browser_windows": "msedge",
+      "browser_other": "chrome"
+    },
+    "awesome-design": {
+      "transport": "skill",
+      "source": "integrations/awesome-design-md",
+      "authentication": "none"
+    }
+  }
+}

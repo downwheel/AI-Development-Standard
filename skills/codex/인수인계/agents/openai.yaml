@@ -1,0 +1,5 @@
+interface:
+  display_name: "인수인계"
+  short_description: "결정과 진행 상태, 남은 작업과 참고 경로를 다음 담당자에게 전달합니다."
+policy:
+  allow_implicit_invocation: false

@@ -1,0 +1,5 @@
+interface:
+  display_name: "학습"
+  short_description: "학습 목적과 기록에 맞춰 짧은 수업과 연습, 참고 자료를 만듭니다."
+policy:
+  allow_implicit_invocation: false

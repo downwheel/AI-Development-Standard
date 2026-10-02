@@ -1,0 +1,5 @@
+interface:
+  display_name: "작업분할"
+  short_description: "설계를 검증 가능한 구현 작업으로 나누고 완료 조건과 의존 관계를 정리합니다."
+policy:
+  allow_implicit_invocation: false
