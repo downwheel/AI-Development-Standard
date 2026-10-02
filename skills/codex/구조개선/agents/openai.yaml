@@ -1,5 +1,0 @@
-interface:
-  display_name: "구조개선"
-  short_description: "코드 구조의 문제와 개선 후보를 조사하고 전후 비교 보고서를 만듭니다."
-policy:
-  allow_implicit_invocation: false

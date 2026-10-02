@@ -1,5 +1,0 @@
-interface:
-  display_name: "심층질문"
-  short_description: "계획과 결정의 의존 관계를 따져 필요한 질문과 권장안을 묶어 제시합니다."
-policy:
-  allow_implicit_invocation: true

@@ -1,0 +1,5 @@
+interface:
+  display_name: "research"
+  short_description: "공식 문서와 소스를 조사하고 출처가 있는 결과를 외부 작업 공간에 기록합니다."
+policy:
+  allow_implicit_invocation: true

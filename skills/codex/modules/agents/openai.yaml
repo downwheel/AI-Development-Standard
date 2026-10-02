@@ -1,0 +1,5 @@
+interface:
+  display_name: "modules"
+  short_description: "모듈의 책임과 인터페이스를 설계하고 교체 지점과 테스트 경계를 검토합니다."
+policy:
+  allow_implicit_invocation: true

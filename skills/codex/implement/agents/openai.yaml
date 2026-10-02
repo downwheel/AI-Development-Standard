@@ -1,0 +1,5 @@
+interface:
+  display_name: "implement"
+  short_description: "승인된 작업을 구현하고 관련 검사와 코드 검토까지 완료합니다."
+policy:
+  allow_implicit_invocation: false

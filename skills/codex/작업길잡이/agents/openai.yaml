@@ -1,5 +1,0 @@
-interface:
-  display_name: "작업길잡이"
-  short_description: "요청과 진행 상태를 파악해 적합한 개발 절차와 스킬로 연결합니다."
-policy:
-  allow_implicit_invocation: false

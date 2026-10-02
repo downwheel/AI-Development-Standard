@@ -3,469 +3,469 @@
   "name": "팀 개발 스킬",
   "edition": "codex-and-claude",
   "skill_names": [
-    "작업길잡이",
-    "오류진단",
-    "요구정리",
-    "요청분류",
-    "구조개선",
-    "프로젝트설정",
-    "테스트주도",
-    "설계작성",
-    "작업분할",
-    "방향탐색",
-    "구현",
-    "통합구현",
-    "시제품",
-    "자료조사",
-    "도메인정리",
-    "모듈설계",
-    "코드검토",
-    "변경요약",
-    "개발회고",
-    "수동안내",
-    "구상검토",
-    "심층질문",
-    "인수인계",
-    "학습",
-    "질문서",
-    "쉬운설명",
-    "지침작성"
+    "hi",
+    "diagnose",
+    "clarify",
+    "triage",
+    "refactor",
+    "setup",
+    "tdd",
+    "design",
+    "tickets",
+    "explore",
+    "implement",
+    "integrate",
+    "prototype",
+    "research",
+    "domain",
+    "modules",
+    "code-review",
+    "pr-summary",
+    "retro",
+    "manual",
+    "discuss",
+    "interview",
+    "handoff",
+    "learn",
+    "questions",
+    "explain",
+    "instruct"
   ],
   "files": [
     {
-      "path": "skills/codex/개발회고/LICENSE",
+      "path": "skills/codex/clarify/LICENSE",
       "sha256": "0e7ac423bf2c6e223b7c5b156f8cf72da49d748e56a1641402c31f22ad07dbb5"
     },
     {
-      "path": "skills/codex/개발회고/SKILL.md",
-      "sha256": "c0f90e51d50fcceaf644d8bfdc429e87ba45cbb3d00d7c8834ced808edf9cd6f"
+      "path": "skills/codex/clarify/SKILL.md",
+      "sha256": "c83647c57611c64ee9ca62df1929ecaae0ba81623809d4861fb24eb1dc8b389c"
     },
     {
-      "path": "skills/codex/개발회고/agents/openai.yaml",
-      "sha256": "57393f6947870d46d12a2f39d1f781a13f82d0cfb9b429cd424ef3abfbbee923"
+      "path": "skills/codex/clarify/agents/openai.yaml",
+      "sha256": "c3785d980fd7db3a95cebeadbff683d74998109054dfbaa9a871c3894b8113c4"
     },
     {
-      "path": "skills/codex/구상검토/LICENSE",
+      "path": "skills/codex/code-review/LICENSE",
       "sha256": "0e7ac423bf2c6e223b7c5b156f8cf72da49d748e56a1641402c31f22ad07dbb5"
     },
     {
-      "path": "skills/codex/구상검토/SKILL.md",
-      "sha256": "0e6e02b564ff95d5f090e19885f9ee6603641d6c47abfadad9725eea1cb7fa88"
+      "path": "skills/codex/code-review/SKILL.md",
+      "sha256": "89a66fc37367def7e38641fd92ca5b0ed9709b69f7e8ede89e17da0597b1987f"
     },
     {
-      "path": "skills/codex/구상검토/agents/openai.yaml",
-      "sha256": "b06928335321c4d8dbb7b44b7b210b8999d8ce6fd6eb62f8e2611ca1e2ac2c16"
+      "path": "skills/codex/code-review/agents/openai.yaml",
+      "sha256": "9a39b962b0e24757024339b5720588984b4240f27bb6ad143bcd8e7eaf5b8b37"
     },
     {
-      "path": "skills/codex/구조개선/HTML-REPORT.md",
-      "sha256": "00b68fb01e398f213efd6fb8e075e5bc6f5a381476fc3bb82b4fcff7446c5de1"
-    },
-    {
-      "path": "skills/codex/구조개선/LICENSE",
+      "path": "skills/codex/design/LICENSE",
       "sha256": "0e7ac423bf2c6e223b7c5b156f8cf72da49d748e56a1641402c31f22ad07dbb5"
     },
     {
-      "path": "skills/codex/구조개선/SKILL.md",
-      "sha256": "4c86484eac1cf5d4764670e7a5b1085c634d6adab536a6e5f10d7cf2ec3c1e33"
+      "path": "skills/codex/design/SKILL.md",
+      "sha256": "6eb48a9f2cde8f3656ee0fdb856e81d0d107cb119ada7bf6e0c9b668377a8b06"
     },
     {
-      "path": "skills/codex/구조개선/agents/openai.yaml",
-      "sha256": "85395ac5134f8fd2daa46ced2faf39d64adbda77ad515f5d4aeee16b3b086a89"
+      "path": "skills/codex/design/agents/openai.yaml",
+      "sha256": "1634654584dc6ba5dd0c64db170613a5534f062ef0613ebc7c1afcaea80af530"
     },
     {
-      "path": "skills/codex/구현/LICENSE",
-      "sha256": "0e7ac423bf2c6e223b7c5b156f8cf72da49d748e56a1641402c31f22ad07dbb5"
+      "path": "skills/codex/design/references/design-package.md",
+      "sha256": "7927a6fac47bdd6e185b00e41d4d6c710c5bf8ce8ada48c47194b247bce661ed"
     },
     {
-      "path": "skills/codex/구현/SKILL.md",
-      "sha256": "feaba0985b5cb200015279e8ec151d4bcdce6a9d3d4ad718db25a00e41d3cb92"
-    },
-    {
-      "path": "skills/codex/구현/agents/openai.yaml",
-      "sha256": "ca9dd94bd073dc3cb73aca21f40aea327f53fd042cd330a194087ba4ea1eedac"
-    },
-    {
-      "path": "skills/codex/도메인정리/ADR-FORMAT.md",
-      "sha256": "944c92aa790e8fbdc9199640b170979abb8a34ba8d0fe18c2a01a63bce140ca0"
-    },
-    {
-      "path": "skills/codex/도메인정리/GLOSSARY-FORMAT.md",
-      "sha256": "21dcc40cdec8e151a829b98ab1517c1867bc444e3665134a98c6983411996801"
-    },
-    {
-      "path": "skills/codex/도메인정리/LICENSE",
-      "sha256": "0e7ac423bf2c6e223b7c5b156f8cf72da49d748e56a1641402c31f22ad07dbb5"
-    },
-    {
-      "path": "skills/codex/도메인정리/SKILL.md",
-      "sha256": "bbce15a423cab20f050a23193ce9ad796ae9f94e30ea9c2dbf67772c93537aa5"
-    },
-    {
-      "path": "skills/codex/도메인정리/agents/openai.yaml",
-      "sha256": "e881515b6594ee56339abeb33c961c2e896fd66a780c40a7e6b407b3e1dac91f"
-    },
-    {
-      "path": "skills/codex/모듈설계/DEEPENING.md",
-      "sha256": "f3dd099ce99289bd213914d8ee3e2429b78309c3957ca4583f7659551b1d53c1"
-    },
-    {
-      "path": "skills/codex/모듈설계/DESIGN-IT-TWICE.md",
-      "sha256": "52b52e75655a27aea59c6966b410bac82448968ad46ef1ebb9f07c274e3ae010"
-    },
-    {
-      "path": "skills/codex/모듈설계/LICENSE",
-      "sha256": "0e7ac423bf2c6e223b7c5b156f8cf72da49d748e56a1641402c31f22ad07dbb5"
-    },
-    {
-      "path": "skills/codex/모듈설계/SKILL.md",
-      "sha256": "e7c5404ed02268b26ce46e9df3b290c67926806a83949293303a6b095c10dbd9"
-    },
-    {
-      "path": "skills/codex/모듈설계/agents/openai.yaml",
-      "sha256": "1eb8ed84b3be080806d1e70b3d154154e7750d2e81485852983c3697b5e8a343"
-    },
-    {
-      "path": "skills/codex/방향탐색/LICENSE",
-      "sha256": "0e7ac423bf2c6e223b7c5b156f8cf72da49d748e56a1641402c31f22ad07dbb5"
-    },
-    {
-      "path": "skills/codex/방향탐색/SKILL.md",
-      "sha256": "841995398fe001946f163a0190ed01ff3bd5228e00ae0c27a502f04ee9dcf451"
-    },
-    {
-      "path": "skills/codex/방향탐색/agents/openai.yaml",
-      "sha256": "b4fffe4d5963ae2542d91d84ad46dcda62250fb4eda730dd4245b661fb4dc6b0"
-    },
-    {
-      "path": "skills/codex/변경요약/CREDITS.md",
-      "sha256": "0d730e534b4bf8f1c07d6d52ca2e0f6b60e71c99803d8ed906cf387af5bb3e8d"
-    },
-    {
-      "path": "skills/codex/변경요약/LICENSE",
-      "sha256": "0e7ac423bf2c6e223b7c5b156f8cf72da49d748e56a1641402c31f22ad07dbb5"
-    },
-    {
-      "path": "skills/codex/변경요약/SKILL.md",
-      "sha256": "ed1494e633c9bcf70595100336aef91586d00d9df5346425611c92a37f1b143d"
-    },
-    {
-      "path": "skills/codex/변경요약/agents/openai.yaml",
-      "sha256": "9a787d97d7ecf7c47e830fcac53d5e702e1f1597c220b310967e9e7ec36660c1"
-    },
-    {
-      "path": "skills/codex/설계작성/LICENSE",
-      "sha256": "0e7ac423bf2c6e223b7c5b156f8cf72da49d748e56a1641402c31f22ad07dbb5"
-    },
-    {
-      "path": "skills/codex/설계작성/SKILL.md",
-      "sha256": "3cc9aa6ff50148a502582f6bf1c0755a2083a85c9c71913c7f0923cd51d0fb2b"
-    },
-    {
-      "path": "skills/codex/설계작성/agents/openai.yaml",
-      "sha256": "8bff30c7c4c6e73fe2ea00d4c0d9288e9ec89fcce0487e5153b2234082660ef8"
-    },
-    {
-      "path": "skills/codex/설계작성/references/design-package.md",
-      "sha256": "73ac6ba0c0e45dcf02989c4d560da606869b9f66fd1008bc099829387e934298"
-    },
-    {
-      "path": "skills/codex/설계작성/references/tool-routing.md",
+      "path": "skills/codex/design/references/tool-routing.md",
       "sha256": "9dfef4756629a22ca06331984d2c405e4d69dfd01a0818d43901f865aa410906"
     },
     {
-      "path": "skills/codex/수동안내/LICENSE",
+      "path": "skills/codex/diagnose/LICENSE",
       "sha256": "0e7ac423bf2c6e223b7c5b156f8cf72da49d748e56a1641402c31f22ad07dbb5"
     },
     {
-      "path": "skills/codex/수동안내/SKILL.md",
-      "sha256": "9aed8752167399d2807e339dece928c8f30bdd29a58c20de321b8fffe7afa729"
+      "path": "skills/codex/diagnose/SKILL.md",
+      "sha256": "d4c67c110269e11f201740a9c25cc5fb80d68e06d14bcb0473955ba18b798432"
     },
     {
-      "path": "skills/codex/수동안내/agents/openai.yaml",
-      "sha256": "f7d0ffafd9148221d409200c30ab0a0a7a47a7937cba44936a63dcf891b05395"
+      "path": "skills/codex/diagnose/agents/openai.yaml",
+      "sha256": "c6c0e92ef61c9466f9d618e80255554c48e0f480e8b168295bc5ece0695f0d05"
     },
     {
-      "path": "skills/codex/수동안내/template.sh",
-      "sha256": "33cbe9dfb1d0e9185b60248a52aabed14bc64785a00cac695e302e739dd6c153"
-    },
-    {
-      "path": "skills/codex/쉬운설명/LICENSE",
-      "sha256": "0e7ac423bf2c6e223b7c5b156f8cf72da49d748e56a1641402c31f22ad07dbb5"
-    },
-    {
-      "path": "skills/codex/쉬운설명/SKILL.md",
-      "sha256": "c4b6e9f4e7f178d92d26548a271d8644644edf430473433a46f0519b3a0eb303"
-    },
-    {
-      "path": "skills/codex/쉬운설명/agents/openai.yaml",
-      "sha256": "bad668c73a97d3f47bbe9a8d015e30f29b48c93cd9f04f0c16111c9da311f0c5"
-    },
-    {
-      "path": "skills/codex/시제품/LICENSE",
-      "sha256": "0e7ac423bf2c6e223b7c5b156f8cf72da49d748e56a1641402c31f22ad07dbb5"
-    },
-    {
-      "path": "skills/codex/시제품/LOGIC.md",
-      "sha256": "f61c7d249e786a79ef289018901c348271e1798dd0b0bc5607b5c6f4d4a01ab9"
-    },
-    {
-      "path": "skills/codex/시제품/SKILL.md",
-      "sha256": "177e077e5ea0f44e47a6323236befc64ca495bd57a0fb853506eca4bd9c92b06"
-    },
-    {
-      "path": "skills/codex/시제품/UI.md",
-      "sha256": "22fd17ab70ab634b453127c48274cbd6312c44b07514eab6b5f710618b3c9ccf"
-    },
-    {
-      "path": "skills/codex/시제품/agents/openai.yaml",
-      "sha256": "9bb68e5fdac376297f6a5f5a1aa5700d3bb6b55c2694bbf2ee84a020b4f13980"
-    },
-    {
-      "path": "skills/codex/심층질문/LICENSE",
-      "sha256": "0e7ac423bf2c6e223b7c5b156f8cf72da49d748e56a1641402c31f22ad07dbb5"
-    },
-    {
-      "path": "skills/codex/심층질문/SKILL.md",
-      "sha256": "406576c4e030168c2ef3da4bcc420e3a93d760d1132319245a3120db3fbaf2b4"
-    },
-    {
-      "path": "skills/codex/심층질문/agents/openai.yaml",
-      "sha256": "4d32db77c0840608d68e317803913e818c16989b75b242d49960b89af79cb822"
-    },
-    {
-      "path": "skills/codex/오류진단/LICENSE",
-      "sha256": "0e7ac423bf2c6e223b7c5b156f8cf72da49d748e56a1641402c31f22ad07dbb5"
-    },
-    {
-      "path": "skills/codex/오류진단/SKILL.md",
-      "sha256": "37e59f7c7b9ce76073f03d4255e9ca6dfe541e8ad371a1b2bb65daa0fefaf682"
-    },
-    {
-      "path": "skills/codex/오류진단/agents/openai.yaml",
-      "sha256": "e75378c8a246e85a9d77d0b052a493fc2039b583d0fd83233b39669ee2bcdad5"
-    },
-    {
-      "path": "skills/codex/오류진단/scripts/hitl-loop.template.sh",
+      "path": "skills/codex/diagnose/scripts/hitl-loop.template.sh",
       "sha256": "35103539fc36873eea36074769ad454f9379d6fc8b2dc0e26ce987fd3bfe5503"
     },
     {
-      "path": "skills/codex/요구정리/LICENSE",
+      "path": "skills/codex/discuss/LICENSE",
       "sha256": "0e7ac423bf2c6e223b7c5b156f8cf72da49d748e56a1641402c31f22ad07dbb5"
     },
     {
-      "path": "skills/codex/요구정리/SKILL.md",
-      "sha256": "2be2290fa239b099871bc8e8698a443d5f8df3d4309014577b44312d210f7801"
+      "path": "skills/codex/discuss/SKILL.md",
+      "sha256": "687b39a871097abf45fa9e38c100e8263512fa8b630b4f07bbbc64ba22f53550"
     },
     {
-      "path": "skills/codex/요구정리/agents/openai.yaml",
-      "sha256": "59586c32e079fa59fb4024cd4b515153e08ce73740718258af99a3f502519333"
+      "path": "skills/codex/discuss/agents/openai.yaml",
+      "sha256": "374dc1700bbf76d3fa8e1082fe4cff838f94b44c96510ccbbd6d97444c4af246"
     },
     {
-      "path": "skills/codex/요청분류/AGENT-BRIEF.md",
-      "sha256": "532c24f090fff7802078cd1dc3842ec73ce84ecb82d27cf3c15425f051219078"
+      "path": "skills/codex/domain/ADR-FORMAT.md",
+      "sha256": "944c92aa790e8fbdc9199640b170979abb8a34ba8d0fe18c2a01a63bce140ca0"
     },
     {
-      "path": "skills/codex/요청분류/LICENSE",
+      "path": "skills/codex/domain/GLOSSARY-FORMAT.md",
+      "sha256": "21dcc40cdec8e151a829b98ab1517c1867bc444e3665134a98c6983411996801"
+    },
+    {
+      "path": "skills/codex/domain/LICENSE",
       "sha256": "0e7ac423bf2c6e223b7c5b156f8cf72da49d748e56a1641402c31f22ad07dbb5"
     },
     {
-      "path": "skills/codex/요청분류/OUT-OF-SCOPE.md",
-      "sha256": "1fbf9b432130c6380aa65813b55553cfda150309b27c595e183f8e335b8a190d"
+      "path": "skills/codex/domain/SKILL.md",
+      "sha256": "90475799e0f5a481dfdbf0bc7eeb44c362555dae5c91ef461b0154e10d025e56"
     },
     {
-      "path": "skills/codex/요청분류/SKILL.md",
-      "sha256": "9c1ae1994626bd32318005cbf357b6f729043c2304219b2994e29169385bbda9"
+      "path": "skills/codex/domain/agents/openai.yaml",
+      "sha256": "a91298498cbc1ca610e06925214eb11c6c00c0ce17285b9a44abe46b768747f9"
     },
     {
-      "path": "skills/codex/요청분류/agents/openai.yaml",
-      "sha256": "2e9d44e8ee913659dcf37a4c01a64648ae5ad571bf8f228d28fd44fe53947d6a"
-    },
-    {
-      "path": "skills/codex/인수인계/LICENSE",
+      "path": "skills/codex/explain/LICENSE",
       "sha256": "0e7ac423bf2c6e223b7c5b156f8cf72da49d748e56a1641402c31f22ad07dbb5"
     },
     {
-      "path": "skills/codex/인수인계/SKILL.md",
-      "sha256": "d06f8955d8c445000500a10279b45c29cbad27f06cc64108460d9c0db7f51b26"
+      "path": "skills/codex/explain/SKILL.md",
+      "sha256": "ed5c16d60e700cc874398beaba8f85266107e14ec12187c021a256576889de5f"
     },
     {
-      "path": "skills/codex/인수인계/agents/openai.yaml",
-      "sha256": "dfd859901e22099abc2f6dfe8d7ae79559156385f5ec934fc6d4adbf57395c5f"
+      "path": "skills/codex/explain/agents/openai.yaml",
+      "sha256": "996f33112ceaa58861dc42b7f575ce1297c3c8c285b904a81e3aaf0b97853d90"
     },
     {
-      "path": "skills/codex/자료조사/LICENSE",
+      "path": "skills/codex/explore/LICENSE",
       "sha256": "0e7ac423bf2c6e223b7c5b156f8cf72da49d748e56a1641402c31f22ad07dbb5"
     },
     {
-      "path": "skills/codex/자료조사/SKILL.md",
-      "sha256": "29b5ba4d3dcd554b2481a93a1310edef8ffc76529e6d61e76ab62326bd4db349"
+      "path": "skills/codex/explore/SKILL.md",
+      "sha256": "2d9bf59132d647d01e0ad82abf746a2662a0ff0e0f2bc9798a67d693ea5f8de3"
     },
     {
-      "path": "skills/codex/자료조사/agents/openai.yaml",
-      "sha256": "dd8a11f731d2f2656c564a1abb8578959b805a26e01f38b246549e9cb7e5e707"
+      "path": "skills/codex/explore/agents/openai.yaml",
+      "sha256": "1a0c8ba4389623fc532c477cc1571de5edabd75c3a32a6c4329588a7aa69b367"
     },
     {
-      "path": "skills/codex/작업길잡이/LICENSE",
+      "path": "skills/codex/handoff/LICENSE",
       "sha256": "0e7ac423bf2c6e223b7c5b156f8cf72da49d748e56a1641402c31f22ad07dbb5"
     },
     {
-      "path": "skills/codex/작업길잡이/PHASE-BOUNDARIES.md",
-      "sha256": "1c8a7c9ba5878030dd017eb1d3655cd100a9f6dd7ec5bd8357b47d77f340ac83"
+      "path": "skills/codex/handoff/SKILL.md",
+      "sha256": "1bed2abc5fccf3834ff16ac5c65aef2ef820ec6141986140c4c8699d305157df"
     },
     {
-      "path": "skills/codex/작업길잡이/SKILL.md",
-      "sha256": "2300750433c1ae997da9aee7420cd8e0730036918ebae04a383a44385d9e2fbc"
+      "path": "skills/codex/handoff/agents/openai.yaml",
+      "sha256": "18237a178e15f5cc9ed58606504def74c0923bc0ddaa99bd73b8abb08971af51"
     },
     {
-      "path": "skills/codex/작업길잡이/agents/openai.yaml",
-      "sha256": "7f6a0248e0a16310a4a8cb392b059631c874456a4f2271f8808f1b6aa2f6d29f"
-    },
-    {
-      "path": "skills/codex/작업분할/LICENSE",
+      "path": "skills/codex/hi/LICENSE",
       "sha256": "0e7ac423bf2c6e223b7c5b156f8cf72da49d748e56a1641402c31f22ad07dbb5"
     },
     {
-      "path": "skills/codex/작업분할/SKILL.md",
-      "sha256": "1fffb37a7bfc0286afe6b036fadb25c1f2d5bb4f1e9f89fb34278a7fe009aa28"
+      "path": "skills/codex/hi/PHASE-BOUNDARIES.md",
+      "sha256": "3baab7ae717a5a7370d8b24a37dbf71a9ae7594ebaa46e1cd75b02dc000dcd33"
     },
     {
-      "path": "skills/codex/작업분할/agents/openai.yaml",
-      "sha256": "84801454639acf9da2d1308769d2a4e553954dcc4f3686d119ea996b11b6f132"
+      "path": "skills/codex/hi/SKILL.md",
+      "sha256": "707b2dad3bbf740cf9d344d22780c935684375bbb19cb9b09be7ee59d8a836f0"
     },
     {
-      "path": "skills/codex/지침작성/LICENSE",
+      "path": "skills/codex/hi/agents/openai.yaml",
+      "sha256": "c2f9bf385f78ed47d6d838bb06075ce9326daae0797e9204f78d619cdef92f27"
+    },
+    {
+      "path": "skills/codex/implement/LICENSE",
       "sha256": "0e7ac423bf2c6e223b7c5b156f8cf72da49d748e56a1641402c31f22ad07dbb5"
     },
     {
-      "path": "skills/codex/지침작성/SKILL-MECHANICS.md",
+      "path": "skills/codex/implement/SKILL.md",
+      "sha256": "56d3a9bb59e459b657b6535ef2f125c548d2d30794b3353dd69381174daa2e1e"
+    },
+    {
+      "path": "skills/codex/implement/agents/openai.yaml",
+      "sha256": "d18406a8d5c812e37780a0f9c3c33b195df1fe798f8cd95a7de7ec829786d6b3"
+    },
+    {
+      "path": "skills/codex/instruct/LICENSE",
+      "sha256": "0e7ac423bf2c6e223b7c5b156f8cf72da49d748e56a1641402c31f22ad07dbb5"
+    },
+    {
+      "path": "skills/codex/instruct/SKILL-MECHANICS.md",
       "sha256": "a981c7b8e043b3a62ba54ae05c4f1ca94b94ef08b40e7ffd7ad8041eb65eebba"
     },
     {
-      "path": "skills/codex/지침작성/SKILL.md",
-      "sha256": "10273cb8e42f44b897ddfc1da2cd618f2ba1c2b6605651c2661da0781aa047dc"
+      "path": "skills/codex/instruct/SKILL.md",
+      "sha256": "d4f1a4de3f430b8655d3ede06dbd9296f9b4cc15afbfdec2f9bacf1af8201710"
     },
     {
-      "path": "skills/codex/지침작성/agents/openai.yaml",
-      "sha256": "11db1b4f63e7962ad98147bd6e63fe345abaebd9d1f40ee3d121d34bec9af011"
+      "path": "skills/codex/instruct/agents/openai.yaml",
+      "sha256": "12beefd0368f682faa90556af281a055657cee238c66f9303da4bad114d71017"
     },
     {
-      "path": "skills/codex/질문서/LICENSE",
+      "path": "skills/codex/integrate/LICENSE",
       "sha256": "0e7ac423bf2c6e223b7c5b156f8cf72da49d748e56a1641402c31f22ad07dbb5"
     },
     {
-      "path": "skills/codex/질문서/SKILL.md",
-      "sha256": "b2bdfdecc92755ec30af621dd7e291504d07903d692ee2af2c131ed8ab577169"
+      "path": "skills/codex/integrate/SKILL.md",
+      "sha256": "eb9481396e6fb4d7da8166248ff5026dfa58f240e30687b321ad2078003d1c49"
     },
     {
-      "path": "skills/codex/질문서/agents/openai.yaml",
-      "sha256": "0b6fcae60bb64d76ea14111023d3535450a75050086a14fd42178444e66277e7"
+      "path": "skills/codex/integrate/agents/openai.yaml",
+      "sha256": "7d423057eabc13fcfa290e08a6cf12106ed76d452d2855aa2f5276be50f1e208"
     },
     {
-      "path": "skills/codex/코드검토/LICENSE",
+      "path": "skills/codex/interview/LICENSE",
       "sha256": "0e7ac423bf2c6e223b7c5b156f8cf72da49d748e56a1641402c31f22ad07dbb5"
     },
     {
-      "path": "skills/codex/코드검토/SKILL.md",
-      "sha256": "65cd6b7b767df87b9c6888c995c9d0570f890c92e9f46c8e5647bee87a79e9ae"
+      "path": "skills/codex/interview/SKILL.md",
+      "sha256": "24ff87d28d2776a4c440e511085abc140316680718125bcbabc108d1597a5ffa"
     },
     {
-      "path": "skills/codex/코드검토/agents/openai.yaml",
-      "sha256": "f5852dbc7ff73910f91b20be48c863511fea2cd73758b62ff4809b895efc2d75"
+      "path": "skills/codex/interview/agents/openai.yaml",
+      "sha256": "af96b6a1a1d3435772efad4ed1574d0507c0de597d208c73a23f3cd25f3d1c7e"
     },
     {
-      "path": "skills/codex/테스트주도/LICENSE",
-      "sha256": "0e7ac423bf2c6e223b7c5b156f8cf72da49d748e56a1641402c31f22ad07dbb5"
-    },
-    {
-      "path": "skills/codex/테스트주도/SKILL.md",
-      "sha256": "a534b76bdc4f78feb9f13e293ca6fc04e8658380fc1f18f5688926eaff95a39d"
-    },
-    {
-      "path": "skills/codex/테스트주도/agents/openai.yaml",
-      "sha256": "c04b5cb93c459cbc25e49d7c96422264824014fb8debddf5d8c54fc6ea1cd63a"
-    },
-    {
-      "path": "skills/codex/테스트주도/mocking.md",
-      "sha256": "3ceb807fdf4a47d6a93d4d9a891e5ba6d362a6247bd08adc451feebfc17361ef"
-    },
-    {
-      "path": "skills/codex/테스트주도/tests.md",
-      "sha256": "859f9e592c188fda4fc7277dd180e4ce9c7a2e13f6efe1f6f29eccc9d28c106a"
-    },
-    {
-      "path": "skills/codex/통합구현/LICENSE",
-      "sha256": "0e7ac423bf2c6e223b7c5b156f8cf72da49d748e56a1641402c31f22ad07dbb5"
-    },
-    {
-      "path": "skills/codex/통합구현/SKILL.md",
-      "sha256": "37fa5c4b3c4bea8e8302ae783c60ffc7ba2a999b0602d1a4e16a13adeeae3841"
-    },
-    {
-      "path": "skills/codex/통합구현/agents/openai.yaml",
-      "sha256": "e6f4fe53da2d537019f0ececef41238f052ffa17c2e0943320ccefcd96a47239"
-    },
-    {
-      "path": "skills/codex/프로젝트설정/LICENSE",
-      "sha256": "0e7ac423bf2c6e223b7c5b156f8cf72da49d748e56a1641402c31f22ad07dbb5"
-    },
-    {
-      "path": "skills/codex/프로젝트설정/SKILL.md",
-      "sha256": "40648ec993e3071c97eaafaf7ad85f46550837d20a7dd96a0b7311e7b6b5c54b"
-    },
-    {
-      "path": "skills/codex/프로젝트설정/agents/openai.yaml",
-      "sha256": "1b29c9b6c9d0487d3d367eee935852f7f58767a0f8586b9b5e0163d4a2d82943"
-    },
-    {
-      "path": "skills/codex/프로젝트설정/domain.md",
-      "sha256": "519f5cc2e13fb6cb3cec0100f0e23e07815076ac5a2a1d2127bd1c0f77d0f17c"
-    },
-    {
-      "path": "skills/codex/프로젝트설정/issue-tracker-github.md",
-      "sha256": "9ce10e7db4cd88babae82e61ce3abcb8e583613447eee27a8706111761f77ec0"
-    },
-    {
-      "path": "skills/codex/프로젝트설정/issue-tracker-gitlab.md",
-      "sha256": "6bb8fd3e43718ec6f36dfac1a0620d7d489934e04e64c0fc70c6baf842e07f32"
-    },
-    {
-      "path": "skills/codex/프로젝트설정/issue-tracker-local.md",
-      "sha256": "f3b8f6999830035b9f50f5d283bc50c045ca166f2a4fe94ade67f3f54b16801b"
-    },
-    {
-      "path": "skills/codex/프로젝트설정/triage-labels.md",
-      "sha256": "ff53641364bf2039c0a6314e22fb2cc10d44d8211f5746539af8fa801ece9e06"
-    },
-    {
-      "path": "skills/codex/학습/GLOSSARY-FORMAT.md",
+      "path": "skills/codex/learn/GLOSSARY-FORMAT.md",
       "sha256": "9b99859ec28437668130d8f2ce5a342938970f8a1ed4fd38c3eab4f4b5fff210"
     },
     {
-      "path": "skills/codex/학습/LEARNING-RECORD-FORMAT.md",
+      "path": "skills/codex/learn/LEARNING-RECORD-FORMAT.md",
       "sha256": "701fa34b6748aa89e6c960ffb815257f481a7d77fb2900f9028f7edf3fdd6052"
     },
     {
-      "path": "skills/codex/학습/LICENSE",
+      "path": "skills/codex/learn/LICENSE",
       "sha256": "0e7ac423bf2c6e223b7c5b156f8cf72da49d748e56a1641402c31f22ad07dbb5"
     },
     {
-      "path": "skills/codex/학습/MISSION-FORMAT.md",
+      "path": "skills/codex/learn/MISSION-FORMAT.md",
       "sha256": "8cacbb3c0644d3ae0ea4965564797099401a6930a23f7cf462918576587f2418"
     },
     {
-      "path": "skills/codex/학습/RESOURCES-FORMAT.md",
+      "path": "skills/codex/learn/RESOURCES-FORMAT.md",
       "sha256": "e9cacf34026e11a8d1c8f9de88abe5bcbf654f4ebdb25cae8c0de0d5f48f44ec"
     },
     {
-      "path": "skills/codex/학습/SKILL.md",
-      "sha256": "9a6d2bc9206ef78088e84ba5eee6216218a1cb97bb3162f85313333ac7972e07"
+      "path": "skills/codex/learn/SKILL.md",
+      "sha256": "25bf4b4f94930d9483777cea1d427fbe8a8ff2588f5e82975f1d2165373f726f"
     },
     {
-      "path": "skills/codex/학습/agents/openai.yaml",
-      "sha256": "20b574e9581a968b0337aa08ed3aab6904e0e965c3564f3cc4200ba129aca085"
+      "path": "skills/codex/learn/agents/openai.yaml",
+      "sha256": "7550a2c3a1d6494ed0d4bdb959c1c41639291866a5b389a50b0c780e5f5b35ac"
+    },
+    {
+      "path": "skills/codex/manual/LICENSE",
+      "sha256": "0e7ac423bf2c6e223b7c5b156f8cf72da49d748e56a1641402c31f22ad07dbb5"
+    },
+    {
+      "path": "skills/codex/manual/SKILL.md",
+      "sha256": "562238ba72e17baa64bf705cbd6c7953ff420f109044ea47a07396494bc42b19"
+    },
+    {
+      "path": "skills/codex/manual/agents/openai.yaml",
+      "sha256": "2452dc3ad73d349cdb8e252f4210a2dc9f9cdab9305c555a68d24f48f749edc2"
+    },
+    {
+      "path": "skills/codex/manual/template.sh",
+      "sha256": "33cbe9dfb1d0e9185b60248a52aabed14bc64785a00cac695e302e739dd6c153"
+    },
+    {
+      "path": "skills/codex/modules/DEEPENING.md",
+      "sha256": "f3dd099ce99289bd213914d8ee3e2429b78309c3957ca4583f7659551b1d53c1"
+    },
+    {
+      "path": "skills/codex/modules/DESIGN-IT-TWICE.md",
+      "sha256": "52b52e75655a27aea59c6966b410bac82448968ad46ef1ebb9f07c274e3ae010"
+    },
+    {
+      "path": "skills/codex/modules/LICENSE",
+      "sha256": "0e7ac423bf2c6e223b7c5b156f8cf72da49d748e56a1641402c31f22ad07dbb5"
+    },
+    {
+      "path": "skills/codex/modules/SKILL.md",
+      "sha256": "6add8e5137590fe7071b431d465f93957e8e777f151d62ad242a73c1c63e0aa4"
+    },
+    {
+      "path": "skills/codex/modules/agents/openai.yaml",
+      "sha256": "f49d91106acd513338376a339561764c50e101c9e8fb8bc87c902f51aad85cce"
+    },
+    {
+      "path": "skills/codex/pr-summary/CREDITS.md",
+      "sha256": "8f8e3043acc85ff42205096e5f8380b8ca976c8ed08d92a69ee3d502b5dddba8"
+    },
+    {
+      "path": "skills/codex/pr-summary/LICENSE",
+      "sha256": "0e7ac423bf2c6e223b7c5b156f8cf72da49d748e56a1641402c31f22ad07dbb5"
+    },
+    {
+      "path": "skills/codex/pr-summary/SKILL.md",
+      "sha256": "dc8dee67eb5ebf7688b1b6519c98b610c77b173bcfc0034ab40ce44a6f6cc760"
+    },
+    {
+      "path": "skills/codex/pr-summary/agents/openai.yaml",
+      "sha256": "a6cce9760f83309004e7c19fedab7dde648d6c83a150af5dd19aab8b44b1ac5a"
+    },
+    {
+      "path": "skills/codex/prototype/LICENSE",
+      "sha256": "0e7ac423bf2c6e223b7c5b156f8cf72da49d748e56a1641402c31f22ad07dbb5"
+    },
+    {
+      "path": "skills/codex/prototype/LOGIC.md",
+      "sha256": "f61c7d249e786a79ef289018901c348271e1798dd0b0bc5607b5c6f4d4a01ab9"
+    },
+    {
+      "path": "skills/codex/prototype/SKILL.md",
+      "sha256": "accb3cbbae1177c809438457669e58dca6aa77270425e9501de7163c57f54bc0"
+    },
+    {
+      "path": "skills/codex/prototype/UI.md",
+      "sha256": "723211e878acbc7b6ff09755263f3295cde724ba902ff0064da41eed51d45ad3"
+    },
+    {
+      "path": "skills/codex/prototype/agents/openai.yaml",
+      "sha256": "babe3fcc40acb6d25847d34dd6cf9b04c4a6c59546b17a2dd8ff69f178feb55a"
+    },
+    {
+      "path": "skills/codex/questions/LICENSE",
+      "sha256": "0e7ac423bf2c6e223b7c5b156f8cf72da49d748e56a1641402c31f22ad07dbb5"
+    },
+    {
+      "path": "skills/codex/questions/SKILL.md",
+      "sha256": "eafc1299ba547f87849bb79741a51ee3990074cfd8f2664def1bb7f76c01c07d"
+    },
+    {
+      "path": "skills/codex/questions/agents/openai.yaml",
+      "sha256": "30f5fed5a1330bb55c72317e978c04ecf25f7e4b12d0a253f5db46d45c6e19bf"
+    },
+    {
+      "path": "skills/codex/refactor/HTML-REPORT.md",
+      "sha256": "ecab6a0851c0637bada314416bad8312adea583acaaaf8d5f4d3f583ad340d1c"
+    },
+    {
+      "path": "skills/codex/refactor/LICENSE",
+      "sha256": "0e7ac423bf2c6e223b7c5b156f8cf72da49d748e56a1641402c31f22ad07dbb5"
+    },
+    {
+      "path": "skills/codex/refactor/SKILL.md",
+      "sha256": "5943cd5470f0fae2041dc11ce39b1cf7b4554a835c87eb50664c76eb5e351c4e"
+    },
+    {
+      "path": "skills/codex/refactor/agents/openai.yaml",
+      "sha256": "84b238d8af150e8533a127ae7a8bfcd4422c4ad44ef73286858bcd718572e57a"
+    },
+    {
+      "path": "skills/codex/research/LICENSE",
+      "sha256": "0e7ac423bf2c6e223b7c5b156f8cf72da49d748e56a1641402c31f22ad07dbb5"
+    },
+    {
+      "path": "skills/codex/research/SKILL.md",
+      "sha256": "dde46e96c5b87f44165222801e9f310a47e06541f232c1ed543db194dba37ab4"
+    },
+    {
+      "path": "skills/codex/research/agents/openai.yaml",
+      "sha256": "c5657c6c9c50b9b92b73f85023a3d9e68020f4d22df1aa258d0d27a43add4ad8"
+    },
+    {
+      "path": "skills/codex/retro/LICENSE",
+      "sha256": "0e7ac423bf2c6e223b7c5b156f8cf72da49d748e56a1641402c31f22ad07dbb5"
+    },
+    {
+      "path": "skills/codex/retro/SKILL.md",
+      "sha256": "f0ecb5c11d96e1ddbd7165d974ed15e96ae5c454a6a3b6b6e3ea1fcd8068fdd1"
+    },
+    {
+      "path": "skills/codex/retro/agents/openai.yaml",
+      "sha256": "ce5e2e3b0ca720cc4f55a24ba400780bbcbb13755e2ac167c397b6e652793dbf"
+    },
+    {
+      "path": "skills/codex/setup/LICENSE",
+      "sha256": "0e7ac423bf2c6e223b7c5b156f8cf72da49d748e56a1641402c31f22ad07dbb5"
+    },
+    {
+      "path": "skills/codex/setup/SKILL.md",
+      "sha256": "c3ff6ce1ac4cdc9c886c460230f1cef4536666c4b8e069f71c5adb81ee1e9341"
+    },
+    {
+      "path": "skills/codex/setup/agents/openai.yaml",
+      "sha256": "b71944d0cc28a73aea75203a935e2c2622a3d3b3d8157f51959e34382787c4ed"
+    },
+    {
+      "path": "skills/codex/setup/domain.md",
+      "sha256": "0f3691581d6b7659a4f9e386609e29ebb8380838657c06b66fbebf6ef02ff639"
+    },
+    {
+      "path": "skills/codex/setup/issue-tracker-github.md",
+      "sha256": "3013a73db7e07115f4e349565e594a1208ad1d8acca57c5c71b3a856dd65ffeb"
+    },
+    {
+      "path": "skills/codex/setup/issue-tracker-gitlab.md",
+      "sha256": "88ec5d4da8ea5d107a987e8184f8861defe85e68ad35fdca9ccf58b479333449"
+    },
+    {
+      "path": "skills/codex/setup/issue-tracker-local.md",
+      "sha256": "6f19cd10863a6d9c1b1057e8e13e3580e2b76fe062cbffa47d8a9d8c1a95f63d"
+    },
+    {
+      "path": "skills/codex/setup/triage-labels.md",
+      "sha256": "ff53641364bf2039c0a6314e22fb2cc10d44d8211f5746539af8fa801ece9e06"
+    },
+    {
+      "path": "skills/codex/tdd/LICENSE",
+      "sha256": "0e7ac423bf2c6e223b7c5b156f8cf72da49d748e56a1641402c31f22ad07dbb5"
+    },
+    {
+      "path": "skills/codex/tdd/SKILL.md",
+      "sha256": "55e93229d0ea9286efebe3b674cf173442d52eea94a4bd96611d185fd3ab5467"
+    },
+    {
+      "path": "skills/codex/tdd/agents/openai.yaml",
+      "sha256": "607010e599286bf203ca61b4ab99ce4fc1e743f9b2b5c2bd9fbcb8f7879465da"
+    },
+    {
+      "path": "skills/codex/tdd/mocking.md",
+      "sha256": "3ceb807fdf4a47d6a93d4d9a891e5ba6d362a6247bd08adc451feebfc17361ef"
+    },
+    {
+      "path": "skills/codex/tdd/tests.md",
+      "sha256": "859f9e592c188fda4fc7277dd180e4ce9c7a2e13f6efe1f6f29eccc9d28c106a"
+    },
+    {
+      "path": "skills/codex/tickets/LICENSE",
+      "sha256": "0e7ac423bf2c6e223b7c5b156f8cf72da49d748e56a1641402c31f22ad07dbb5"
+    },
+    {
+      "path": "skills/codex/tickets/SKILL.md",
+      "sha256": "0e7339c7111dfe87c24a1e148c79516bf6a2f4475c79cba4941d78498601056a"
+    },
+    {
+      "path": "skills/codex/tickets/agents/openai.yaml",
+      "sha256": "1a92b7f31a6ce628a1fa1dc8b31d829fd9c468bb481b15c0fcbf692d6791de6a"
+    },
+    {
+      "path": "skills/codex/triage/AGENT-BRIEF.md",
+      "sha256": "154c51d1192d262aa64376d7b70fbaecb61cebdc6936b92014078384be1dec63"
+    },
+    {
+      "path": "skills/codex/triage/LICENSE",
+      "sha256": "0e7ac423bf2c6e223b7c5b156f8cf72da49d748e56a1641402c31f22ad07dbb5"
+    },
+    {
+      "path": "skills/codex/triage/OUT-OF-SCOPE.md",
+      "sha256": "1fbf9b432130c6380aa65813b55553cfda150309b27c595e183f8e335b8a190d"
+    },
+    {
+      "path": "skills/codex/triage/SKILL.md",
+      "sha256": "bce6f6923edb12387da62caed5af6bcc4e3759c11db6b71eac0cd397008b20a2"
+    },
+    {
+      "path": "skills/codex/triage/agents/openai.yaml",
+      "sha256": "a65faee211c1476c2d0690d49dd3095e886826f9087b2698bd42ea2093e763c8"
     }
   ],
-  "version": "3.1.0",
+  "version": "3.2.0",
   "package_files": [
     {
       "path": ".gitattributes",
@@ -489,15 +489,15 @@
     },
     {
       "path": "README.md",
-      "sha256": "0df54a86b9c0eb81dd9e6e6e57b439857bc6c106d749db30d8a8e7fb12e0400f"
+      "sha256": "f6a016e6a8943d36bb008813d52e421755ad4bcb9570231393f9f2e8bc455344"
     },
     {
       "path": "START-HERE-CLAUDE.md",
-      "sha256": "f3527ac247e5b1e8f90df80d0a340fb1b55dfeeab958b03d69c57884a33c31a0"
+      "sha256": "cc4f623a2bbb74861b1d3dc20dfacc41556c24e3c3ef187836b46d4c6fb8f9f4"
     },
     {
       "path": "START-HERE-CODEX.md",
-      "sha256": "e357bd10d878e240cf1bca86ad6ac6ba32c90a04dd72642f02e7efef4f0547a5"
+      "sha256": "09a9e460504c58e125ad76de9e5de3cd264fd572cc19ad1d60ee6fa48a4625ea"
     },
     {
       "path": "START-HERE.md",
@@ -505,15 +505,15 @@
     },
     {
       "path": "adapters/claude/CLAUDE.md",
-      "sha256": "a002d877dde6a04ef90d8d7936cd5553ea45e20aeb17ad1d4ed2bde9be2e63cc"
+      "sha256": "b92c4e492898149355fb1b305781252bebeb220891c9cb65b8153ea3ba774101"
     },
     {
       "path": "adapters/codex/AGENTS.md",
-      "sha256": "9b700ed5ec0763f82b1cf7ce587eb9040d6955b42f36b330cba2952b9655f625"
+      "sha256": "90c86aa9041be21a08357438fc38b3123bb34297d4a91f3668c953cf13409cc9"
     },
     {
       "path": "docs/ADAPTATIONS.md",
-      "sha256": "6bee89cf5e233c4610e6be8207c302a1450c0ac9b93f3b62b751a92b7a31fd75"
+      "sha256": "82de8d6497013d75c5be18c10f1c7b6aaa88924e3a1a4be018614bb027985162"
     },
     {
       "path": "docs/INTEGRATIONS.md",
@@ -521,11 +521,15 @@
     },
     {
       "path": "docs/MAINTENANCE.md",
-      "sha256": "18443989038027d221e6a8b4e0ae7984bde1d2bf1c164235571baec758572c7e"
+      "sha256": "1cfbae4b3d45ba6570d15e64d8eeea350e3ac7cf2e388852a2f7647b1c158d75"
     },
     {
       "path": "docs/MIGRATION.md",
-      "sha256": "edde0329b416651d86c49751b552a34d665345d329b991cf1fddec9433d70972"
+      "sha256": "07cb4b99bed3f0bf4fed31ca3635f15e8b2ee7fece232915b452ec6ff70b87f3"
+    },
+    {
+      "path": "docs/SKILL-NAMES.md",
+      "sha256": "809d77952c726cd760ad30511300e26051d38cd05b9159bb5d835a71a73553f7"
     },
     {
       "path": "integrations/awesome-design-md/LICENSE",
@@ -861,7 +865,7 @@
     },
     {
       "path": "scripts/package_lib.py",
-      "sha256": "db18aa0639abd3c0cd24a39bf5212a15095a70b63541c383ad8c333c2145b240"
+      "sha256": "b697a6cb7a16ff1a7765605f7ad6d5882f78ea07525204579859ca2a14e09664"
     },
     {
       "path": "scripts/update_manifest.py",
@@ -876,1086 +880,1086 @@
       "sha256": "bc071605af9e44d020c928115a956e26f2ca3418c35869c096c2e91e32e1f161"
     },
     {
-      "path": "skills/claude/개발회고/LICENSE",
+      "path": "skills/claude/clarify/LICENSE",
       "sha256": "0e7ac423bf2c6e223b7c5b156f8cf72da49d748e56a1641402c31f22ad07dbb5"
     },
     {
-      "path": "skills/claude/개발회고/SKILL.md",
-      "sha256": "42cbab9921a4832ebd88ed2900b9fcafd4077f9163f1eb9fea9d434b7e2f2d85"
+      "path": "skills/claude/clarify/SKILL.md",
+      "sha256": "6772e2d9e85e7cee64ac11289f7da335e8c487bb1057950c0b5a23df2046cbbd"
     },
     {
-      "path": "skills/claude/구상검토/LICENSE",
+      "path": "skills/claude/code-review/LICENSE",
       "sha256": "0e7ac423bf2c6e223b7c5b156f8cf72da49d748e56a1641402c31f22ad07dbb5"
     },
     {
-      "path": "skills/claude/구상검토/SKILL.md",
-      "sha256": "acabc6b1c5052f15a72f9514eadd76a28c385df33f7228d42bc63228b99495f0"
+      "path": "skills/claude/code-review/SKILL.md",
+      "sha256": "a6b565a470af7a22d53815d4f78c974842cda4f002de2f52d72b76112366922c"
     },
     {
-      "path": "skills/claude/구조개선/HTML-REPORT.md",
-      "sha256": "34d7be42230e60f09641ea329cfb3f84cc6314f2be51f21666a1c479abdf3f0b"
-    },
-    {
-      "path": "skills/claude/구조개선/LICENSE",
+      "path": "skills/claude/design/LICENSE",
       "sha256": "0e7ac423bf2c6e223b7c5b156f8cf72da49d748e56a1641402c31f22ad07dbb5"
     },
     {
-      "path": "skills/claude/구조개선/SKILL.md",
-      "sha256": "9c6b0c60a901491ab2d77f3881611484b2b7ed830cee0f41c2f5bf5c7941ceb9"
+      "path": "skills/claude/design/SKILL.md",
+      "sha256": "2b16bd0a3b52cd1260d7450b716c6cc2696fc70e40b509875373a7b89f804d47"
     },
     {
-      "path": "skills/claude/구현/LICENSE",
-      "sha256": "0e7ac423bf2c6e223b7c5b156f8cf72da49d748e56a1641402c31f22ad07dbb5"
+      "path": "skills/claude/design/references/design-package.md",
+      "sha256": "7927a6fac47bdd6e185b00e41d4d6c710c5bf8ce8ada48c47194b247bce661ed"
     },
     {
-      "path": "skills/claude/구현/SKILL.md",
-      "sha256": "e45ca8e328a433ab5561972d6c944ba692a1f1b218567b9a552d9143931a5c79"
-    },
-    {
-      "path": "skills/claude/도메인정리/ADR-FORMAT.md",
-      "sha256": "944c92aa790e8fbdc9199640b170979abb8a34ba8d0fe18c2a01a63bce140ca0"
-    },
-    {
-      "path": "skills/claude/도메인정리/GLOSSARY-FORMAT.md",
-      "sha256": "21dcc40cdec8e151a829b98ab1517c1867bc444e3665134a98c6983411996801"
-    },
-    {
-      "path": "skills/claude/도메인정리/LICENSE",
-      "sha256": "0e7ac423bf2c6e223b7c5b156f8cf72da49d748e56a1641402c31f22ad07dbb5"
-    },
-    {
-      "path": "skills/claude/도메인정리/SKILL.md",
-      "sha256": "9e58d9539edf3c3e8e365595b940c547043ea00b2040f9a4429f76d5d67e0891"
-    },
-    {
-      "path": "skills/claude/모듈설계/DEEPENING.md",
-      "sha256": "f3dd099ce99289bd213914d8ee3e2429b78309c3957ca4583f7659551b1d53c1"
-    },
-    {
-      "path": "skills/claude/모듈설계/DESIGN-IT-TWICE.md",
-      "sha256": "52b52e75655a27aea59c6966b410bac82448968ad46ef1ebb9f07c274e3ae010"
-    },
-    {
-      "path": "skills/claude/모듈설계/LICENSE",
-      "sha256": "0e7ac423bf2c6e223b7c5b156f8cf72da49d748e56a1641402c31f22ad07dbb5"
-    },
-    {
-      "path": "skills/claude/모듈설계/SKILL.md",
-      "sha256": "ac59af85670ec824be78cf1790163fb358b6b0d813ad52b28ad3eaa733ef370d"
-    },
-    {
-      "path": "skills/claude/방향탐색/LICENSE",
-      "sha256": "0e7ac423bf2c6e223b7c5b156f8cf72da49d748e56a1641402c31f22ad07dbb5"
-    },
-    {
-      "path": "skills/claude/방향탐색/SKILL.md",
-      "sha256": "a988c7345a5f44da5e27af7b7965773849049e859dafe73db52b5cc247fe9bad"
-    },
-    {
-      "path": "skills/claude/변경요약/CREDITS.md",
-      "sha256": "0d730e534b4bf8f1c07d6d52ca2e0f6b60e71c99803d8ed906cf387af5bb3e8d"
-    },
-    {
-      "path": "skills/claude/변경요약/LICENSE",
-      "sha256": "0e7ac423bf2c6e223b7c5b156f8cf72da49d748e56a1641402c31f22ad07dbb5"
-    },
-    {
-      "path": "skills/claude/변경요약/SKILL.md",
-      "sha256": "ba9e3290e1e92cab97f946870956895a4c5de95a357b0ca910934e399616ffc4"
-    },
-    {
-      "path": "skills/claude/설계작성/LICENSE",
-      "sha256": "0e7ac423bf2c6e223b7c5b156f8cf72da49d748e56a1641402c31f22ad07dbb5"
-    },
-    {
-      "path": "skills/claude/설계작성/SKILL.md",
-      "sha256": "7e03a1ff2152f156feb813b61ecb345a4e547f07b0beb3b3fe33bb8cb81686f4"
-    },
-    {
-      "path": "skills/claude/설계작성/references/design-package.md",
-      "sha256": "73ac6ba0c0e45dcf02989c4d560da606869b9f66fd1008bc099829387e934298"
-    },
-    {
-      "path": "skills/claude/설계작성/references/tool-routing.md",
+      "path": "skills/claude/design/references/tool-routing.md",
       "sha256": "9dfef4756629a22ca06331984d2c405e4d69dfd01a0818d43901f865aa410906"
     },
     {
-      "path": "skills/claude/수동안내/LICENSE",
+      "path": "skills/claude/diagnose/LICENSE",
       "sha256": "0e7ac423bf2c6e223b7c5b156f8cf72da49d748e56a1641402c31f22ad07dbb5"
     },
     {
-      "path": "skills/claude/수동안내/SKILL.md",
-      "sha256": "47a56407b8a8851afc950007f700e7ae748eec20d1a5d9b4521b7b3cf3685c36"
+      "path": "skills/claude/diagnose/SKILL.md",
+      "sha256": "23a3158b35d3ec548048d86eb87881362c272db173e2e96939e6ab8509b01cd1"
     },
     {
-      "path": "skills/claude/수동안내/template.sh",
-      "sha256": "33cbe9dfb1d0e9185b60248a52aabed14bc64785a00cac695e302e739dd6c153"
-    },
-    {
-      "path": "skills/claude/쉬운설명/LICENSE",
-      "sha256": "0e7ac423bf2c6e223b7c5b156f8cf72da49d748e56a1641402c31f22ad07dbb5"
-    },
-    {
-      "path": "skills/claude/쉬운설명/SKILL.md",
-      "sha256": "18e49cce07a276d50d7e61c43104ab01c0f7d7146215e5888379e17b1debaa0c"
-    },
-    {
-      "path": "skills/claude/시제품/LICENSE",
-      "sha256": "0e7ac423bf2c6e223b7c5b156f8cf72da49d748e56a1641402c31f22ad07dbb5"
-    },
-    {
-      "path": "skills/claude/시제품/LOGIC.md",
-      "sha256": "f61c7d249e786a79ef289018901c348271e1798dd0b0bc5607b5c6f4d4a01ab9"
-    },
-    {
-      "path": "skills/claude/시제품/SKILL.md",
-      "sha256": "bcec3befb9b4c9648557c277b7c1521d62608db7ec553a1aa6eb30fb52ffd53d"
-    },
-    {
-      "path": "skills/claude/시제품/UI.md",
-      "sha256": "22fd17ab70ab634b453127c48274cbd6312c44b07514eab6b5f710618b3c9ccf"
-    },
-    {
-      "path": "skills/claude/심층질문/LICENSE",
-      "sha256": "0e7ac423bf2c6e223b7c5b156f8cf72da49d748e56a1641402c31f22ad07dbb5"
-    },
-    {
-      "path": "skills/claude/심층질문/SKILL.md",
-      "sha256": "b9536617233d4ae7099969b7f53f88da9e17dfbabb0d5345c25768c3e347e6ff"
-    },
-    {
-      "path": "skills/claude/오류진단/LICENSE",
-      "sha256": "0e7ac423bf2c6e223b7c5b156f8cf72da49d748e56a1641402c31f22ad07dbb5"
-    },
-    {
-      "path": "skills/claude/오류진단/SKILL.md",
-      "sha256": "a26a8748b4d68acf8fa6e33af3d2337a4e4e62b85a444fa8d1014ad184645632"
-    },
-    {
-      "path": "skills/claude/오류진단/scripts/hitl-loop.template.sh",
+      "path": "skills/claude/diagnose/scripts/hitl-loop.template.sh",
       "sha256": "35103539fc36873eea36074769ad454f9379d6fc8b2dc0e26ce987fd3bfe5503"
     },
     {
-      "path": "skills/claude/요구정리/LICENSE",
+      "path": "skills/claude/discuss/LICENSE",
       "sha256": "0e7ac423bf2c6e223b7c5b156f8cf72da49d748e56a1641402c31f22ad07dbb5"
     },
     {
-      "path": "skills/claude/요구정리/SKILL.md",
-      "sha256": "a2676856504dac78f83cd3415f56fd130d5d15f928c90235963345b25aa44bfb"
+      "path": "skills/claude/discuss/SKILL.md",
+      "sha256": "884bffe0b261509bd7e5d6c9bf0f2b2133d5b480c7a0de7b7dd55044ad2d9bee"
     },
     {
-      "path": "skills/claude/요청분류/AGENT-BRIEF.md",
-      "sha256": "1ded543964e39e70567baf3ef3ef975fab9c18f4a0e0eeed8f5f8b3e28bb2e59"
+      "path": "skills/claude/domain/ADR-FORMAT.md",
+      "sha256": "944c92aa790e8fbdc9199640b170979abb8a34ba8d0fe18c2a01a63bce140ca0"
     },
     {
-      "path": "skills/claude/요청분류/LICENSE",
+      "path": "skills/claude/domain/GLOSSARY-FORMAT.md",
+      "sha256": "21dcc40cdec8e151a829b98ab1517c1867bc444e3665134a98c6983411996801"
+    },
+    {
+      "path": "skills/claude/domain/LICENSE",
       "sha256": "0e7ac423bf2c6e223b7c5b156f8cf72da49d748e56a1641402c31f22ad07dbb5"
     },
     {
-      "path": "skills/claude/요청분류/OUT-OF-SCOPE.md",
-      "sha256": "1fbf9b432130c6380aa65813b55553cfda150309b27c595e183f8e335b8a190d"
+      "path": "skills/claude/domain/SKILL.md",
+      "sha256": "3b977d1da1761a3b169f50b2b433d3e239abd960614faff73aec9c069c4d6410"
     },
     {
-      "path": "skills/claude/요청분류/SKILL.md",
-      "sha256": "5eb2903548b88326c597755ccaaa89f29eb1acca32e2879aa3dccf817fbd7945"
-    },
-    {
-      "path": "skills/claude/인수인계/LICENSE",
+      "path": "skills/claude/explain/LICENSE",
       "sha256": "0e7ac423bf2c6e223b7c5b156f8cf72da49d748e56a1641402c31f22ad07dbb5"
     },
     {
-      "path": "skills/claude/인수인계/SKILL.md",
-      "sha256": "6a8c066d80125980efb351538554bb493fe642f26b5debe997744fdf9b7a679a"
+      "path": "skills/claude/explain/SKILL.md",
+      "sha256": "4f210bcc8d91bfa5e0beebf0677a3ce2e1d9f7488102e18474a89aaf410ea55b"
     },
     {
-      "path": "skills/claude/자료조사/LICENSE",
+      "path": "skills/claude/explore/LICENSE",
       "sha256": "0e7ac423bf2c6e223b7c5b156f8cf72da49d748e56a1641402c31f22ad07dbb5"
     },
     {
-      "path": "skills/claude/자료조사/SKILL.md",
-      "sha256": "f579c991dbfcd05170cbabb6721f1c5d31cffc9120e3713afdc21c06b3876a6c"
+      "path": "skills/claude/explore/SKILL.md",
+      "sha256": "48410ae693dd7a74da25a96708f66798a94419e5eabb7d0941bd415a1a9dfdf5"
     },
     {
-      "path": "skills/claude/작업길잡이/LICENSE",
+      "path": "skills/claude/handoff/LICENSE",
       "sha256": "0e7ac423bf2c6e223b7c5b156f8cf72da49d748e56a1641402c31f22ad07dbb5"
     },
     {
-      "path": "skills/claude/작업길잡이/PHASE-BOUNDARIES.md",
-      "sha256": "5d6ace00c99ac4eb8ea92b4bd950942e8668b2a9195bc78144fd3b26a5cfbcb8"
+      "path": "skills/claude/handoff/SKILL.md",
+      "sha256": "a60cbd74e99d91426a285d043e227ecc1df60f2f59eb171b380efec58eff778a"
     },
     {
-      "path": "skills/claude/작업길잡이/SKILL.md",
-      "sha256": "bad1f382c2b851ee6911b3f11cef9aa8e9f9ed5c6ecd364228a910346e5625ed"
-    },
-    {
-      "path": "skills/claude/작업분할/LICENSE",
+      "path": "skills/claude/hi/LICENSE",
       "sha256": "0e7ac423bf2c6e223b7c5b156f8cf72da49d748e56a1641402c31f22ad07dbb5"
     },
     {
-      "path": "skills/claude/작업분할/SKILL.md",
-      "sha256": "d93e1188c3b0f80bc110b62b63bb19d68ab03d9db3af642d4568dc9bb55a9da0"
+      "path": "skills/claude/hi/PHASE-BOUNDARIES.md",
+      "sha256": "3fa917bb1b41e0aaed5a7a7b4586a72262cf98ac7967bf75579d7fe9b839fbf6"
     },
     {
-      "path": "skills/claude/지침작성/LICENSE",
+      "path": "skills/claude/hi/SKILL.md",
+      "sha256": "daf50f96c143946ce6d07a9e54180c44381549d48ab22eb2d3104b6bcac7595c"
+    },
+    {
+      "path": "skills/claude/implement/LICENSE",
       "sha256": "0e7ac423bf2c6e223b7c5b156f8cf72da49d748e56a1641402c31f22ad07dbb5"
     },
     {
-      "path": "skills/claude/지침작성/SKILL-MECHANICS.md",
+      "path": "skills/claude/implement/SKILL.md",
+      "sha256": "e8431b4d20284abd9657f2c5cd8f1a2b4d8a74c0657991bd25648b6b5f5c975c"
+    },
+    {
+      "path": "skills/claude/instruct/LICENSE",
+      "sha256": "0e7ac423bf2c6e223b7c5b156f8cf72da49d748e56a1641402c31f22ad07dbb5"
+    },
+    {
+      "path": "skills/claude/instruct/SKILL-MECHANICS.md",
       "sha256": "e1d95aa6f027ee5e2d745484197671ae50728e712dd92ef90cd8cfe2abbbdee2"
     },
     {
-      "path": "skills/claude/지침작성/SKILL.md",
-      "sha256": "8a98961a06e06d0f8b4459e79f66c985a0dd2779122111772efcbe44d243192c"
+      "path": "skills/claude/instruct/SKILL.md",
+      "sha256": "a0ded8b4d1f51c795968417f05289a4e96c428aad97d75b398fdfbc4fae454cf"
     },
     {
-      "path": "skills/claude/질문서/LICENSE",
+      "path": "skills/claude/integrate/LICENSE",
       "sha256": "0e7ac423bf2c6e223b7c5b156f8cf72da49d748e56a1641402c31f22ad07dbb5"
     },
     {
-      "path": "skills/claude/질문서/SKILL.md",
-      "sha256": "27e064ee3375c85c1b1ec6290b90b122bdf50405e270dbd8b095486f7c0b23bc"
+      "path": "skills/claude/integrate/SKILL.md",
+      "sha256": "620e0fcccb9a47daebc9b39a1b685e16dfe6199a286b902e64c471cf5168a82d"
     },
     {
-      "path": "skills/claude/코드검토/LICENSE",
+      "path": "skills/claude/interview/LICENSE",
       "sha256": "0e7ac423bf2c6e223b7c5b156f8cf72da49d748e56a1641402c31f22ad07dbb5"
     },
     {
-      "path": "skills/claude/코드검토/SKILL.md",
-      "sha256": "dbd43fff5ba31a9c99d5ce7b2bb5042338859e4f3d1a1d0e258968e357f2e6f2"
+      "path": "skills/claude/interview/SKILL.md",
+      "sha256": "c0ee2f4fa7212f872e636bdd2cdefef30be64d7e3118536fd3de46f813cf49cb"
     },
     {
-      "path": "skills/claude/테스트주도/LICENSE",
-      "sha256": "0e7ac423bf2c6e223b7c5b156f8cf72da49d748e56a1641402c31f22ad07dbb5"
-    },
-    {
-      "path": "skills/claude/테스트주도/SKILL.md",
-      "sha256": "ae6cf14e9009519466bd24711cf25da5bd8a5eabdb5a2c9ad2762953cf77ccc7"
-    },
-    {
-      "path": "skills/claude/테스트주도/mocking.md",
-      "sha256": "3ceb807fdf4a47d6a93d4d9a891e5ba6d362a6247bd08adc451feebfc17361ef"
-    },
-    {
-      "path": "skills/claude/테스트주도/tests.md",
-      "sha256": "859f9e592c188fda4fc7277dd180e4ce9c7a2e13f6efe1f6f29eccc9d28c106a"
-    },
-    {
-      "path": "skills/claude/통합구현/LICENSE",
-      "sha256": "0e7ac423bf2c6e223b7c5b156f8cf72da49d748e56a1641402c31f22ad07dbb5"
-    },
-    {
-      "path": "skills/claude/통합구현/SKILL.md",
-      "sha256": "5aa889619b783608a7e644ce4c0b001f0e1a60a720a48c2846b61bd60d4c6651"
-    },
-    {
-      "path": "skills/claude/프로젝트설정/LICENSE",
-      "sha256": "0e7ac423bf2c6e223b7c5b156f8cf72da49d748e56a1641402c31f22ad07dbb5"
-    },
-    {
-      "path": "skills/claude/프로젝트설정/SKILL.md",
-      "sha256": "3b4c51e67b41702da16a8dbb0b6fd1f25fa743bc557adf7111ce8d7410da3536"
-    },
-    {
-      "path": "skills/claude/프로젝트설정/domain.md",
-      "sha256": "cd574f39786c59bead27878ebad11e2e067e91fb559c9bf145b5d11681c63361"
-    },
-    {
-      "path": "skills/claude/프로젝트설정/issue-tracker-github.md",
-      "sha256": "ef23b7df7a5b8053bccd20c4c8ddc0b4e30aaf1470eeb810be388436dcc420a2"
-    },
-    {
-      "path": "skills/claude/프로젝트설정/issue-tracker-gitlab.md",
-      "sha256": "6fd974880c8a25c89b353ec3979a60883abc6800554b637bc4473b6ae006a356"
-    },
-    {
-      "path": "skills/claude/프로젝트설정/issue-tracker-local.md",
-      "sha256": "41ba711373401febacfedb2877919f7412a184b3aae447efb77ced0317a30f1c"
-    },
-    {
-      "path": "skills/claude/프로젝트설정/triage-labels.md",
-      "sha256": "ff53641364bf2039c0a6314e22fb2cc10d44d8211f5746539af8fa801ece9e06"
-    },
-    {
-      "path": "skills/claude/학습/GLOSSARY-FORMAT.md",
+      "path": "skills/claude/learn/GLOSSARY-FORMAT.md",
       "sha256": "9b99859ec28437668130d8f2ce5a342938970f8a1ed4fd38c3eab4f4b5fff210"
     },
     {
-      "path": "skills/claude/학습/LEARNING-RECORD-FORMAT.md",
+      "path": "skills/claude/learn/LEARNING-RECORD-FORMAT.md",
       "sha256": "701fa34b6748aa89e6c960ffb815257f481a7d77fb2900f9028f7edf3fdd6052"
     },
     {
-      "path": "skills/claude/학습/LICENSE",
+      "path": "skills/claude/learn/LICENSE",
       "sha256": "0e7ac423bf2c6e223b7c5b156f8cf72da49d748e56a1641402c31f22ad07dbb5"
     },
     {
-      "path": "skills/claude/학습/MISSION-FORMAT.md",
+      "path": "skills/claude/learn/MISSION-FORMAT.md",
       "sha256": "8cacbb3c0644d3ae0ea4965564797099401a6930a23f7cf462918576587f2418"
     },
     {
-      "path": "skills/claude/학습/RESOURCES-FORMAT.md",
+      "path": "skills/claude/learn/RESOURCES-FORMAT.md",
       "sha256": "e9cacf34026e11a8d1c8f9de88abe5bcbf654f4ebdb25cae8c0de0d5f48f44ec"
     },
     {
-      "path": "skills/claude/학습/SKILL.md",
-      "sha256": "4d620890e7de3e80ce4690e544b0c9068a3d3bfb16ed52bf8da028282f2943f1"
+      "path": "skills/claude/learn/SKILL.md",
+      "sha256": "3a23e7a5ad85d3606af2686add10b39f9d4e84a58dbffb96993b05b44321504d"
     },
     {
-      "path": "skills/codex/개발회고/LICENSE",
+      "path": "skills/claude/manual/LICENSE",
       "sha256": "0e7ac423bf2c6e223b7c5b156f8cf72da49d748e56a1641402c31f22ad07dbb5"
     },
     {
-      "path": "skills/codex/개발회고/SKILL.md",
-      "sha256": "c0f90e51d50fcceaf644d8bfdc429e87ba45cbb3d00d7c8834ced808edf9cd6f"
+      "path": "skills/claude/manual/SKILL.md",
+      "sha256": "b33b50a23b56a6b25abf158cdcfeb79ce28356913b3cd49e6d693b36bc02d16c"
     },
     {
-      "path": "skills/codex/개발회고/agents/openai.yaml",
-      "sha256": "57393f6947870d46d12a2f39d1f781a13f82d0cfb9b429cd424ef3abfbbee923"
-    },
-    {
-      "path": "skills/codex/구상검토/LICENSE",
-      "sha256": "0e7ac423bf2c6e223b7c5b156f8cf72da49d748e56a1641402c31f22ad07dbb5"
-    },
-    {
-      "path": "skills/codex/구상검토/SKILL.md",
-      "sha256": "0e6e02b564ff95d5f090e19885f9ee6603641d6c47abfadad9725eea1cb7fa88"
-    },
-    {
-      "path": "skills/codex/구상검토/agents/openai.yaml",
-      "sha256": "b06928335321c4d8dbb7b44b7b210b8999d8ce6fd6eb62f8e2611ca1e2ac2c16"
-    },
-    {
-      "path": "skills/codex/구조개선/HTML-REPORT.md",
-      "sha256": "00b68fb01e398f213efd6fb8e075e5bc6f5a381476fc3bb82b4fcff7446c5de1"
-    },
-    {
-      "path": "skills/codex/구조개선/LICENSE",
-      "sha256": "0e7ac423bf2c6e223b7c5b156f8cf72da49d748e56a1641402c31f22ad07dbb5"
-    },
-    {
-      "path": "skills/codex/구조개선/SKILL.md",
-      "sha256": "4c86484eac1cf5d4764670e7a5b1085c634d6adab536a6e5f10d7cf2ec3c1e33"
-    },
-    {
-      "path": "skills/codex/구조개선/agents/openai.yaml",
-      "sha256": "85395ac5134f8fd2daa46ced2faf39d64adbda77ad515f5d4aeee16b3b086a89"
-    },
-    {
-      "path": "skills/codex/구현/LICENSE",
-      "sha256": "0e7ac423bf2c6e223b7c5b156f8cf72da49d748e56a1641402c31f22ad07dbb5"
-    },
-    {
-      "path": "skills/codex/구현/SKILL.md",
-      "sha256": "feaba0985b5cb200015279e8ec151d4bcdce6a9d3d4ad718db25a00e41d3cb92"
-    },
-    {
-      "path": "skills/codex/구현/agents/openai.yaml",
-      "sha256": "ca9dd94bd073dc3cb73aca21f40aea327f53fd042cd330a194087ba4ea1eedac"
-    },
-    {
-      "path": "skills/codex/도메인정리/ADR-FORMAT.md",
-      "sha256": "944c92aa790e8fbdc9199640b170979abb8a34ba8d0fe18c2a01a63bce140ca0"
-    },
-    {
-      "path": "skills/codex/도메인정리/GLOSSARY-FORMAT.md",
-      "sha256": "21dcc40cdec8e151a829b98ab1517c1867bc444e3665134a98c6983411996801"
-    },
-    {
-      "path": "skills/codex/도메인정리/LICENSE",
-      "sha256": "0e7ac423bf2c6e223b7c5b156f8cf72da49d748e56a1641402c31f22ad07dbb5"
-    },
-    {
-      "path": "skills/codex/도메인정리/SKILL.md",
-      "sha256": "bbce15a423cab20f050a23193ce9ad796ae9f94e30ea9c2dbf67772c93537aa5"
-    },
-    {
-      "path": "skills/codex/도메인정리/agents/openai.yaml",
-      "sha256": "e881515b6594ee56339abeb33c961c2e896fd66a780c40a7e6b407b3e1dac91f"
-    },
-    {
-      "path": "skills/codex/모듈설계/DEEPENING.md",
-      "sha256": "f3dd099ce99289bd213914d8ee3e2429b78309c3957ca4583f7659551b1d53c1"
-    },
-    {
-      "path": "skills/codex/모듈설계/DESIGN-IT-TWICE.md",
-      "sha256": "52b52e75655a27aea59c6966b410bac82448968ad46ef1ebb9f07c274e3ae010"
-    },
-    {
-      "path": "skills/codex/모듈설계/LICENSE",
-      "sha256": "0e7ac423bf2c6e223b7c5b156f8cf72da49d748e56a1641402c31f22ad07dbb5"
-    },
-    {
-      "path": "skills/codex/모듈설계/SKILL.md",
-      "sha256": "e7c5404ed02268b26ce46e9df3b290c67926806a83949293303a6b095c10dbd9"
-    },
-    {
-      "path": "skills/codex/모듈설계/agents/openai.yaml",
-      "sha256": "1eb8ed84b3be080806d1e70b3d154154e7750d2e81485852983c3697b5e8a343"
-    },
-    {
-      "path": "skills/codex/방향탐색/LICENSE",
-      "sha256": "0e7ac423bf2c6e223b7c5b156f8cf72da49d748e56a1641402c31f22ad07dbb5"
-    },
-    {
-      "path": "skills/codex/방향탐색/SKILL.md",
-      "sha256": "841995398fe001946f163a0190ed01ff3bd5228e00ae0c27a502f04ee9dcf451"
-    },
-    {
-      "path": "skills/codex/방향탐색/agents/openai.yaml",
-      "sha256": "b4fffe4d5963ae2542d91d84ad46dcda62250fb4eda730dd4245b661fb4dc6b0"
-    },
-    {
-      "path": "skills/codex/변경요약/CREDITS.md",
-      "sha256": "0d730e534b4bf8f1c07d6d52ca2e0f6b60e71c99803d8ed906cf387af5bb3e8d"
-    },
-    {
-      "path": "skills/codex/변경요약/LICENSE",
-      "sha256": "0e7ac423bf2c6e223b7c5b156f8cf72da49d748e56a1641402c31f22ad07dbb5"
-    },
-    {
-      "path": "skills/codex/변경요약/SKILL.md",
-      "sha256": "ed1494e633c9bcf70595100336aef91586d00d9df5346425611c92a37f1b143d"
-    },
-    {
-      "path": "skills/codex/변경요약/agents/openai.yaml",
-      "sha256": "9a787d97d7ecf7c47e830fcac53d5e702e1f1597c220b310967e9e7ec36660c1"
-    },
-    {
-      "path": "skills/codex/설계작성/LICENSE",
-      "sha256": "0e7ac423bf2c6e223b7c5b156f8cf72da49d748e56a1641402c31f22ad07dbb5"
-    },
-    {
-      "path": "skills/codex/설계작성/SKILL.md",
-      "sha256": "3cc9aa6ff50148a502582f6bf1c0755a2083a85c9c71913c7f0923cd51d0fb2b"
-    },
-    {
-      "path": "skills/codex/설계작성/agents/openai.yaml",
-      "sha256": "8bff30c7c4c6e73fe2ea00d4c0d9288e9ec89fcce0487e5153b2234082660ef8"
-    },
-    {
-      "path": "skills/codex/설계작성/references/design-package.md",
-      "sha256": "73ac6ba0c0e45dcf02989c4d560da606869b9f66fd1008bc099829387e934298"
-    },
-    {
-      "path": "skills/codex/설계작성/references/tool-routing.md",
-      "sha256": "9dfef4756629a22ca06331984d2c405e4d69dfd01a0818d43901f865aa410906"
-    },
-    {
-      "path": "skills/codex/수동안내/LICENSE",
-      "sha256": "0e7ac423bf2c6e223b7c5b156f8cf72da49d748e56a1641402c31f22ad07dbb5"
-    },
-    {
-      "path": "skills/codex/수동안내/SKILL.md",
-      "sha256": "9aed8752167399d2807e339dece928c8f30bdd29a58c20de321b8fffe7afa729"
-    },
-    {
-      "path": "skills/codex/수동안내/agents/openai.yaml",
-      "sha256": "f7d0ffafd9148221d409200c30ab0a0a7a47a7937cba44936a63dcf891b05395"
-    },
-    {
-      "path": "skills/codex/수동안내/template.sh",
+      "path": "skills/claude/manual/template.sh",
       "sha256": "33cbe9dfb1d0e9185b60248a52aabed14bc64785a00cac695e302e739dd6c153"
     },
     {
-      "path": "skills/codex/쉬운설명/LICENSE",
+      "path": "skills/claude/modules/DEEPENING.md",
+      "sha256": "f3dd099ce99289bd213914d8ee3e2429b78309c3957ca4583f7659551b1d53c1"
+    },
+    {
+      "path": "skills/claude/modules/DESIGN-IT-TWICE.md",
+      "sha256": "52b52e75655a27aea59c6966b410bac82448968ad46ef1ebb9f07c274e3ae010"
+    },
+    {
+      "path": "skills/claude/modules/LICENSE",
       "sha256": "0e7ac423bf2c6e223b7c5b156f8cf72da49d748e56a1641402c31f22ad07dbb5"
     },
     {
-      "path": "skills/codex/쉬운설명/SKILL.md",
-      "sha256": "c4b6e9f4e7f178d92d26548a271d8644644edf430473433a46f0519b3a0eb303"
+      "path": "skills/claude/modules/SKILL.md",
+      "sha256": "af5b430cd2f3cf421099589dff9a47127177dcfa305c1e59b5dc53c71bbf0347"
     },
     {
-      "path": "skills/codex/쉬운설명/agents/openai.yaml",
-      "sha256": "bad668c73a97d3f47bbe9a8d015e30f29b48c93cd9f04f0c16111c9da311f0c5"
+      "path": "skills/claude/pr-summary/CREDITS.md",
+      "sha256": "8f8e3043acc85ff42205096e5f8380b8ca976c8ed08d92a69ee3d502b5dddba8"
     },
     {
-      "path": "skills/codex/시제품/LICENSE",
+      "path": "skills/claude/pr-summary/LICENSE",
       "sha256": "0e7ac423bf2c6e223b7c5b156f8cf72da49d748e56a1641402c31f22ad07dbb5"
     },
     {
-      "path": "skills/codex/시제품/LOGIC.md",
+      "path": "skills/claude/pr-summary/SKILL.md",
+      "sha256": "ecef1296cdbfe76634fac5da89d0d06a8db4b77283a9672da34b7a31c93763a9"
+    },
+    {
+      "path": "skills/claude/prototype/LICENSE",
+      "sha256": "0e7ac423bf2c6e223b7c5b156f8cf72da49d748e56a1641402c31f22ad07dbb5"
+    },
+    {
+      "path": "skills/claude/prototype/LOGIC.md",
       "sha256": "f61c7d249e786a79ef289018901c348271e1798dd0b0bc5607b5c6f4d4a01ab9"
     },
     {
-      "path": "skills/codex/시제품/SKILL.md",
-      "sha256": "177e077e5ea0f44e47a6323236befc64ca495bd57a0fb853506eca4bd9c92b06"
+      "path": "skills/claude/prototype/SKILL.md",
+      "sha256": "121f9e4aa66b1b87310ea9ca07fbbe03813af6f25a79e417f0faa2a3cde5a89d"
     },
     {
-      "path": "skills/codex/시제품/UI.md",
-      "sha256": "22fd17ab70ab634b453127c48274cbd6312c44b07514eab6b5f710618b3c9ccf"
+      "path": "skills/claude/prototype/UI.md",
+      "sha256": "723211e878acbc7b6ff09755263f3295cde724ba902ff0064da41eed51d45ad3"
     },
     {
-      "path": "skills/codex/시제품/agents/openai.yaml",
-      "sha256": "9bb68e5fdac376297f6a5f5a1aa5700d3bb6b55c2694bbf2ee84a020b4f13980"
-    },
-    {
-      "path": "skills/codex/심층질문/LICENSE",
+      "path": "skills/claude/questions/LICENSE",
       "sha256": "0e7ac423bf2c6e223b7c5b156f8cf72da49d748e56a1641402c31f22ad07dbb5"
     },
     {
-      "path": "skills/codex/심층질문/SKILL.md",
-      "sha256": "406576c4e030168c2ef3da4bcc420e3a93d760d1132319245a3120db3fbaf2b4"
+      "path": "skills/claude/questions/SKILL.md",
+      "sha256": "4aebee9fd67d2de3865ff28f77093a0e1c489ac6cbcf223097ffac762add54cc"
     },
     {
-      "path": "skills/codex/심층질문/agents/openai.yaml",
-      "sha256": "4d32db77c0840608d68e317803913e818c16989b75b242d49960b89af79cb822"
+      "path": "skills/claude/refactor/HTML-REPORT.md",
+      "sha256": "356404ca0138e0cc971b6c3fc6cbe5e7339bbd113db43e6306628ef01cf43f98"
     },
     {
-      "path": "skills/codex/오류진단/LICENSE",
+      "path": "skills/claude/refactor/LICENSE",
       "sha256": "0e7ac423bf2c6e223b7c5b156f8cf72da49d748e56a1641402c31f22ad07dbb5"
     },
     {
-      "path": "skills/codex/오류진단/SKILL.md",
-      "sha256": "37e59f7c7b9ce76073f03d4255e9ca6dfe541e8ad371a1b2bb65daa0fefaf682"
+      "path": "skills/claude/refactor/SKILL.md",
+      "sha256": "33da12e9a6b5d756bae36f0c0aee27f17d2b3ba969063a69b036986e7a6b2bd2"
     },
     {
-      "path": "skills/codex/오류진단/agents/openai.yaml",
-      "sha256": "e75378c8a246e85a9d77d0b052a493fc2039b583d0fd83233b39669ee2bcdad5"
-    },
-    {
-      "path": "skills/codex/오류진단/scripts/hitl-loop.template.sh",
-      "sha256": "35103539fc36873eea36074769ad454f9379d6fc8b2dc0e26ce987fd3bfe5503"
-    },
-    {
-      "path": "skills/codex/요구정리/LICENSE",
+      "path": "skills/claude/research/LICENSE",
       "sha256": "0e7ac423bf2c6e223b7c5b156f8cf72da49d748e56a1641402c31f22ad07dbb5"
     },
     {
-      "path": "skills/codex/요구정리/SKILL.md",
-      "sha256": "2be2290fa239b099871bc8e8698a443d5f8df3d4309014577b44312d210f7801"
+      "path": "skills/claude/research/SKILL.md",
+      "sha256": "9ff4019a6fc6e4890e92dc0cdf12ebcdef3d932d3f02a979ceea9f8032761cd1"
     },
     {
-      "path": "skills/codex/요구정리/agents/openai.yaml",
-      "sha256": "59586c32e079fa59fb4024cd4b515153e08ce73740718258af99a3f502519333"
-    },
-    {
-      "path": "skills/codex/요청분류/AGENT-BRIEF.md",
-      "sha256": "532c24f090fff7802078cd1dc3842ec73ce84ecb82d27cf3c15425f051219078"
-    },
-    {
-      "path": "skills/codex/요청분류/LICENSE",
+      "path": "skills/claude/retro/LICENSE",
       "sha256": "0e7ac423bf2c6e223b7c5b156f8cf72da49d748e56a1641402c31f22ad07dbb5"
     },
     {
-      "path": "skills/codex/요청분류/OUT-OF-SCOPE.md",
-      "sha256": "1fbf9b432130c6380aa65813b55553cfda150309b27c595e183f8e335b8a190d"
+      "path": "skills/claude/retro/SKILL.md",
+      "sha256": "d557fb2f46993420c3c84bcc0a86b38cb8dc5987628d65fa2abb8bc308fd03a0"
     },
     {
-      "path": "skills/codex/요청분류/SKILL.md",
-      "sha256": "9c1ae1994626bd32318005cbf357b6f729043c2304219b2994e29169385bbda9"
-    },
-    {
-      "path": "skills/codex/요청분류/agents/openai.yaml",
-      "sha256": "2e9d44e8ee913659dcf37a4c01a64648ae5ad571bf8f228d28fd44fe53947d6a"
-    },
-    {
-      "path": "skills/codex/인수인계/LICENSE",
+      "path": "skills/claude/setup/LICENSE",
       "sha256": "0e7ac423bf2c6e223b7c5b156f8cf72da49d748e56a1641402c31f22ad07dbb5"
     },
     {
-      "path": "skills/codex/인수인계/SKILL.md",
-      "sha256": "d06f8955d8c445000500a10279b45c29cbad27f06cc64108460d9c0db7f51b26"
+      "path": "skills/claude/setup/SKILL.md",
+      "sha256": "95bd0f22b16ef5b904c3bb1bdacb5756e54c5179fa681c911f189269ea02dd26"
     },
     {
-      "path": "skills/codex/인수인계/agents/openai.yaml",
-      "sha256": "dfd859901e22099abc2f6dfe8d7ae79559156385f5ec934fc6d4adbf57395c5f"
+      "path": "skills/claude/setup/domain.md",
+      "sha256": "ab871e2208e03518f1d324fd3d1ab900afb0e3737cd5b376621c5fcae0e2d66b"
     },
     {
-      "path": "skills/codex/자료조사/LICENSE",
-      "sha256": "0e7ac423bf2c6e223b7c5b156f8cf72da49d748e56a1641402c31f22ad07dbb5"
+      "path": "skills/claude/setup/issue-tracker-github.md",
+      "sha256": "cac9ab99a33955a078f7c13123da105306357c878740ffabc8f30b992c58c5fa"
     },
     {
-      "path": "skills/codex/자료조사/SKILL.md",
-      "sha256": "29b5ba4d3dcd554b2481a93a1310edef8ffc76529e6d61e76ab62326bd4db349"
+      "path": "skills/claude/setup/issue-tracker-gitlab.md",
+      "sha256": "3682c5ce9adceb014be72956fc287989529761ea966b8032ecd332805fa835d5"
     },
     {
-      "path": "skills/codex/자료조사/agents/openai.yaml",
-      "sha256": "dd8a11f731d2f2656c564a1abb8578959b805a26e01f38b246549e9cb7e5e707"
+      "path": "skills/claude/setup/issue-tracker-local.md",
+      "sha256": "27e9b2b88bbdb615b54c6505c8cc022665993c1edecb0a3bb08ca4df1caf58a8"
     },
     {
-      "path": "skills/codex/작업길잡이/LICENSE",
-      "sha256": "0e7ac423bf2c6e223b7c5b156f8cf72da49d748e56a1641402c31f22ad07dbb5"
-    },
-    {
-      "path": "skills/codex/작업길잡이/PHASE-BOUNDARIES.md",
-      "sha256": "1c8a7c9ba5878030dd017eb1d3655cd100a9f6dd7ec5bd8357b47d77f340ac83"
-    },
-    {
-      "path": "skills/codex/작업길잡이/SKILL.md",
-      "sha256": "2300750433c1ae997da9aee7420cd8e0730036918ebae04a383a44385d9e2fbc"
-    },
-    {
-      "path": "skills/codex/작업길잡이/agents/openai.yaml",
-      "sha256": "7f6a0248e0a16310a4a8cb392b059631c874456a4f2271f8808f1b6aa2f6d29f"
-    },
-    {
-      "path": "skills/codex/작업분할/LICENSE",
-      "sha256": "0e7ac423bf2c6e223b7c5b156f8cf72da49d748e56a1641402c31f22ad07dbb5"
-    },
-    {
-      "path": "skills/codex/작업분할/SKILL.md",
-      "sha256": "1fffb37a7bfc0286afe6b036fadb25c1f2d5bb4f1e9f89fb34278a7fe009aa28"
-    },
-    {
-      "path": "skills/codex/작업분할/agents/openai.yaml",
-      "sha256": "84801454639acf9da2d1308769d2a4e553954dcc4f3686d119ea996b11b6f132"
-    },
-    {
-      "path": "skills/codex/지침작성/LICENSE",
-      "sha256": "0e7ac423bf2c6e223b7c5b156f8cf72da49d748e56a1641402c31f22ad07dbb5"
-    },
-    {
-      "path": "skills/codex/지침작성/SKILL-MECHANICS.md",
-      "sha256": "a981c7b8e043b3a62ba54ae05c4f1ca94b94ef08b40e7ffd7ad8041eb65eebba"
-    },
-    {
-      "path": "skills/codex/지침작성/SKILL.md",
-      "sha256": "10273cb8e42f44b897ddfc1da2cd618f2ba1c2b6605651c2661da0781aa047dc"
-    },
-    {
-      "path": "skills/codex/지침작성/agents/openai.yaml",
-      "sha256": "11db1b4f63e7962ad98147bd6e63fe345abaebd9d1f40ee3d121d34bec9af011"
-    },
-    {
-      "path": "skills/codex/질문서/LICENSE",
-      "sha256": "0e7ac423bf2c6e223b7c5b156f8cf72da49d748e56a1641402c31f22ad07dbb5"
-    },
-    {
-      "path": "skills/codex/질문서/SKILL.md",
-      "sha256": "b2bdfdecc92755ec30af621dd7e291504d07903d692ee2af2c131ed8ab577169"
-    },
-    {
-      "path": "skills/codex/질문서/agents/openai.yaml",
-      "sha256": "0b6fcae60bb64d76ea14111023d3535450a75050086a14fd42178444e66277e7"
-    },
-    {
-      "path": "skills/codex/코드검토/LICENSE",
-      "sha256": "0e7ac423bf2c6e223b7c5b156f8cf72da49d748e56a1641402c31f22ad07dbb5"
-    },
-    {
-      "path": "skills/codex/코드검토/SKILL.md",
-      "sha256": "65cd6b7b767df87b9c6888c995c9d0570f890c92e9f46c8e5647bee87a79e9ae"
-    },
-    {
-      "path": "skills/codex/코드검토/agents/openai.yaml",
-      "sha256": "f5852dbc7ff73910f91b20be48c863511fea2cd73758b62ff4809b895efc2d75"
-    },
-    {
-      "path": "skills/codex/테스트주도/LICENSE",
-      "sha256": "0e7ac423bf2c6e223b7c5b156f8cf72da49d748e56a1641402c31f22ad07dbb5"
-    },
-    {
-      "path": "skills/codex/테스트주도/SKILL.md",
-      "sha256": "a534b76bdc4f78feb9f13e293ca6fc04e8658380fc1f18f5688926eaff95a39d"
-    },
-    {
-      "path": "skills/codex/테스트주도/agents/openai.yaml",
-      "sha256": "c04b5cb93c459cbc25e49d7c96422264824014fb8debddf5d8c54fc6ea1cd63a"
-    },
-    {
-      "path": "skills/codex/테스트주도/mocking.md",
-      "sha256": "3ceb807fdf4a47d6a93d4d9a891e5ba6d362a6247bd08adc451feebfc17361ef"
-    },
-    {
-      "path": "skills/codex/테스트주도/tests.md",
-      "sha256": "859f9e592c188fda4fc7277dd180e4ce9c7a2e13f6efe1f6f29eccc9d28c106a"
-    },
-    {
-      "path": "skills/codex/통합구현/LICENSE",
-      "sha256": "0e7ac423bf2c6e223b7c5b156f8cf72da49d748e56a1641402c31f22ad07dbb5"
-    },
-    {
-      "path": "skills/codex/통합구현/SKILL.md",
-      "sha256": "37fa5c4b3c4bea8e8302ae783c60ffc7ba2a999b0602d1a4e16a13adeeae3841"
-    },
-    {
-      "path": "skills/codex/통합구현/agents/openai.yaml",
-      "sha256": "e6f4fe53da2d537019f0ececef41238f052ffa17c2e0943320ccefcd96a47239"
-    },
-    {
-      "path": "skills/codex/프로젝트설정/LICENSE",
-      "sha256": "0e7ac423bf2c6e223b7c5b156f8cf72da49d748e56a1641402c31f22ad07dbb5"
-    },
-    {
-      "path": "skills/codex/프로젝트설정/SKILL.md",
-      "sha256": "40648ec993e3071c97eaafaf7ad85f46550837d20a7dd96a0b7311e7b6b5c54b"
-    },
-    {
-      "path": "skills/codex/프로젝트설정/agents/openai.yaml",
-      "sha256": "1b29c9b6c9d0487d3d367eee935852f7f58767a0f8586b9b5e0163d4a2d82943"
-    },
-    {
-      "path": "skills/codex/프로젝트설정/domain.md",
-      "sha256": "519f5cc2e13fb6cb3cec0100f0e23e07815076ac5a2a1d2127bd1c0f77d0f17c"
-    },
-    {
-      "path": "skills/codex/프로젝트설정/issue-tracker-github.md",
-      "sha256": "9ce10e7db4cd88babae82e61ce3abcb8e583613447eee27a8706111761f77ec0"
-    },
-    {
-      "path": "skills/codex/프로젝트설정/issue-tracker-gitlab.md",
-      "sha256": "6bb8fd3e43718ec6f36dfac1a0620d7d489934e04e64c0fc70c6baf842e07f32"
-    },
-    {
-      "path": "skills/codex/프로젝트설정/issue-tracker-local.md",
-      "sha256": "f3b8f6999830035b9f50f5d283bc50c045ca166f2a4fe94ade67f3f54b16801b"
-    },
-    {
-      "path": "skills/codex/프로젝트설정/triage-labels.md",
+      "path": "skills/claude/setup/triage-labels.md",
       "sha256": "ff53641364bf2039c0a6314e22fb2cc10d44d8211f5746539af8fa801ece9e06"
     },
     {
-      "path": "skills/codex/학습/GLOSSARY-FORMAT.md",
-      "sha256": "9b99859ec28437668130d8f2ce5a342938970f8a1ed4fd38c3eab4f4b5fff210"
-    },
-    {
-      "path": "skills/codex/학습/LEARNING-RECORD-FORMAT.md",
-      "sha256": "701fa34b6748aa89e6c960ffb815257f481a7d77fb2900f9028f7edf3fdd6052"
-    },
-    {
-      "path": "skills/codex/학습/LICENSE",
+      "path": "skills/claude/tdd/LICENSE",
       "sha256": "0e7ac423bf2c6e223b7c5b156f8cf72da49d748e56a1641402c31f22ad07dbb5"
     },
     {
-      "path": "skills/codex/학습/MISSION-FORMAT.md",
+      "path": "skills/claude/tdd/SKILL.md",
+      "sha256": "2ad9ef84366546835f0180fde6b27e954a4b8d0af2b771f245d7b4ceb026bd17"
+    },
+    {
+      "path": "skills/claude/tdd/mocking.md",
+      "sha256": "3ceb807fdf4a47d6a93d4d9a891e5ba6d362a6247bd08adc451feebfc17361ef"
+    },
+    {
+      "path": "skills/claude/tdd/tests.md",
+      "sha256": "859f9e592c188fda4fc7277dd180e4ce9c7a2e13f6efe1f6f29eccc9d28c106a"
+    },
+    {
+      "path": "skills/claude/tickets/LICENSE",
+      "sha256": "0e7ac423bf2c6e223b7c5b156f8cf72da49d748e56a1641402c31f22ad07dbb5"
+    },
+    {
+      "path": "skills/claude/tickets/SKILL.md",
+      "sha256": "693510ca46d2761f1ff464ec52520788ea10ce52229017998d0dd703c33f5942"
+    },
+    {
+      "path": "skills/claude/triage/AGENT-BRIEF.md",
+      "sha256": "7f5f87fed3033df1b06e083c480f3e847b1fbb0647746b8a4c6a50f9f26ef44f"
+    },
+    {
+      "path": "skills/claude/triage/LICENSE",
+      "sha256": "0e7ac423bf2c6e223b7c5b156f8cf72da49d748e56a1641402c31f22ad07dbb5"
+    },
+    {
+      "path": "skills/claude/triage/OUT-OF-SCOPE.md",
+      "sha256": "1fbf9b432130c6380aa65813b55553cfda150309b27c595e183f8e335b8a190d"
+    },
+    {
+      "path": "skills/claude/triage/SKILL.md",
+      "sha256": "bffab675f65c94f7c4d88de69faddcba4d795610f72e74d3f9364913ec93523c"
+    },
+    {
+      "path": "skills/codex/clarify/LICENSE",
+      "sha256": "0e7ac423bf2c6e223b7c5b156f8cf72da49d748e56a1641402c31f22ad07dbb5"
+    },
+    {
+      "path": "skills/codex/clarify/SKILL.md",
+      "sha256": "c83647c57611c64ee9ca62df1929ecaae0ba81623809d4861fb24eb1dc8b389c"
+    },
+    {
+      "path": "skills/codex/clarify/agents/openai.yaml",
+      "sha256": "c3785d980fd7db3a95cebeadbff683d74998109054dfbaa9a871c3894b8113c4"
+    },
+    {
+      "path": "skills/codex/code-review/LICENSE",
+      "sha256": "0e7ac423bf2c6e223b7c5b156f8cf72da49d748e56a1641402c31f22ad07dbb5"
+    },
+    {
+      "path": "skills/codex/code-review/SKILL.md",
+      "sha256": "89a66fc37367def7e38641fd92ca5b0ed9709b69f7e8ede89e17da0597b1987f"
+    },
+    {
+      "path": "skills/codex/code-review/agents/openai.yaml",
+      "sha256": "9a39b962b0e24757024339b5720588984b4240f27bb6ad143bcd8e7eaf5b8b37"
+    },
+    {
+      "path": "skills/codex/design/LICENSE",
+      "sha256": "0e7ac423bf2c6e223b7c5b156f8cf72da49d748e56a1641402c31f22ad07dbb5"
+    },
+    {
+      "path": "skills/codex/design/SKILL.md",
+      "sha256": "6eb48a9f2cde8f3656ee0fdb856e81d0d107cb119ada7bf6e0c9b668377a8b06"
+    },
+    {
+      "path": "skills/codex/design/agents/openai.yaml",
+      "sha256": "1634654584dc6ba5dd0c64db170613a5534f062ef0613ebc7c1afcaea80af530"
+    },
+    {
+      "path": "skills/codex/design/references/design-package.md",
+      "sha256": "7927a6fac47bdd6e185b00e41d4d6c710c5bf8ce8ada48c47194b247bce661ed"
+    },
+    {
+      "path": "skills/codex/design/references/tool-routing.md",
+      "sha256": "9dfef4756629a22ca06331984d2c405e4d69dfd01a0818d43901f865aa410906"
+    },
+    {
+      "path": "skills/codex/diagnose/LICENSE",
+      "sha256": "0e7ac423bf2c6e223b7c5b156f8cf72da49d748e56a1641402c31f22ad07dbb5"
+    },
+    {
+      "path": "skills/codex/diagnose/SKILL.md",
+      "sha256": "d4c67c110269e11f201740a9c25cc5fb80d68e06d14bcb0473955ba18b798432"
+    },
+    {
+      "path": "skills/codex/diagnose/agents/openai.yaml",
+      "sha256": "c6c0e92ef61c9466f9d618e80255554c48e0f480e8b168295bc5ece0695f0d05"
+    },
+    {
+      "path": "skills/codex/diagnose/scripts/hitl-loop.template.sh",
+      "sha256": "35103539fc36873eea36074769ad454f9379d6fc8b2dc0e26ce987fd3bfe5503"
+    },
+    {
+      "path": "skills/codex/discuss/LICENSE",
+      "sha256": "0e7ac423bf2c6e223b7c5b156f8cf72da49d748e56a1641402c31f22ad07dbb5"
+    },
+    {
+      "path": "skills/codex/discuss/SKILL.md",
+      "sha256": "687b39a871097abf45fa9e38c100e8263512fa8b630b4f07bbbc64ba22f53550"
+    },
+    {
+      "path": "skills/codex/discuss/agents/openai.yaml",
+      "sha256": "374dc1700bbf76d3fa8e1082fe4cff838f94b44c96510ccbbd6d97444c4af246"
+    },
+    {
+      "path": "skills/codex/domain/ADR-FORMAT.md",
+      "sha256": "944c92aa790e8fbdc9199640b170979abb8a34ba8d0fe18c2a01a63bce140ca0"
+    },
+    {
+      "path": "skills/codex/domain/GLOSSARY-FORMAT.md",
+      "sha256": "21dcc40cdec8e151a829b98ab1517c1867bc444e3665134a98c6983411996801"
+    },
+    {
+      "path": "skills/codex/domain/LICENSE",
+      "sha256": "0e7ac423bf2c6e223b7c5b156f8cf72da49d748e56a1641402c31f22ad07dbb5"
+    },
+    {
+      "path": "skills/codex/domain/SKILL.md",
+      "sha256": "90475799e0f5a481dfdbf0bc7eeb44c362555dae5c91ef461b0154e10d025e56"
+    },
+    {
+      "path": "skills/codex/domain/agents/openai.yaml",
+      "sha256": "a91298498cbc1ca610e06925214eb11c6c00c0ce17285b9a44abe46b768747f9"
+    },
+    {
+      "path": "skills/codex/explain/LICENSE",
+      "sha256": "0e7ac423bf2c6e223b7c5b156f8cf72da49d748e56a1641402c31f22ad07dbb5"
+    },
+    {
+      "path": "skills/codex/explain/SKILL.md",
+      "sha256": "ed5c16d60e700cc874398beaba8f85266107e14ec12187c021a256576889de5f"
+    },
+    {
+      "path": "skills/codex/explain/agents/openai.yaml",
+      "sha256": "996f33112ceaa58861dc42b7f575ce1297c3c8c285b904a81e3aaf0b97853d90"
+    },
+    {
+      "path": "skills/codex/explore/LICENSE",
+      "sha256": "0e7ac423bf2c6e223b7c5b156f8cf72da49d748e56a1641402c31f22ad07dbb5"
+    },
+    {
+      "path": "skills/codex/explore/SKILL.md",
+      "sha256": "2d9bf59132d647d01e0ad82abf746a2662a0ff0e0f2bc9798a67d693ea5f8de3"
+    },
+    {
+      "path": "skills/codex/explore/agents/openai.yaml",
+      "sha256": "1a0c8ba4389623fc532c477cc1571de5edabd75c3a32a6c4329588a7aa69b367"
+    },
+    {
+      "path": "skills/codex/handoff/LICENSE",
+      "sha256": "0e7ac423bf2c6e223b7c5b156f8cf72da49d748e56a1641402c31f22ad07dbb5"
+    },
+    {
+      "path": "skills/codex/handoff/SKILL.md",
+      "sha256": "1bed2abc5fccf3834ff16ac5c65aef2ef820ec6141986140c4c8699d305157df"
+    },
+    {
+      "path": "skills/codex/handoff/agents/openai.yaml",
+      "sha256": "18237a178e15f5cc9ed58606504def74c0923bc0ddaa99bd73b8abb08971af51"
+    },
+    {
+      "path": "skills/codex/hi/LICENSE",
+      "sha256": "0e7ac423bf2c6e223b7c5b156f8cf72da49d748e56a1641402c31f22ad07dbb5"
+    },
+    {
+      "path": "skills/codex/hi/PHASE-BOUNDARIES.md",
+      "sha256": "3baab7ae717a5a7370d8b24a37dbf71a9ae7594ebaa46e1cd75b02dc000dcd33"
+    },
+    {
+      "path": "skills/codex/hi/SKILL.md",
+      "sha256": "707b2dad3bbf740cf9d344d22780c935684375bbb19cb9b09be7ee59d8a836f0"
+    },
+    {
+      "path": "skills/codex/hi/agents/openai.yaml",
+      "sha256": "c2f9bf385f78ed47d6d838bb06075ce9326daae0797e9204f78d619cdef92f27"
+    },
+    {
+      "path": "skills/codex/implement/LICENSE",
+      "sha256": "0e7ac423bf2c6e223b7c5b156f8cf72da49d748e56a1641402c31f22ad07dbb5"
+    },
+    {
+      "path": "skills/codex/implement/SKILL.md",
+      "sha256": "56d3a9bb59e459b657b6535ef2f125c548d2d30794b3353dd69381174daa2e1e"
+    },
+    {
+      "path": "skills/codex/implement/agents/openai.yaml",
+      "sha256": "d18406a8d5c812e37780a0f9c3c33b195df1fe798f8cd95a7de7ec829786d6b3"
+    },
+    {
+      "path": "skills/codex/instruct/LICENSE",
+      "sha256": "0e7ac423bf2c6e223b7c5b156f8cf72da49d748e56a1641402c31f22ad07dbb5"
+    },
+    {
+      "path": "skills/codex/instruct/SKILL-MECHANICS.md",
+      "sha256": "a981c7b8e043b3a62ba54ae05c4f1ca94b94ef08b40e7ffd7ad8041eb65eebba"
+    },
+    {
+      "path": "skills/codex/instruct/SKILL.md",
+      "sha256": "d4f1a4de3f430b8655d3ede06dbd9296f9b4cc15afbfdec2f9bacf1af8201710"
+    },
+    {
+      "path": "skills/codex/instruct/agents/openai.yaml",
+      "sha256": "12beefd0368f682faa90556af281a055657cee238c66f9303da4bad114d71017"
+    },
+    {
+      "path": "skills/codex/integrate/LICENSE",
+      "sha256": "0e7ac423bf2c6e223b7c5b156f8cf72da49d748e56a1641402c31f22ad07dbb5"
+    },
+    {
+      "path": "skills/codex/integrate/SKILL.md",
+      "sha256": "eb9481396e6fb4d7da8166248ff5026dfa58f240e30687b321ad2078003d1c49"
+    },
+    {
+      "path": "skills/codex/integrate/agents/openai.yaml",
+      "sha256": "7d423057eabc13fcfa290e08a6cf12106ed76d452d2855aa2f5276be50f1e208"
+    },
+    {
+      "path": "skills/codex/interview/LICENSE",
+      "sha256": "0e7ac423bf2c6e223b7c5b156f8cf72da49d748e56a1641402c31f22ad07dbb5"
+    },
+    {
+      "path": "skills/codex/interview/SKILL.md",
+      "sha256": "24ff87d28d2776a4c440e511085abc140316680718125bcbabc108d1597a5ffa"
+    },
+    {
+      "path": "skills/codex/interview/agents/openai.yaml",
+      "sha256": "af96b6a1a1d3435772efad4ed1574d0507c0de597d208c73a23f3cd25f3d1c7e"
+    },
+    {
+      "path": "skills/codex/learn/GLOSSARY-FORMAT.md",
+      "sha256": "9b99859ec28437668130d8f2ce5a342938970f8a1ed4fd38c3eab4f4b5fff210"
+    },
+    {
+      "path": "skills/codex/learn/LEARNING-RECORD-FORMAT.md",
+      "sha256": "701fa34b6748aa89e6c960ffb815257f481a7d77fb2900f9028f7edf3fdd6052"
+    },
+    {
+      "path": "skills/codex/learn/LICENSE",
+      "sha256": "0e7ac423bf2c6e223b7c5b156f8cf72da49d748e56a1641402c31f22ad07dbb5"
+    },
+    {
+      "path": "skills/codex/learn/MISSION-FORMAT.md",
       "sha256": "8cacbb3c0644d3ae0ea4965564797099401a6930a23f7cf462918576587f2418"
     },
     {
-      "path": "skills/codex/학습/RESOURCES-FORMAT.md",
+      "path": "skills/codex/learn/RESOURCES-FORMAT.md",
       "sha256": "e9cacf34026e11a8d1c8f9de88abe5bcbf654f4ebdb25cae8c0de0d5f48f44ec"
     },
     {
-      "path": "skills/codex/학습/SKILL.md",
-      "sha256": "9a6d2bc9206ef78088e84ba5eee6216218a1cb97bb3162f85313333ac7972e07"
+      "path": "skills/codex/learn/SKILL.md",
+      "sha256": "25bf4b4f94930d9483777cea1d427fbe8a8ff2588f5e82975f1d2165373f726f"
     },
     {
-      "path": "skills/codex/학습/agents/openai.yaml",
-      "sha256": "20b574e9581a968b0337aa08ed3aab6904e0e965c3564f3cc4200ba129aca085"
+      "path": "skills/codex/learn/agents/openai.yaml",
+      "sha256": "7550a2c3a1d6494ed0d4bdb959c1c41639291866a5b389a50b0c780e5f5b35ac"
+    },
+    {
+      "path": "skills/codex/manual/LICENSE",
+      "sha256": "0e7ac423bf2c6e223b7c5b156f8cf72da49d748e56a1641402c31f22ad07dbb5"
+    },
+    {
+      "path": "skills/codex/manual/SKILL.md",
+      "sha256": "562238ba72e17baa64bf705cbd6c7953ff420f109044ea47a07396494bc42b19"
+    },
+    {
+      "path": "skills/codex/manual/agents/openai.yaml",
+      "sha256": "2452dc3ad73d349cdb8e252f4210a2dc9f9cdab9305c555a68d24f48f749edc2"
+    },
+    {
+      "path": "skills/codex/manual/template.sh",
+      "sha256": "33cbe9dfb1d0e9185b60248a52aabed14bc64785a00cac695e302e739dd6c153"
+    },
+    {
+      "path": "skills/codex/modules/DEEPENING.md",
+      "sha256": "f3dd099ce99289bd213914d8ee3e2429b78309c3957ca4583f7659551b1d53c1"
+    },
+    {
+      "path": "skills/codex/modules/DESIGN-IT-TWICE.md",
+      "sha256": "52b52e75655a27aea59c6966b410bac82448968ad46ef1ebb9f07c274e3ae010"
+    },
+    {
+      "path": "skills/codex/modules/LICENSE",
+      "sha256": "0e7ac423bf2c6e223b7c5b156f8cf72da49d748e56a1641402c31f22ad07dbb5"
+    },
+    {
+      "path": "skills/codex/modules/SKILL.md",
+      "sha256": "6add8e5137590fe7071b431d465f93957e8e777f151d62ad242a73c1c63e0aa4"
+    },
+    {
+      "path": "skills/codex/modules/agents/openai.yaml",
+      "sha256": "f49d91106acd513338376a339561764c50e101c9e8fb8bc87c902f51aad85cce"
+    },
+    {
+      "path": "skills/codex/pr-summary/CREDITS.md",
+      "sha256": "8f8e3043acc85ff42205096e5f8380b8ca976c8ed08d92a69ee3d502b5dddba8"
+    },
+    {
+      "path": "skills/codex/pr-summary/LICENSE",
+      "sha256": "0e7ac423bf2c6e223b7c5b156f8cf72da49d748e56a1641402c31f22ad07dbb5"
+    },
+    {
+      "path": "skills/codex/pr-summary/SKILL.md",
+      "sha256": "dc8dee67eb5ebf7688b1b6519c98b610c77b173bcfc0034ab40ce44a6f6cc760"
+    },
+    {
+      "path": "skills/codex/pr-summary/agents/openai.yaml",
+      "sha256": "a6cce9760f83309004e7c19fedab7dde648d6c83a150af5dd19aab8b44b1ac5a"
+    },
+    {
+      "path": "skills/codex/prototype/LICENSE",
+      "sha256": "0e7ac423bf2c6e223b7c5b156f8cf72da49d748e56a1641402c31f22ad07dbb5"
+    },
+    {
+      "path": "skills/codex/prototype/LOGIC.md",
+      "sha256": "f61c7d249e786a79ef289018901c348271e1798dd0b0bc5607b5c6f4d4a01ab9"
+    },
+    {
+      "path": "skills/codex/prototype/SKILL.md",
+      "sha256": "accb3cbbae1177c809438457669e58dca6aa77270425e9501de7163c57f54bc0"
+    },
+    {
+      "path": "skills/codex/prototype/UI.md",
+      "sha256": "723211e878acbc7b6ff09755263f3295cde724ba902ff0064da41eed51d45ad3"
+    },
+    {
+      "path": "skills/codex/prototype/agents/openai.yaml",
+      "sha256": "babe3fcc40acb6d25847d34dd6cf9b04c4a6c59546b17a2dd8ff69f178feb55a"
+    },
+    {
+      "path": "skills/codex/questions/LICENSE",
+      "sha256": "0e7ac423bf2c6e223b7c5b156f8cf72da49d748e56a1641402c31f22ad07dbb5"
+    },
+    {
+      "path": "skills/codex/questions/SKILL.md",
+      "sha256": "eafc1299ba547f87849bb79741a51ee3990074cfd8f2664def1bb7f76c01c07d"
+    },
+    {
+      "path": "skills/codex/questions/agents/openai.yaml",
+      "sha256": "30f5fed5a1330bb55c72317e978c04ecf25f7e4b12d0a253f5db46d45c6e19bf"
+    },
+    {
+      "path": "skills/codex/refactor/HTML-REPORT.md",
+      "sha256": "ecab6a0851c0637bada314416bad8312adea583acaaaf8d5f4d3f583ad340d1c"
+    },
+    {
+      "path": "skills/codex/refactor/LICENSE",
+      "sha256": "0e7ac423bf2c6e223b7c5b156f8cf72da49d748e56a1641402c31f22ad07dbb5"
+    },
+    {
+      "path": "skills/codex/refactor/SKILL.md",
+      "sha256": "5943cd5470f0fae2041dc11ce39b1cf7b4554a835c87eb50664c76eb5e351c4e"
+    },
+    {
+      "path": "skills/codex/refactor/agents/openai.yaml",
+      "sha256": "84b238d8af150e8533a127ae7a8bfcd4422c4ad44ef73286858bcd718572e57a"
+    },
+    {
+      "path": "skills/codex/research/LICENSE",
+      "sha256": "0e7ac423bf2c6e223b7c5b156f8cf72da49d748e56a1641402c31f22ad07dbb5"
+    },
+    {
+      "path": "skills/codex/research/SKILL.md",
+      "sha256": "dde46e96c5b87f44165222801e9f310a47e06541f232c1ed543db194dba37ab4"
+    },
+    {
+      "path": "skills/codex/research/agents/openai.yaml",
+      "sha256": "c5657c6c9c50b9b92b73f85023a3d9e68020f4d22df1aa258d0d27a43add4ad8"
+    },
+    {
+      "path": "skills/codex/retro/LICENSE",
+      "sha256": "0e7ac423bf2c6e223b7c5b156f8cf72da49d748e56a1641402c31f22ad07dbb5"
+    },
+    {
+      "path": "skills/codex/retro/SKILL.md",
+      "sha256": "f0ecb5c11d96e1ddbd7165d974ed15e96ae5c454a6a3b6b6e3ea1fcd8068fdd1"
+    },
+    {
+      "path": "skills/codex/retro/agents/openai.yaml",
+      "sha256": "ce5e2e3b0ca720cc4f55a24ba400780bbcbb13755e2ac167c397b6e652793dbf"
+    },
+    {
+      "path": "skills/codex/setup/LICENSE",
+      "sha256": "0e7ac423bf2c6e223b7c5b156f8cf72da49d748e56a1641402c31f22ad07dbb5"
+    },
+    {
+      "path": "skills/codex/setup/SKILL.md",
+      "sha256": "c3ff6ce1ac4cdc9c886c460230f1cef4536666c4b8e069f71c5adb81ee1e9341"
+    },
+    {
+      "path": "skills/codex/setup/agents/openai.yaml",
+      "sha256": "b71944d0cc28a73aea75203a935e2c2622a3d3b3d8157f51959e34382787c4ed"
+    },
+    {
+      "path": "skills/codex/setup/domain.md",
+      "sha256": "0f3691581d6b7659a4f9e386609e29ebb8380838657c06b66fbebf6ef02ff639"
+    },
+    {
+      "path": "skills/codex/setup/issue-tracker-github.md",
+      "sha256": "3013a73db7e07115f4e349565e594a1208ad1d8acca57c5c71b3a856dd65ffeb"
+    },
+    {
+      "path": "skills/codex/setup/issue-tracker-gitlab.md",
+      "sha256": "88ec5d4da8ea5d107a987e8184f8861defe85e68ad35fdca9ccf58b479333449"
+    },
+    {
+      "path": "skills/codex/setup/issue-tracker-local.md",
+      "sha256": "6f19cd10863a6d9c1b1057e8e13e3580e2b76fe062cbffa47d8a9d8c1a95f63d"
+    },
+    {
+      "path": "skills/codex/setup/triage-labels.md",
+      "sha256": "ff53641364bf2039c0a6314e22fb2cc10d44d8211f5746539af8fa801ece9e06"
+    },
+    {
+      "path": "skills/codex/tdd/LICENSE",
+      "sha256": "0e7ac423bf2c6e223b7c5b156f8cf72da49d748e56a1641402c31f22ad07dbb5"
+    },
+    {
+      "path": "skills/codex/tdd/SKILL.md",
+      "sha256": "55e93229d0ea9286efebe3b674cf173442d52eea94a4bd96611d185fd3ab5467"
+    },
+    {
+      "path": "skills/codex/tdd/agents/openai.yaml",
+      "sha256": "607010e599286bf203ca61b4ab99ce4fc1e743f9b2b5c2bd9fbcb8f7879465da"
+    },
+    {
+      "path": "skills/codex/tdd/mocking.md",
+      "sha256": "3ceb807fdf4a47d6a93d4d9a891e5ba6d362a6247bd08adc451feebfc17361ef"
+    },
+    {
+      "path": "skills/codex/tdd/tests.md",
+      "sha256": "859f9e592c188fda4fc7277dd180e4ce9c7a2e13f6efe1f6f29eccc9d28c106a"
+    },
+    {
+      "path": "skills/codex/tickets/LICENSE",
+      "sha256": "0e7ac423bf2c6e223b7c5b156f8cf72da49d748e56a1641402c31f22ad07dbb5"
+    },
+    {
+      "path": "skills/codex/tickets/SKILL.md",
+      "sha256": "0e7339c7111dfe87c24a1e148c79516bf6a2f4475c79cba4941d78498601056a"
+    },
+    {
+      "path": "skills/codex/tickets/agents/openai.yaml",
+      "sha256": "1a92b7f31a6ce628a1fa1dc8b31d829fd9c468bb481b15c0fcbf692d6791de6a"
+    },
+    {
+      "path": "skills/codex/triage/AGENT-BRIEF.md",
+      "sha256": "154c51d1192d262aa64376d7b70fbaecb61cebdc6936b92014078384be1dec63"
+    },
+    {
+      "path": "skills/codex/triage/LICENSE",
+      "sha256": "0e7ac423bf2c6e223b7c5b156f8cf72da49d748e56a1641402c31f22ad07dbb5"
+    },
+    {
+      "path": "skills/codex/triage/OUT-OF-SCOPE.md",
+      "sha256": "1fbf9b432130c6380aa65813b55553cfda150309b27c595e183f8e335b8a190d"
+    },
+    {
+      "path": "skills/codex/triage/SKILL.md",
+      "sha256": "bce6f6923edb12387da62caed5af6bcc4e3759c11db6b71eac0cd397008b20a2"
+    },
+    {
+      "path": "skills/codex/triage/agents/openai.yaml",
+      "sha256": "a65faee211c1476c2d0690d49dd3095e886826f9087b2698bd42ea2093e763c8"
     }
   ],
   "claude_files": [
     {
-      "path": "skills/claude/개발회고/LICENSE",
+      "path": "skills/claude/clarify/LICENSE",
       "sha256": "0e7ac423bf2c6e223b7c5b156f8cf72da49d748e56a1641402c31f22ad07dbb5"
     },
     {
-      "path": "skills/claude/개발회고/SKILL.md",
-      "sha256": "42cbab9921a4832ebd88ed2900b9fcafd4077f9163f1eb9fea9d434b7e2f2d85"
+      "path": "skills/claude/clarify/SKILL.md",
+      "sha256": "6772e2d9e85e7cee64ac11289f7da335e8c487bb1057950c0b5a23df2046cbbd"
     },
     {
-      "path": "skills/claude/구상검토/LICENSE",
+      "path": "skills/claude/code-review/LICENSE",
       "sha256": "0e7ac423bf2c6e223b7c5b156f8cf72da49d748e56a1641402c31f22ad07dbb5"
     },
     {
-      "path": "skills/claude/구상검토/SKILL.md",
-      "sha256": "acabc6b1c5052f15a72f9514eadd76a28c385df33f7228d42bc63228b99495f0"
+      "path": "skills/claude/code-review/SKILL.md",
+      "sha256": "a6b565a470af7a22d53815d4f78c974842cda4f002de2f52d72b76112366922c"
     },
     {
-      "path": "skills/claude/구조개선/HTML-REPORT.md",
-      "sha256": "34d7be42230e60f09641ea329cfb3f84cc6314f2be51f21666a1c479abdf3f0b"
-    },
-    {
-      "path": "skills/claude/구조개선/LICENSE",
+      "path": "skills/claude/design/LICENSE",
       "sha256": "0e7ac423bf2c6e223b7c5b156f8cf72da49d748e56a1641402c31f22ad07dbb5"
     },
     {
-      "path": "skills/claude/구조개선/SKILL.md",
-      "sha256": "9c6b0c60a901491ab2d77f3881611484b2b7ed830cee0f41c2f5bf5c7941ceb9"
+      "path": "skills/claude/design/SKILL.md",
+      "sha256": "2b16bd0a3b52cd1260d7450b716c6cc2696fc70e40b509875373a7b89f804d47"
     },
     {
-      "path": "skills/claude/구현/LICENSE",
-      "sha256": "0e7ac423bf2c6e223b7c5b156f8cf72da49d748e56a1641402c31f22ad07dbb5"
+      "path": "skills/claude/design/references/design-package.md",
+      "sha256": "7927a6fac47bdd6e185b00e41d4d6c710c5bf8ce8ada48c47194b247bce661ed"
     },
     {
-      "path": "skills/claude/구현/SKILL.md",
-      "sha256": "e45ca8e328a433ab5561972d6c944ba692a1f1b218567b9a552d9143931a5c79"
-    },
-    {
-      "path": "skills/claude/도메인정리/ADR-FORMAT.md",
-      "sha256": "944c92aa790e8fbdc9199640b170979abb8a34ba8d0fe18c2a01a63bce140ca0"
-    },
-    {
-      "path": "skills/claude/도메인정리/GLOSSARY-FORMAT.md",
-      "sha256": "21dcc40cdec8e151a829b98ab1517c1867bc444e3665134a98c6983411996801"
-    },
-    {
-      "path": "skills/claude/도메인정리/LICENSE",
-      "sha256": "0e7ac423bf2c6e223b7c5b156f8cf72da49d748e56a1641402c31f22ad07dbb5"
-    },
-    {
-      "path": "skills/claude/도메인정리/SKILL.md",
-      "sha256": "9e58d9539edf3c3e8e365595b940c547043ea00b2040f9a4429f76d5d67e0891"
-    },
-    {
-      "path": "skills/claude/모듈설계/DEEPENING.md",
-      "sha256": "f3dd099ce99289bd213914d8ee3e2429b78309c3957ca4583f7659551b1d53c1"
-    },
-    {
-      "path": "skills/claude/모듈설계/DESIGN-IT-TWICE.md",
-      "sha256": "52b52e75655a27aea59c6966b410bac82448968ad46ef1ebb9f07c274e3ae010"
-    },
-    {
-      "path": "skills/claude/모듈설계/LICENSE",
-      "sha256": "0e7ac423bf2c6e223b7c5b156f8cf72da49d748e56a1641402c31f22ad07dbb5"
-    },
-    {
-      "path": "skills/claude/모듈설계/SKILL.md",
-      "sha256": "ac59af85670ec824be78cf1790163fb358b6b0d813ad52b28ad3eaa733ef370d"
-    },
-    {
-      "path": "skills/claude/방향탐색/LICENSE",
-      "sha256": "0e7ac423bf2c6e223b7c5b156f8cf72da49d748e56a1641402c31f22ad07dbb5"
-    },
-    {
-      "path": "skills/claude/방향탐색/SKILL.md",
-      "sha256": "a988c7345a5f44da5e27af7b7965773849049e859dafe73db52b5cc247fe9bad"
-    },
-    {
-      "path": "skills/claude/변경요약/CREDITS.md",
-      "sha256": "0d730e534b4bf8f1c07d6d52ca2e0f6b60e71c99803d8ed906cf387af5bb3e8d"
-    },
-    {
-      "path": "skills/claude/변경요약/LICENSE",
-      "sha256": "0e7ac423bf2c6e223b7c5b156f8cf72da49d748e56a1641402c31f22ad07dbb5"
-    },
-    {
-      "path": "skills/claude/변경요약/SKILL.md",
-      "sha256": "ba9e3290e1e92cab97f946870956895a4c5de95a357b0ca910934e399616ffc4"
-    },
-    {
-      "path": "skills/claude/설계작성/LICENSE",
-      "sha256": "0e7ac423bf2c6e223b7c5b156f8cf72da49d748e56a1641402c31f22ad07dbb5"
-    },
-    {
-      "path": "skills/claude/설계작성/SKILL.md",
-      "sha256": "7e03a1ff2152f156feb813b61ecb345a4e547f07b0beb3b3fe33bb8cb81686f4"
-    },
-    {
-      "path": "skills/claude/설계작성/references/design-package.md",
-      "sha256": "73ac6ba0c0e45dcf02989c4d560da606869b9f66fd1008bc099829387e934298"
-    },
-    {
-      "path": "skills/claude/설계작성/references/tool-routing.md",
+      "path": "skills/claude/design/references/tool-routing.md",
       "sha256": "9dfef4756629a22ca06331984d2c405e4d69dfd01a0818d43901f865aa410906"
     },
     {
-      "path": "skills/claude/수동안내/LICENSE",
+      "path": "skills/claude/diagnose/LICENSE",
       "sha256": "0e7ac423bf2c6e223b7c5b156f8cf72da49d748e56a1641402c31f22ad07dbb5"
     },
     {
-      "path": "skills/claude/수동안내/SKILL.md",
-      "sha256": "47a56407b8a8851afc950007f700e7ae748eec20d1a5d9b4521b7b3cf3685c36"
+      "path": "skills/claude/diagnose/SKILL.md",
+      "sha256": "23a3158b35d3ec548048d86eb87881362c272db173e2e96939e6ab8509b01cd1"
     },
     {
-      "path": "skills/claude/수동안내/template.sh",
-      "sha256": "33cbe9dfb1d0e9185b60248a52aabed14bc64785a00cac695e302e739dd6c153"
-    },
-    {
-      "path": "skills/claude/쉬운설명/LICENSE",
-      "sha256": "0e7ac423bf2c6e223b7c5b156f8cf72da49d748e56a1641402c31f22ad07dbb5"
-    },
-    {
-      "path": "skills/claude/쉬운설명/SKILL.md",
-      "sha256": "18e49cce07a276d50d7e61c43104ab01c0f7d7146215e5888379e17b1debaa0c"
-    },
-    {
-      "path": "skills/claude/시제품/LICENSE",
-      "sha256": "0e7ac423bf2c6e223b7c5b156f8cf72da49d748e56a1641402c31f22ad07dbb5"
-    },
-    {
-      "path": "skills/claude/시제품/LOGIC.md",
-      "sha256": "f61c7d249e786a79ef289018901c348271e1798dd0b0bc5607b5c6f4d4a01ab9"
-    },
-    {
-      "path": "skills/claude/시제품/SKILL.md",
-      "sha256": "bcec3befb9b4c9648557c277b7c1521d62608db7ec553a1aa6eb30fb52ffd53d"
-    },
-    {
-      "path": "skills/claude/시제품/UI.md",
-      "sha256": "22fd17ab70ab634b453127c48274cbd6312c44b07514eab6b5f710618b3c9ccf"
-    },
-    {
-      "path": "skills/claude/심층질문/LICENSE",
-      "sha256": "0e7ac423bf2c6e223b7c5b156f8cf72da49d748e56a1641402c31f22ad07dbb5"
-    },
-    {
-      "path": "skills/claude/심층질문/SKILL.md",
-      "sha256": "b9536617233d4ae7099969b7f53f88da9e17dfbabb0d5345c25768c3e347e6ff"
-    },
-    {
-      "path": "skills/claude/오류진단/LICENSE",
-      "sha256": "0e7ac423bf2c6e223b7c5b156f8cf72da49d748e56a1641402c31f22ad07dbb5"
-    },
-    {
-      "path": "skills/claude/오류진단/SKILL.md",
-      "sha256": "a26a8748b4d68acf8fa6e33af3d2337a4e4e62b85a444fa8d1014ad184645632"
-    },
-    {
-      "path": "skills/claude/오류진단/scripts/hitl-loop.template.sh",
+      "path": "skills/claude/diagnose/scripts/hitl-loop.template.sh",
       "sha256": "35103539fc36873eea36074769ad454f9379d6fc8b2dc0e26ce987fd3bfe5503"
     },
     {
-      "path": "skills/claude/요구정리/LICENSE",
+      "path": "skills/claude/discuss/LICENSE",
       "sha256": "0e7ac423bf2c6e223b7c5b156f8cf72da49d748e56a1641402c31f22ad07dbb5"
     },
     {
-      "path": "skills/claude/요구정리/SKILL.md",
-      "sha256": "a2676856504dac78f83cd3415f56fd130d5d15f928c90235963345b25aa44bfb"
+      "path": "skills/claude/discuss/SKILL.md",
+      "sha256": "884bffe0b261509bd7e5d6c9bf0f2b2133d5b480c7a0de7b7dd55044ad2d9bee"
     },
     {
-      "path": "skills/claude/요청분류/AGENT-BRIEF.md",
-      "sha256": "1ded543964e39e70567baf3ef3ef975fab9c18f4a0e0eeed8f5f8b3e28bb2e59"
+      "path": "skills/claude/domain/ADR-FORMAT.md",
+      "sha256": "944c92aa790e8fbdc9199640b170979abb8a34ba8d0fe18c2a01a63bce140ca0"
     },
     {
-      "path": "skills/claude/요청분류/LICENSE",
+      "path": "skills/claude/domain/GLOSSARY-FORMAT.md",
+      "sha256": "21dcc40cdec8e151a829b98ab1517c1867bc444e3665134a98c6983411996801"
+    },
+    {
+      "path": "skills/claude/domain/LICENSE",
       "sha256": "0e7ac423bf2c6e223b7c5b156f8cf72da49d748e56a1641402c31f22ad07dbb5"
     },
     {
-      "path": "skills/claude/요청분류/OUT-OF-SCOPE.md",
-      "sha256": "1fbf9b432130c6380aa65813b55553cfda150309b27c595e183f8e335b8a190d"
+      "path": "skills/claude/domain/SKILL.md",
+      "sha256": "3b977d1da1761a3b169f50b2b433d3e239abd960614faff73aec9c069c4d6410"
     },
     {
-      "path": "skills/claude/요청분류/SKILL.md",
-      "sha256": "5eb2903548b88326c597755ccaaa89f29eb1acca32e2879aa3dccf817fbd7945"
-    },
-    {
-      "path": "skills/claude/인수인계/LICENSE",
+      "path": "skills/claude/explain/LICENSE",
       "sha256": "0e7ac423bf2c6e223b7c5b156f8cf72da49d748e56a1641402c31f22ad07dbb5"
     },
     {
-      "path": "skills/claude/인수인계/SKILL.md",
-      "sha256": "6a8c066d80125980efb351538554bb493fe642f26b5debe997744fdf9b7a679a"
+      "path": "skills/claude/explain/SKILL.md",
+      "sha256": "4f210bcc8d91bfa5e0beebf0677a3ce2e1d9f7488102e18474a89aaf410ea55b"
     },
     {
-      "path": "skills/claude/자료조사/LICENSE",
+      "path": "skills/claude/explore/LICENSE",
       "sha256": "0e7ac423bf2c6e223b7c5b156f8cf72da49d748e56a1641402c31f22ad07dbb5"
     },
     {
-      "path": "skills/claude/자료조사/SKILL.md",
-      "sha256": "f579c991dbfcd05170cbabb6721f1c5d31cffc9120e3713afdc21c06b3876a6c"
+      "path": "skills/claude/explore/SKILL.md",
+      "sha256": "48410ae693dd7a74da25a96708f66798a94419e5eabb7d0941bd415a1a9dfdf5"
     },
     {
-      "path": "skills/claude/작업길잡이/LICENSE",
+      "path": "skills/claude/handoff/LICENSE",
       "sha256": "0e7ac423bf2c6e223b7c5b156f8cf72da49d748e56a1641402c31f22ad07dbb5"
     },
     {
-      "path": "skills/claude/작업길잡이/PHASE-BOUNDARIES.md",
-      "sha256": "5d6ace00c99ac4eb8ea92b4bd950942e8668b2a9195bc78144fd3b26a5cfbcb8"
+      "path": "skills/claude/handoff/SKILL.md",
+      "sha256": "a60cbd74e99d91426a285d043e227ecc1df60f2f59eb171b380efec58eff778a"
     },
     {
-      "path": "skills/claude/작업길잡이/SKILL.md",
-      "sha256": "bad1f382c2b851ee6911b3f11cef9aa8e9f9ed5c6ecd364228a910346e5625ed"
-    },
-    {
-      "path": "skills/claude/작업분할/LICENSE",
+      "path": "skills/claude/hi/LICENSE",
       "sha256": "0e7ac423bf2c6e223b7c5b156f8cf72da49d748e56a1641402c31f22ad07dbb5"
     },
     {
-      "path": "skills/claude/작업분할/SKILL.md",
-      "sha256": "d93e1188c3b0f80bc110b62b63bb19d68ab03d9db3af642d4568dc9bb55a9da0"
+      "path": "skills/claude/hi/PHASE-BOUNDARIES.md",
+      "sha256": "3fa917bb1b41e0aaed5a7a7b4586a72262cf98ac7967bf75579d7fe9b839fbf6"
     },
     {
-      "path": "skills/claude/지침작성/LICENSE",
+      "path": "skills/claude/hi/SKILL.md",
+      "sha256": "daf50f96c143946ce6d07a9e54180c44381549d48ab22eb2d3104b6bcac7595c"
+    },
+    {
+      "path": "skills/claude/implement/LICENSE",
       "sha256": "0e7ac423bf2c6e223b7c5b156f8cf72da49d748e56a1641402c31f22ad07dbb5"
     },
     {
-      "path": "skills/claude/지침작성/SKILL-MECHANICS.md",
+      "path": "skills/claude/implement/SKILL.md",
+      "sha256": "e8431b4d20284abd9657f2c5cd8f1a2b4d8a74c0657991bd25648b6b5f5c975c"
+    },
+    {
+      "path": "skills/claude/instruct/LICENSE",
+      "sha256": "0e7ac423bf2c6e223b7c5b156f8cf72da49d748e56a1641402c31f22ad07dbb5"
+    },
+    {
+      "path": "skills/claude/instruct/SKILL-MECHANICS.md",
       "sha256": "e1d95aa6f027ee5e2d745484197671ae50728e712dd92ef90cd8cfe2abbbdee2"
     },
     {
-      "path": "skills/claude/지침작성/SKILL.md",
-      "sha256": "8a98961a06e06d0f8b4459e79f66c985a0dd2779122111772efcbe44d243192c"
+      "path": "skills/claude/instruct/SKILL.md",
+      "sha256": "a0ded8b4d1f51c795968417f05289a4e96c428aad97d75b398fdfbc4fae454cf"
     },
     {
-      "path": "skills/claude/질문서/LICENSE",
+      "path": "skills/claude/integrate/LICENSE",
       "sha256": "0e7ac423bf2c6e223b7c5b156f8cf72da49d748e56a1641402c31f22ad07dbb5"
     },
     {
-      "path": "skills/claude/질문서/SKILL.md",
-      "sha256": "27e064ee3375c85c1b1ec6290b90b122bdf50405e270dbd8b095486f7c0b23bc"
+      "path": "skills/claude/integrate/SKILL.md",
+      "sha256": "620e0fcccb9a47daebc9b39a1b685e16dfe6199a286b902e64c471cf5168a82d"
     },
     {
-      "path": "skills/claude/코드검토/LICENSE",
+      "path": "skills/claude/interview/LICENSE",
       "sha256": "0e7ac423bf2c6e223b7c5b156f8cf72da49d748e56a1641402c31f22ad07dbb5"
     },
     {
-      "path": "skills/claude/코드검토/SKILL.md",
-      "sha256": "dbd43fff5ba31a9c99d5ce7b2bb5042338859e4f3d1a1d0e258968e357f2e6f2"
+      "path": "skills/claude/interview/SKILL.md",
+      "sha256": "c0ee2f4fa7212f872e636bdd2cdefef30be64d7e3118536fd3de46f813cf49cb"
     },
     {
-      "path": "skills/claude/테스트주도/LICENSE",
-      "sha256": "0e7ac423bf2c6e223b7c5b156f8cf72da49d748e56a1641402c31f22ad07dbb5"
-    },
-    {
-      "path": "skills/claude/테스트주도/SKILL.md",
-      "sha256": "ae6cf14e9009519466bd24711cf25da5bd8a5eabdb5a2c9ad2762953cf77ccc7"
-    },
-    {
-      "path": "skills/claude/테스트주도/mocking.md",
-      "sha256": "3ceb807fdf4a47d6a93d4d9a891e5ba6d362a6247bd08adc451feebfc17361ef"
-    },
-    {
-      "path": "skills/claude/테스트주도/tests.md",
-      "sha256": "859f9e592c188fda4fc7277dd180e4ce9c7a2e13f6efe1f6f29eccc9d28c106a"
-    },
-    {
-      "path": "skills/claude/통합구현/LICENSE",
-      "sha256": "0e7ac423bf2c6e223b7c5b156f8cf72da49d748e56a1641402c31f22ad07dbb5"
-    },
-    {
-      "path": "skills/claude/통합구현/SKILL.md",
-      "sha256": "5aa889619b783608a7e644ce4c0b001f0e1a60a720a48c2846b61bd60d4c6651"
-    },
-    {
-      "path": "skills/claude/프로젝트설정/LICENSE",
-      "sha256": "0e7ac423bf2c6e223b7c5b156f8cf72da49d748e56a1641402c31f22ad07dbb5"
-    },
-    {
-      "path": "skills/claude/프로젝트설정/SKILL.md",
-      "sha256": "3b4c51e67b41702da16a8dbb0b6fd1f25fa743bc557adf7111ce8d7410da3536"
-    },
-    {
-      "path": "skills/claude/프로젝트설정/domain.md",
-      "sha256": "cd574f39786c59bead27878ebad11e2e067e91fb559c9bf145b5d11681c63361"
-    },
-    {
-      "path": "skills/claude/프로젝트설정/issue-tracker-github.md",
-      "sha256": "ef23b7df7a5b8053bccd20c4c8ddc0b4e30aaf1470eeb810be388436dcc420a2"
-    },
-    {
-      "path": "skills/claude/프로젝트설정/issue-tracker-gitlab.md",
-      "sha256": "6fd974880c8a25c89b353ec3979a60883abc6800554b637bc4473b6ae006a356"
-    },
-    {
-      "path": "skills/claude/프로젝트설정/issue-tracker-local.md",
-      "sha256": "41ba711373401febacfedb2877919f7412a184b3aae447efb77ced0317a30f1c"
-    },
-    {
-      "path": "skills/claude/프로젝트설정/triage-labels.md",
-      "sha256": "ff53641364bf2039c0a6314e22fb2cc10d44d8211f5746539af8fa801ece9e06"
-    },
-    {
-      "path": "skills/claude/학습/GLOSSARY-FORMAT.md",
+      "path": "skills/claude/learn/GLOSSARY-FORMAT.md",
       "sha256": "9b99859ec28437668130d8f2ce5a342938970f8a1ed4fd38c3eab4f4b5fff210"
     },
     {
-      "path": "skills/claude/학습/LEARNING-RECORD-FORMAT.md",
+      "path": "skills/claude/learn/LEARNING-RECORD-FORMAT.md",
       "sha256": "701fa34b6748aa89e6c960ffb815257f481a7d77fb2900f9028f7edf3fdd6052"
     },
     {
-      "path": "skills/claude/학습/LICENSE",
+      "path": "skills/claude/learn/LICENSE",
       "sha256": "0e7ac423bf2c6e223b7c5b156f8cf72da49d748e56a1641402c31f22ad07dbb5"
     },
     {
-      "path": "skills/claude/학습/MISSION-FORMAT.md",
+      "path": "skills/claude/learn/MISSION-FORMAT.md",
       "sha256": "8cacbb3c0644d3ae0ea4965564797099401a6930a23f7cf462918576587f2418"
     },
     {
-      "path": "skills/claude/학습/RESOURCES-FORMAT.md",
+      "path": "skills/claude/learn/RESOURCES-FORMAT.md",
       "sha256": "e9cacf34026e11a8d1c8f9de88abe5bcbf654f4ebdb25cae8c0de0d5f48f44ec"
     },
     {
-      "path": "skills/claude/학습/SKILL.md",
-      "sha256": "4d620890e7de3e80ce4690e544b0c9068a3d3bfb16ed52bf8da028282f2943f1"
+      "path": "skills/claude/learn/SKILL.md",
+      "sha256": "3a23e7a5ad85d3606af2686add10b39f9d4e84a58dbffb96993b05b44321504d"
+    },
+    {
+      "path": "skills/claude/manual/LICENSE",
+      "sha256": "0e7ac423bf2c6e223b7c5b156f8cf72da49d748e56a1641402c31f22ad07dbb5"
+    },
+    {
+      "path": "skills/claude/manual/SKILL.md",
+      "sha256": "b33b50a23b56a6b25abf158cdcfeb79ce28356913b3cd49e6d693b36bc02d16c"
+    },
+    {
+      "path": "skills/claude/manual/template.sh",
+      "sha256": "33cbe9dfb1d0e9185b60248a52aabed14bc64785a00cac695e302e739dd6c153"
+    },
+    {
+      "path": "skills/claude/modules/DEEPENING.md",
+      "sha256": "f3dd099ce99289bd213914d8ee3e2429b78309c3957ca4583f7659551b1d53c1"
+    },
+    {
+      "path": "skills/claude/modules/DESIGN-IT-TWICE.md",
+      "sha256": "52b52e75655a27aea59c6966b410bac82448968ad46ef1ebb9f07c274e3ae010"
+    },
+    {
+      "path": "skills/claude/modules/LICENSE",
+      "sha256": "0e7ac423bf2c6e223b7c5b156f8cf72da49d748e56a1641402c31f22ad07dbb5"
+    },
+    {
+      "path": "skills/claude/modules/SKILL.md",
+      "sha256": "af5b430cd2f3cf421099589dff9a47127177dcfa305c1e59b5dc53c71bbf0347"
+    },
+    {
+      "path": "skills/claude/pr-summary/CREDITS.md",
+      "sha256": "8f8e3043acc85ff42205096e5f8380b8ca976c8ed08d92a69ee3d502b5dddba8"
+    },
+    {
+      "path": "skills/claude/pr-summary/LICENSE",
+      "sha256": "0e7ac423bf2c6e223b7c5b156f8cf72da49d748e56a1641402c31f22ad07dbb5"
+    },
+    {
+      "path": "skills/claude/pr-summary/SKILL.md",
+      "sha256": "ecef1296cdbfe76634fac5da89d0d06a8db4b77283a9672da34b7a31c93763a9"
+    },
+    {
+      "path": "skills/claude/prototype/LICENSE",
+      "sha256": "0e7ac423bf2c6e223b7c5b156f8cf72da49d748e56a1641402c31f22ad07dbb5"
+    },
+    {
+      "path": "skills/claude/prototype/LOGIC.md",
+      "sha256": "f61c7d249e786a79ef289018901c348271e1798dd0b0bc5607b5c6f4d4a01ab9"
+    },
+    {
+      "path": "skills/claude/prototype/SKILL.md",
+      "sha256": "121f9e4aa66b1b87310ea9ca07fbbe03813af6f25a79e417f0faa2a3cde5a89d"
+    },
+    {
+      "path": "skills/claude/prototype/UI.md",
+      "sha256": "723211e878acbc7b6ff09755263f3295cde724ba902ff0064da41eed51d45ad3"
+    },
+    {
+      "path": "skills/claude/questions/LICENSE",
+      "sha256": "0e7ac423bf2c6e223b7c5b156f8cf72da49d748e56a1641402c31f22ad07dbb5"
+    },
+    {
+      "path": "skills/claude/questions/SKILL.md",
+      "sha256": "4aebee9fd67d2de3865ff28f77093a0e1c489ac6cbcf223097ffac762add54cc"
+    },
+    {
+      "path": "skills/claude/refactor/HTML-REPORT.md",
+      "sha256": "356404ca0138e0cc971b6c3fc6cbe5e7339bbd113db43e6306628ef01cf43f98"
+    },
+    {
+      "path": "skills/claude/refactor/LICENSE",
+      "sha256": "0e7ac423bf2c6e223b7c5b156f8cf72da49d748e56a1641402c31f22ad07dbb5"
+    },
+    {
+      "path": "skills/claude/refactor/SKILL.md",
+      "sha256": "33da12e9a6b5d756bae36f0c0aee27f17d2b3ba969063a69b036986e7a6b2bd2"
+    },
+    {
+      "path": "skills/claude/research/LICENSE",
+      "sha256": "0e7ac423bf2c6e223b7c5b156f8cf72da49d748e56a1641402c31f22ad07dbb5"
+    },
+    {
+      "path": "skills/claude/research/SKILL.md",
+      "sha256": "9ff4019a6fc6e4890e92dc0cdf12ebcdef3d932d3f02a979ceea9f8032761cd1"
+    },
+    {
+      "path": "skills/claude/retro/LICENSE",
+      "sha256": "0e7ac423bf2c6e223b7c5b156f8cf72da49d748e56a1641402c31f22ad07dbb5"
+    },
+    {
+      "path": "skills/claude/retro/SKILL.md",
+      "sha256": "d557fb2f46993420c3c84bcc0a86b38cb8dc5987628d65fa2abb8bc308fd03a0"
+    },
+    {
+      "path": "skills/claude/setup/LICENSE",
+      "sha256": "0e7ac423bf2c6e223b7c5b156f8cf72da49d748e56a1641402c31f22ad07dbb5"
+    },
+    {
+      "path": "skills/claude/setup/SKILL.md",
+      "sha256": "95bd0f22b16ef5b904c3bb1bdacb5756e54c5179fa681c911f189269ea02dd26"
+    },
+    {
+      "path": "skills/claude/setup/domain.md",
+      "sha256": "ab871e2208e03518f1d324fd3d1ab900afb0e3737cd5b376621c5fcae0e2d66b"
+    },
+    {
+      "path": "skills/claude/setup/issue-tracker-github.md",
+      "sha256": "cac9ab99a33955a078f7c13123da105306357c878740ffabc8f30b992c58c5fa"
+    },
+    {
+      "path": "skills/claude/setup/issue-tracker-gitlab.md",
+      "sha256": "3682c5ce9adceb014be72956fc287989529761ea966b8032ecd332805fa835d5"
+    },
+    {
+      "path": "skills/claude/setup/issue-tracker-local.md",
+      "sha256": "27e9b2b88bbdb615b54c6505c8cc022665993c1edecb0a3bb08ca4df1caf58a8"
+    },
+    {
+      "path": "skills/claude/setup/triage-labels.md",
+      "sha256": "ff53641364bf2039c0a6314e22fb2cc10d44d8211f5746539af8fa801ece9e06"
+    },
+    {
+      "path": "skills/claude/tdd/LICENSE",
+      "sha256": "0e7ac423bf2c6e223b7c5b156f8cf72da49d748e56a1641402c31f22ad07dbb5"
+    },
+    {
+      "path": "skills/claude/tdd/SKILL.md",
+      "sha256": "2ad9ef84366546835f0180fde6b27e954a4b8d0af2b771f245d7b4ceb026bd17"
+    },
+    {
+      "path": "skills/claude/tdd/mocking.md",
+      "sha256": "3ceb807fdf4a47d6a93d4d9a891e5ba6d362a6247bd08adc451feebfc17361ef"
+    },
+    {
+      "path": "skills/claude/tdd/tests.md",
+      "sha256": "859f9e592c188fda4fc7277dd180e4ce9c7a2e13f6efe1f6f29eccc9d28c106a"
+    },
+    {
+      "path": "skills/claude/tickets/LICENSE",
+      "sha256": "0e7ac423bf2c6e223b7c5b156f8cf72da49d748e56a1641402c31f22ad07dbb5"
+    },
+    {
+      "path": "skills/claude/tickets/SKILL.md",
+      "sha256": "693510ca46d2761f1ff464ec52520788ea10ce52229017998d0dd703c33f5942"
+    },
+    {
+      "path": "skills/claude/triage/AGENT-BRIEF.md",
+      "sha256": "7f5f87fed3033df1b06e083c480f3e847b1fbb0647746b8a4c6a50f9f26ef44f"
+    },
+    {
+      "path": "skills/claude/triage/LICENSE",
+      "sha256": "0e7ac423bf2c6e223b7c5b156f8cf72da49d748e56a1641402c31f22ad07dbb5"
+    },
+    {
+      "path": "skills/claude/triage/OUT-OF-SCOPE.md",
+      "sha256": "1fbf9b432130c6380aa65813b55553cfda150309b27c595e183f8e335b8a190d"
+    },
+    {
+      "path": "skills/claude/triage/SKILL.md",
+      "sha256": "bffab675f65c94f7c4d88de69faddcba4d795610f72e74d3f9364913ec93523c"
     }
   ]
 }

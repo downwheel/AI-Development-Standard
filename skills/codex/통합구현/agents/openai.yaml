@@ -1,5 +1,0 @@
-interface:
-  display_name: "통합구현"
-  short_description: "여러 구현 작업의 의존 관계를 관리하고 통합과 기능 및 화면 검증을 수행합니다."
-policy:
-  allow_implicit_invocation: false

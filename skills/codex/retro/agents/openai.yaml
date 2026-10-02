@@ -1,0 +1,5 @@
+interface:
+  display_name: "retro"
+  short_description: "개발 기록을 분석해 반복 실수와 병목, 스킬 및 하네스의 개선점을 찾습니다."
+policy:
+  allow_implicit_invocation: false

@@ -1,0 +1,5 @@
+interface:
+  display_name: "explain"
+  short_description: "직전 설명에 필요한 맥락을 보태고 익숙한 업무 용어로 쉽게 다시 설명합니다."
+policy:
+  allow_implicit_invocation: false

@@ -1,0 +1,5 @@
+interface:
+  display_name: "instruct"
+  short_description: "스킬과 하네스의 호출 조건과 절차를 명확히 하고 중복되거나 과한 지침을 줄입니다."
+policy:
+  allow_implicit_invocation: true

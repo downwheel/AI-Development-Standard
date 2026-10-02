@@ -1,5 +1,0 @@
-interface:
-  display_name: "테스트주도"
-  short_description: "실패 테스트와 최소 구현을 반복해 공개 인터페이스의 동작을 검증합니다."
-policy:
-  allow_implicit_invocation: true

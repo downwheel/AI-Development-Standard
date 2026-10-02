@@ -1,5 +1,0 @@
-interface:
-  display_name: "프로젝트설정"
-  short_description: "프로젝트의 이슈 관리와 문서 경로를 설정하고 하네스에 연결합니다."
-policy:
-  allow_implicit_invocation: false

@@ -1,0 +1,5 @@
+interface:
+  display_name: "explore"
+  short_description: "크고 불확실한 작업의 결정 지도를 만들고 조사와 질문으로 방향을 정합니다."
+policy:
+  allow_implicit_invocation: false

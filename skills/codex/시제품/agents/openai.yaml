@@ -1,5 +1,0 @@
-interface:
-  display_name: "시제품"
-  short_description: "상태와 로직을 조작하거나 화면 대안을 비교하는 실험용 시제품을 만듭니다."
-policy:
-  allow_implicit_invocation: true

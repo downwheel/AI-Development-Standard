@@ -1,0 +1,5 @@
+interface:
+  display_name: "manual"
+  short_description: "사람이 직접 해야 하는 인증과 설정 작업을 단계별 실행 안내로 만듭니다."
+policy:
+  allow_implicit_invocation: true

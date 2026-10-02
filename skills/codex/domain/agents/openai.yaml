@@ -1,0 +1,5 @@
+interface:
+  display_name: "domain"
+  short_description: "업무 용어를 명확히 하고 코드와 대조해 용어집과 중요한 설계 결정을 정리합니다."
+policy:
+  allow_implicit_invocation: true

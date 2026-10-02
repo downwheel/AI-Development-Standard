@@ -1,0 +1,5 @@
+interface:
+  display_name: "clarify"
+  short_description: "요구사항을 질문으로 구체화하고 확정된 용어와 중요 결정을 기록합니다."
+policy:
+  allow_implicit_invocation: false

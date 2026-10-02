@@ -76,6 +76,10 @@ def load_package(root=ROOT):
         raise ValueError('A package version is required')
     if len(names) != 27 or len(set(names)) != 27 or any(not valid_name(n) for n in names):
         raise ValueError('Expected the reviewed 27-skill selection')
+    # Keep valid_name Unicode-aware for ownership checks of older installations.
+    # New published commands must be portable across both host parsers.
+    if any(not re.fullmatch(r'[a-z][a-z0-9]*(?:-[a-z0-9]+)*', name) for name in names):
+        raise ValueError('Published skill names must use lowercase ASCII letters, digits and hyphens')
     actual = inventory(root)
     if actual != declared_files(data['package_files']):
         raise ValueError('Package manifest mismatch. Review changes, then run scripts/update_manifest.py.')
