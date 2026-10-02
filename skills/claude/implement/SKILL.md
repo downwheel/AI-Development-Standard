@@ -12,6 +12,6 @@ Use /tdd where possible, at pre-agreed seams.
 
 Run relevant existing tests and checks at useful milestones. Run the applicable suite once at the end; broaden testing when changes, failures or unresolved risks warrant it. For UI, confirm the selected target runs this change, exercise the actual browser and compare with the approved design and existing patterns. Report the actual environment, functional/visual coverage and meaningful tool contribution or substitution; keep the design's current status accurate.
 
-Once done, use /code-review to review the work.
+Once done, use /code-check to review the work.
 
 Leave the verified changes available for review. Commit only when the user has explicitly authorized a commit; permission to implement does not by itself authorize commit or push.

@@ -108,7 +108,7 @@ python -B -X utf8 scripts/configure_tools.py --host codex --apply --prepare-runt
 $hi 이 프로젝트의 기존 구조를 확인하고 요청한 기능의 요구사항과 설계를 정리해 줘.
 ```
 
-특정 단계에는 `$design`, `$implement`, `$code-review`, `$retro` 등을 직접 선택한다. 신규 기능·주요 변경은 필요한 화면·처리·DB·검증 설계를 제시하고 승인 후 구현하며, 이미 승인한 내용을 반복 승인받지 않는다.
+특정 단계에는 `$design`, `$implement`, `$code-check`, `$retro` 등을 직접 선택한다. 신규 기능·주요 변경은 필요한 화면·처리·DB·검증 설계를 제시하고 승인 후 구현하며, 이미 승인한 내용을 반복 승인받지 않는다.
 
 최초 전역 설치에서 모든 제품을 등록하거나 업무 DB를 조회하지 않는다. 제품별 설정이 필요할 때 해당 프로젝트에서 `$setup`을 사용한다. 새 AI 테스트는 Workspace의 `tests`, 명세와 중간 산출물은 `artifacts`, 검사 결과와 cache는 `results`에 보관한다. 기존 제품 테스트와 문서를 자동으로 이동하지 않는다.
 

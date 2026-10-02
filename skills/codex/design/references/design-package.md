@@ -58,7 +58,7 @@ The example is a small record, not a new mandatory schema. If equivalent informa
 
 ## Completion evidence
 
-Compare the finished implementation to the accepted behavior, visible design and applicable existing product patterns. A new UI is fully verified only when functional and required browser/visual checks have evidence from an environment confirmed to run the changed code. Unit tests, DOM simulations and a `code-review` pass cannot establish visual fidelity or real browser permissions.
+Compare the finished implementation to the accepted behavior, visible design and applicable existing product patterns. A new UI is fully verified only when functional and required browser/visual checks have evidence from an environment confirmed to run the changed code. Unit tests, DOM simulations and a `code-check` pass cannot establish visual fidelity or real browser permissions.
 
 If verification is blocked, report what passed, what remains unverified and the concrete reason. Keep UI verification incomplete while continuing independent authorized checks. Do not repeatedly ask for a design approval to compensate for a tool failure.
 

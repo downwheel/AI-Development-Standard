@@ -19,7 +19,7 @@
     "research",
     "domain",
     "modules",
-    "code-review",
+    "code-check",
     "pr-summary",
     "retro",
     "manual",
@@ -45,16 +45,16 @@
       "sha256": "c3785d980fd7db3a95cebeadbff683d74998109054dfbaa9a871c3894b8113c4"
     },
     {
-      "path": "skills/codex/code-review/LICENSE",
+      "path": "skills/codex/code-check/LICENSE",
       "sha256": "0e7ac423bf2c6e223b7c5b156f8cf72da49d748e56a1641402c31f22ad07dbb5"
     },
     {
-      "path": "skills/codex/code-review/SKILL.md",
-      "sha256": "89a66fc37367def7e38641fd92ca5b0ed9709b69f7e8ede89e17da0597b1987f"
+      "path": "skills/codex/code-check/SKILL.md",
+      "sha256": "07b4c0f8483232bcb4173415dacd63624e1040e080cabf511780b903a3cfc46d"
     },
     {
-      "path": "skills/codex/code-review/agents/openai.yaml",
-      "sha256": "9a39b962b0e24757024339b5720588984b4240f27bb6ad143bcd8e7eaf5b8b37"
+      "path": "skills/codex/code-check/agents/openai.yaml",
+      "sha256": "786c945012de088fda1dd4691ee26a3ea9528da22b4604785671d30e7b0827e9"
     },
     {
       "path": "skills/codex/design/LICENSE",
@@ -70,7 +70,7 @@
     },
     {
       "path": "skills/codex/design/references/design-package.md",
-      "sha256": "7927a6fac47bdd6e185b00e41d4d6c710c5bf8ce8ada48c47194b247bce661ed"
+      "sha256": "e8d26e36a100b170280900e6086ea234f887bb1fb3f6888c23fc571a8b56e234"
     },
     {
       "path": "skills/codex/design/references/tool-routing.md",
@@ -170,7 +170,7 @@
     },
     {
       "path": "skills/codex/hi/SKILL.md",
-      "sha256": "707b2dad3bbf740cf9d344d22780c935684375bbb19cb9b09be7ee59d8a836f0"
+      "sha256": "ccc21578be28d9071ddf788acf51509b01691d40222bc5fb00304f26e7a546f1"
     },
     {
       "path": "skills/codex/hi/agents/openai.yaml",
@@ -182,7 +182,7 @@
     },
     {
       "path": "skills/codex/implement/SKILL.md",
-      "sha256": "56d3a9bb59e459b657b6535ef2f125c548d2d30794b3353dd69381174daa2e1e"
+      "sha256": "d20fb6e6f401d6073b199f605d0e516bbfc1ece2a4cc4c3e09e9e95d0596452f"
     },
     {
       "path": "skills/codex/implement/agents/openai.yaml",
@@ -210,7 +210,7 @@
     },
     {
       "path": "skills/codex/integrate/SKILL.md",
-      "sha256": "eb9481396e6fb4d7da8166248ff5026dfa58f240e30687b321ad2078003d1c49"
+      "sha256": "847931574685cdb8096b27b4eef6499babfe9f222fd3ecd6eb2348d9f7125e8e"
     },
     {
       "path": "skills/codex/integrate/agents/openai.yaml",
@@ -418,7 +418,7 @@
     },
     {
       "path": "skills/codex/tdd/SKILL.md",
-      "sha256": "55e93229d0ea9286efebe3b674cf173442d52eea94a4bd96611d185fd3ab5467"
+      "sha256": "3376993d6064bcadac26e67a79622b7a7b8a5ed1fee446adf80bb6b09bdfe86e"
     },
     {
       "path": "skills/codex/tdd/agents/openai.yaml",
@@ -465,7 +465,7 @@
       "sha256": "a65faee211c1476c2d0690d49dd3095e886826f9087b2698bd42ea2093e763c8"
     }
   ],
-  "version": "3.2.0",
+  "version": "3.2.1",
   "package_files": [
     {
       "path": ".gitattributes",
@@ -489,15 +489,15 @@
     },
     {
       "path": "README.md",
-      "sha256": "f6a016e6a8943d36bb008813d52e421755ad4bcb9570231393f9f2e8bc455344"
+      "sha256": "494acb27e4a5b8e3478a3f91e66b8e40e3cbd04260a63c054f2234cbee06695a"
     },
     {
       "path": "START-HERE-CLAUDE.md",
-      "sha256": "cc4f623a2bbb74861b1d3dc20dfacc41556c24e3c3ef187836b46d4c6fb8f9f4"
+      "sha256": "471639922cb6498954c5259a85d5b11e4de20e27efc445ce65a035c938ccc10f"
     },
     {
       "path": "START-HERE-CODEX.md",
-      "sha256": "09a9e460504c58e125ad76de9e5de3cd264fd572cc19ad1d60ee6fa48a4625ea"
+      "sha256": "6683a7da95b1e99aaa342583ecd6aac7784568888e95c67bf54dddb139102328"
     },
     {
       "path": "START-HERE.md",
@@ -529,7 +529,7 @@
     },
     {
       "path": "docs/SKILL-NAMES.md",
-      "sha256": "809d77952c726cd760ad30511300e26051d38cd05b9159bb5d835a71a73553f7"
+      "sha256": "5c7c56641dff12a056960e99534e63a3db9c431bf600478d06fbc8f0987caa5c"
     },
     {
       "path": "integrations/awesome-design-md/LICENSE",
@@ -888,12 +888,12 @@
       "sha256": "6772e2d9e85e7cee64ac11289f7da335e8c487bb1057950c0b5a23df2046cbbd"
     },
     {
-      "path": "skills/claude/code-review/LICENSE",
+      "path": "skills/claude/code-check/LICENSE",
       "sha256": "0e7ac423bf2c6e223b7c5b156f8cf72da49d748e56a1641402c31f22ad07dbb5"
     },
     {
-      "path": "skills/claude/code-review/SKILL.md",
-      "sha256": "a6b565a470af7a22d53815d4f78c974842cda4f002de2f52d72b76112366922c"
+      "path": "skills/claude/code-check/SKILL.md",
+      "sha256": "0e7af7efa831bb26fce954b1e60d11d947ba5b9886f954562c01897dde58657d"
     },
     {
       "path": "skills/claude/design/LICENSE",
@@ -905,7 +905,7 @@
     },
     {
       "path": "skills/claude/design/references/design-package.md",
-      "sha256": "7927a6fac47bdd6e185b00e41d4d6c710c5bf8ce8ada48c47194b247bce661ed"
+      "sha256": "e8d26e36a100b170280900e6086ea234f887bb1fb3f6888c23fc571a8b56e234"
     },
     {
       "path": "skills/claude/design/references/tool-routing.md",
@@ -981,7 +981,7 @@
     },
     {
       "path": "skills/claude/hi/SKILL.md",
-      "sha256": "daf50f96c143946ce6d07a9e54180c44381549d48ab22eb2d3104b6bcac7595c"
+      "sha256": "4467b7053a6e32af8c03c776deb70c169cc3b98923cb8368bcc29d86b733111a"
     },
     {
       "path": "skills/claude/implement/LICENSE",
@@ -989,7 +989,7 @@
     },
     {
       "path": "skills/claude/implement/SKILL.md",
-      "sha256": "e8431b4d20284abd9657f2c5cd8f1a2b4d8a74c0657991bd25648b6b5f5c975c"
+      "sha256": "8f05a5715341752d1da77d2ab8cb4e88008c50339d6b3dece67876f8c91d35db"
     },
     {
       "path": "skills/claude/instruct/LICENSE",
@@ -1009,7 +1009,7 @@
     },
     {
       "path": "skills/claude/integrate/SKILL.md",
-      "sha256": "620e0fcccb9a47daebc9b39a1b685e16dfe6199a286b902e64c471cf5168a82d"
+      "sha256": "63745aa8d46f037135ae97885cfe33e62df1c57f252e807db85a037475f009b3"
     },
     {
       "path": "skills/claude/interview/LICENSE",
@@ -1169,7 +1169,7 @@
     },
     {
       "path": "skills/claude/tdd/SKILL.md",
-      "sha256": "2ad9ef84366546835f0180fde6b27e954a4b8d0af2b771f245d7b4ceb026bd17"
+      "sha256": "a6a00f73cc7563ecf23a462a2eef2ce6d77893887dfb914d48f7a45828c5cf11"
     },
     {
       "path": "skills/claude/tdd/mocking.md",
@@ -1216,16 +1216,16 @@
       "sha256": "c3785d980fd7db3a95cebeadbff683d74998109054dfbaa9a871c3894b8113c4"
     },
     {
-      "path": "skills/codex/code-review/LICENSE",
+      "path": "skills/codex/code-check/LICENSE",
       "sha256": "0e7ac423bf2c6e223b7c5b156f8cf72da49d748e56a1641402c31f22ad07dbb5"
     },
     {
-      "path": "skills/codex/code-review/SKILL.md",
-      "sha256": "89a66fc37367def7e38641fd92ca5b0ed9709b69f7e8ede89e17da0597b1987f"
+      "path": "skills/codex/code-check/SKILL.md",
+      "sha256": "07b4c0f8483232bcb4173415dacd63624e1040e080cabf511780b903a3cfc46d"
     },
     {
-      "path": "skills/codex/code-review/agents/openai.yaml",
-      "sha256": "9a39b962b0e24757024339b5720588984b4240f27bb6ad143bcd8e7eaf5b8b37"
+      "path": "skills/codex/code-check/agents/openai.yaml",
+      "sha256": "786c945012de088fda1dd4691ee26a3ea9528da22b4604785671d30e7b0827e9"
     },
     {
       "path": "skills/codex/design/LICENSE",
@@ -1241,7 +1241,7 @@
     },
     {
       "path": "skills/codex/design/references/design-package.md",
-      "sha256": "7927a6fac47bdd6e185b00e41d4d6c710c5bf8ce8ada48c47194b247bce661ed"
+      "sha256": "e8d26e36a100b170280900e6086ea234f887bb1fb3f6888c23fc571a8b56e234"
     },
     {
       "path": "skills/codex/design/references/tool-routing.md",
@@ -1341,7 +1341,7 @@
     },
     {
       "path": "skills/codex/hi/SKILL.md",
-      "sha256": "707b2dad3bbf740cf9d344d22780c935684375bbb19cb9b09be7ee59d8a836f0"
+      "sha256": "ccc21578be28d9071ddf788acf51509b01691d40222bc5fb00304f26e7a546f1"
     },
     {
       "path": "skills/codex/hi/agents/openai.yaml",
@@ -1353,7 +1353,7 @@
     },
     {
       "path": "skills/codex/implement/SKILL.md",
-      "sha256": "56d3a9bb59e459b657b6535ef2f125c548d2d30794b3353dd69381174daa2e1e"
+      "sha256": "d20fb6e6f401d6073b199f605d0e516bbfc1ece2a4cc4c3e09e9e95d0596452f"
     },
     {
       "path": "skills/codex/implement/agents/openai.yaml",
@@ -1381,7 +1381,7 @@
     },
     {
       "path": "skills/codex/integrate/SKILL.md",
-      "sha256": "eb9481396e6fb4d7da8166248ff5026dfa58f240e30687b321ad2078003d1c49"
+      "sha256": "847931574685cdb8096b27b4eef6499babfe9f222fd3ecd6eb2348d9f7125e8e"
     },
     {
       "path": "skills/codex/integrate/agents/openai.yaml",
@@ -1589,7 +1589,7 @@
     },
     {
       "path": "skills/codex/tdd/SKILL.md",
-      "sha256": "55e93229d0ea9286efebe3b674cf173442d52eea94a4bd96611d185fd3ab5467"
+      "sha256": "3376993d6064bcadac26e67a79622b7a7b8a5ed1fee446adf80bb6b09bdfe86e"
     },
     {
       "path": "skills/codex/tdd/agents/openai.yaml",
@@ -1646,12 +1646,12 @@
       "sha256": "6772e2d9e85e7cee64ac11289f7da335e8c487bb1057950c0b5a23df2046cbbd"
     },
     {
-      "path": "skills/claude/code-review/LICENSE",
+      "path": "skills/claude/code-check/LICENSE",
       "sha256": "0e7ac423bf2c6e223b7c5b156f8cf72da49d748e56a1641402c31f22ad07dbb5"
     },
     {
-      "path": "skills/claude/code-review/SKILL.md",
-      "sha256": "a6b565a470af7a22d53815d4f78c974842cda4f002de2f52d72b76112366922c"
+      "path": "skills/claude/code-check/SKILL.md",
+      "sha256": "0e7af7efa831bb26fce954b1e60d11d947ba5b9886f954562c01897dde58657d"
     },
     {
       "path": "skills/claude/design/LICENSE",
@@ -1663,7 +1663,7 @@
     },
     {
       "path": "skills/claude/design/references/design-package.md",
-      "sha256": "7927a6fac47bdd6e185b00e41d4d6c710c5bf8ce8ada48c47194b247bce661ed"
+      "sha256": "e8d26e36a100b170280900e6086ea234f887bb1fb3f6888c23fc571a8b56e234"
     },
     {
       "path": "skills/claude/design/references/tool-routing.md",
@@ -1739,7 +1739,7 @@
     },
     {
       "path": "skills/claude/hi/SKILL.md",
-      "sha256": "daf50f96c143946ce6d07a9e54180c44381549d48ab22eb2d3104b6bcac7595c"
+      "sha256": "4467b7053a6e32af8c03c776deb70c169cc3b98923cb8368bcc29d86b733111a"
     },
     {
       "path": "skills/claude/implement/LICENSE",
@@ -1747,7 +1747,7 @@
     },
     {
       "path": "skills/claude/implement/SKILL.md",
-      "sha256": "e8431b4d20284abd9657f2c5cd8f1a2b4d8a74c0657991bd25648b6b5f5c975c"
+      "sha256": "8f05a5715341752d1da77d2ab8cb4e88008c50339d6b3dece67876f8c91d35db"
     },
     {
       "path": "skills/claude/instruct/LICENSE",
@@ -1767,7 +1767,7 @@
     },
     {
       "path": "skills/claude/integrate/SKILL.md",
-      "sha256": "620e0fcccb9a47daebc9b39a1b685e16dfe6199a286b902e64c471cf5168a82d"
+      "sha256": "63745aa8d46f037135ae97885cfe33e62df1c57f252e807db85a037475f009b3"
     },
     {
       "path": "skills/claude/interview/LICENSE",
@@ -1927,7 +1927,7 @@
     },
     {
       "path": "skills/claude/tdd/SKILL.md",
-      "sha256": "2ad9ef84366546835f0180fde6b27e954a4b8d0af2b771f245d7b4ceb026bd17"
+      "sha256": "a6a00f73cc7563ecf23a462a2eef2ce6d77893887dfb914d48f7a45828c5cf11"
     },
     {
       "path": "skills/claude/tdd/mocking.md",
