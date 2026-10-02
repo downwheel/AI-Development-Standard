@@ -9,6 +9,10 @@ You don't remember every skill, so ask.
 
 A **flow** is a path through the skills. Most paths run along one **main flow**, and two **on-ramps** merge onto it. Everything else is standalone, or a vocabulary layer that runs underneath.
 
+## 회사 발표자료
+
+회사 표준 PowerPoint 작성·변환 요청은 `$ppt-create`로 연결한다. [설치된 지침](../ppt-create/SKILL.md)을 읽고 적용하며 개발용 인터뷰·설계 승인·구현 티켓 흐름을 추가하지 않는다. 다른 양식을 지정했거나 기존 자료의 일부만 수정하는 요청은 그 범위를 우선한다.
+
 ## The main flow: idea → reviewed design → implementation
 
 Route by the impact of the change. Read [design and implementation entry](../design/references/design-package.md) to distinguish new features/material changes, already approved work, small fixes, and design-only requests. Session length does not decide whether design review is needed.

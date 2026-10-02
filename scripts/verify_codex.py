@@ -8,7 +8,7 @@ import shutil
 import subprocess
 import threading
 import time
-from package_lib import ROOT, legacy_findings, load_package, no_links, sha
+from package_lib import ROOT, is_office_lock, legacy_findings, load_package, no_links, sha
 from install_codex import profile_block
 
 
@@ -64,7 +64,7 @@ def native_skills(binary, home, names):
                 if skill.get('name') in names and Path(skill.get('path', '')).resolve() == (home / 'skills' / skill['name'] / 'SKILL.md').resolve():
                     selected.append(skill)
         if {s['name'] for s in selected} != set(names) or len(selected) != len(names) or any(not s.get('enabled') for s in selected):
-            raise RuntimeError('Codex did not discover all 27 installed skills as enabled')
+            raise RuntimeError('Codex did not discover all declared installed skills as enabled')
         return {'status': 'passed', 'discovered': len(selected), 'enabled': len(selected),
                 'other_discovery_errors': sum(len(g.get('errors', [])) for g in groups), 'model_turn_started': False}
     finally:
@@ -113,7 +113,7 @@ def main(edition='codex'):
         for name in data['skill_names']:
             for path in (home / 'skills' / name).rglob('*'):
                 no_links(path)
-                if path.is_file() and path.relative_to(home).as_posix() not in expected:
+                if path.is_file() and not is_office_lock(path) and path.relative_to(home).as_posix() not in expected:
                     raise ValueError('Unexpected installed skill file: ' + str(path))
         if receipt.get('installed_files') != expected or receipt.get('package_version') != data['version']:
             raise ValueError('Installation receipt differs from this package')

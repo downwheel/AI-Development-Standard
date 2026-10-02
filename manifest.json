@@ -29,7 +29,8 @@
     "learn",
     "questions",
     "explain",
-    "instruct"
+    "instruct",
+    "ppt-create"
   ],
   "files": [
     {
@@ -170,7 +171,7 @@
     },
     {
       "path": "skills/codex/hi/SKILL.md",
-      "sha256": "ccc21578be28d9071ddf788acf51509b01691d40222bc5fb00304f26e7a546f1"
+      "sha256": "a952df85a247bb6ef8a2941aef547b57276523118e9804d055ff2a47fc9d6493"
     },
     {
       "path": "skills/codex/hi/agents/openai.yaml",
@@ -291,6 +292,38 @@
     {
       "path": "skills/codex/modules/agents/openai.yaml",
       "sha256": "f49d91106acd513338376a339561764c50e101c9e8fb8bc87c902f51aad85cce"
+    },
+    {
+      "path": "skills/codex/ppt-create/LICENSE",
+      "sha256": "931936674956e3ac3685cc623d71cfeba372968a88d3acaa198b0873acc60a27"
+    },
+    {
+      "path": "skills/codex/ppt-create/SKILL.md",
+      "sha256": "a58dcf9377605c3b5e72d97cc8014e8e3f77766527957ea2312c987903d5795a"
+    },
+    {
+      "path": "skills/codex/ppt-create/agents/openai.yaml",
+      "sha256": "2d2f3129e782c748f9c68d21fff24e91d101fcd355ac49ece8e9dfbc2d699438"
+    },
+    {
+      "path": "skills/codex/ppt-create/assets/body-preview.png",
+      "sha256": "096d91149f07bb01030de89f769bf86c87f36fc7f7051b48161e43892db138c2"
+    },
+    {
+      "path": "skills/codex/ppt-create/assets/company-template.pptx",
+      "sha256": "ea2deab92fa177f02dc5de35a6ed61e51724513822fb0fb8b128b800b78714e6"
+    },
+    {
+      "path": "skills/codex/ppt-create/assets/cover-preview.png",
+      "sha256": "077c340eea9cac995ccf0ea1f8ca84accc2a887e659fe49834bcad63e780a304"
+    },
+    {
+      "path": "skills/codex/ppt-create/references/PPT.md",
+      "sha256": "f1a8158a094934cf0c85e92f59d5a8e1af2f426b8d7720c344594c09ca329809"
+    },
+    {
+      "path": "skills/codex/ppt-create/references/template-map.md",
+      "sha256": "feb5f26d1d159ccf9d06f0358f74febdbbfede8fa8146593f6ec19f1e0a74a64"
     },
     {
       "path": "skills/codex/pr-summary/CREDITS.md",
@@ -465,7 +498,7 @@
       "sha256": "a65faee211c1476c2d0690d49dd3095e886826f9087b2698bd42ea2093e763c8"
     }
   ],
-  "version": "3.2.1",
+  "version": "3.3.0",
   "package_files": [
     {
       "path": ".gitattributes",
@@ -473,15 +506,15 @@
     },
     {
       "path": ".gitignore",
-      "sha256": "ab2a09834552a9c25eada82372dc155f0bc72b9c5c0102cb6d95a072b92c1599"
+      "sha256": "6ed8f741bbc44cdd7ef14c49f5692f647b53e47dc970276ed02fc813e4a4562c"
     },
     {
       "path": "AGENTS.md",
-      "sha256": "da3cfce7289b05e15698406d842fd0f383fc7c736ee3b1e3c330e4328379b0dc"
+      "sha256": "3018f0af4e547971da25bf09ccb5037902dfb3091e00031db784434bab5f0a4b"
     },
     {
       "path": "CLAUDE.md",
-      "sha256": "ef77b8ab20a2e15c929eeeebf0c537bbc706891b957717f72869231efd799354"
+      "sha256": "b696953ffb996b5ac1698d254f2fdff55680411d22dbb989aa96d980ddf2f546"
     },
     {
       "path": "LICENSE",
@@ -489,7 +522,7 @@
     },
     {
       "path": "README.md",
-      "sha256": "494acb27e4a5b8e3478a3f91e66b8e40e3cbd04260a63c054f2234cbee06695a"
+      "sha256": "323a72d33cf85ee867c3741206f29884e16bcf1b46530c68b502aa96464e91d5"
     },
     {
       "path": "START-HERE-CLAUDE.md",
@@ -513,7 +546,11 @@
     },
     {
       "path": "docs/ADAPTATIONS.md",
-      "sha256": "82de8d6497013d75c5be18c10f1c7b6aaa88924e3a1a4be018614bb027985162"
+      "sha256": "bb8e700191309d83c65c903fad0c0902e948770b0e017a75ff721ca11a3ead3b"
+    },
+    {
+      "path": "docs/COMPANY-TEMPLATE-NOTICE.md",
+      "sha256": "931936674956e3ac3685cc623d71cfeba372968a88d3acaa198b0873acc60a27"
     },
     {
       "path": "docs/INTEGRATIONS.md",
@@ -521,15 +558,15 @@
     },
     {
       "path": "docs/MAINTENANCE.md",
-      "sha256": "1cfbae4b3d45ba6570d15e64d8eeea350e3ac7cf2e388852a2f7647b1c158d75"
+      "sha256": "ff0349643de4824fc4ada9d4860efadcedaf06bfe00dc33d35e5343cdb3fc024"
     },
     {
       "path": "docs/MIGRATION.md",
-      "sha256": "07cb4b99bed3f0bf4fed31ca3635f15e8b2ee7fece232915b452ec6ff70b87f3"
+      "sha256": "350c49fc66844cf11a92558e6dca04cf433734ac0086a07e52b8b5c35888db0b"
     },
     {
       "path": "docs/SKILL-NAMES.md",
-      "sha256": "5c7c56641dff12a056960e99534e63a3db9c431bf600478d06fbc8f0987caa5c"
+      "sha256": "f032e604b21da24e90a1a24a6f027221408a367c9cefa08de183e65a3a705f05"
     },
     {
       "path": "integrations/awesome-design-md/LICENSE",
@@ -861,11 +898,11 @@
     },
     {
       "path": "scripts/install_codex.py",
-      "sha256": "0a738300ebfb3349c43d34590ab3fa8c5ea2e1f20838b9dc26e15581743a0114"
+      "sha256": "d0192adf15d37084f6f732450256cf9dc71147dc66a4887c32fe44929a10c69d"
     },
     {
       "path": "scripts/package_lib.py",
-      "sha256": "b697a6cb7a16ff1a7765605f7ad6d5882f78ea07525204579859ca2a14e09664"
+      "sha256": "aed2f89f727aaec0b2ed89892c46d359b1cf58fde62b4f8792ddd223c550a319"
     },
     {
       "path": "scripts/update_manifest.py",
@@ -877,7 +914,7 @@
     },
     {
       "path": "scripts/verify_codex.py",
-      "sha256": "bc071605af9e44d020c928115a956e26f2ca3418c35869c096c2e91e32e1f161"
+      "sha256": "705941447c4d6da7a99a65fe8d3dc37a7cc8c110122f7433ef14a765283e9088"
     },
     {
       "path": "skills/claude/clarify/LICENSE",
@@ -981,7 +1018,7 @@
     },
     {
       "path": "skills/claude/hi/SKILL.md",
-      "sha256": "4467b7053a6e32af8c03c776deb70c169cc3b98923cb8368bcc29d86b733111a"
+      "sha256": "8c6a24b34720fb3fcecbb53d34821bb8f6acf2b48e2e90b154369fdf68295a20"
     },
     {
       "path": "skills/claude/implement/LICENSE",
@@ -1070,6 +1107,34 @@
     {
       "path": "skills/claude/modules/SKILL.md",
       "sha256": "af5b430cd2f3cf421099589dff9a47127177dcfa305c1e59b5dc53c71bbf0347"
+    },
+    {
+      "path": "skills/claude/ppt-create/LICENSE",
+      "sha256": "931936674956e3ac3685cc623d71cfeba372968a88d3acaa198b0873acc60a27"
+    },
+    {
+      "path": "skills/claude/ppt-create/SKILL.md",
+      "sha256": "44d409e08283e367cfc4f3ea7d8f8e4cf3747c9436bf05de73a28ae216643f7e"
+    },
+    {
+      "path": "skills/claude/ppt-create/assets/body-preview.png",
+      "sha256": "096d91149f07bb01030de89f769bf86c87f36fc7f7051b48161e43892db138c2"
+    },
+    {
+      "path": "skills/claude/ppt-create/assets/company-template.pptx",
+      "sha256": "ea2deab92fa177f02dc5de35a6ed61e51724513822fb0fb8b128b800b78714e6"
+    },
+    {
+      "path": "skills/claude/ppt-create/assets/cover-preview.png",
+      "sha256": "077c340eea9cac995ccf0ea1f8ca84accc2a887e659fe49834bcad63e780a304"
+    },
+    {
+      "path": "skills/claude/ppt-create/references/PPT.md",
+      "sha256": "f1a8158a094934cf0c85e92f59d5a8e1af2f426b8d7720c344594c09ca329809"
+    },
+    {
+      "path": "skills/claude/ppt-create/references/template-map.md",
+      "sha256": "feb5f26d1d159ccf9d06f0358f74febdbbfede8fa8146593f6ec19f1e0a74a64"
     },
     {
       "path": "skills/claude/pr-summary/CREDITS.md",
@@ -1341,7 +1406,7 @@
     },
     {
       "path": "skills/codex/hi/SKILL.md",
-      "sha256": "ccc21578be28d9071ddf788acf51509b01691d40222bc5fb00304f26e7a546f1"
+      "sha256": "a952df85a247bb6ef8a2941aef547b57276523118e9804d055ff2a47fc9d6493"
     },
     {
       "path": "skills/codex/hi/agents/openai.yaml",
@@ -1462,6 +1527,38 @@
     {
       "path": "skills/codex/modules/agents/openai.yaml",
       "sha256": "f49d91106acd513338376a339561764c50e101c9e8fb8bc87c902f51aad85cce"
+    },
+    {
+      "path": "skills/codex/ppt-create/LICENSE",
+      "sha256": "931936674956e3ac3685cc623d71cfeba372968a88d3acaa198b0873acc60a27"
+    },
+    {
+      "path": "skills/codex/ppt-create/SKILL.md",
+      "sha256": "a58dcf9377605c3b5e72d97cc8014e8e3f77766527957ea2312c987903d5795a"
+    },
+    {
+      "path": "skills/codex/ppt-create/agents/openai.yaml",
+      "sha256": "2d2f3129e782c748f9c68d21fff24e91d101fcd355ac49ece8e9dfbc2d699438"
+    },
+    {
+      "path": "skills/codex/ppt-create/assets/body-preview.png",
+      "sha256": "096d91149f07bb01030de89f769bf86c87f36fc7f7051b48161e43892db138c2"
+    },
+    {
+      "path": "skills/codex/ppt-create/assets/company-template.pptx",
+      "sha256": "ea2deab92fa177f02dc5de35a6ed61e51724513822fb0fb8b128b800b78714e6"
+    },
+    {
+      "path": "skills/codex/ppt-create/assets/cover-preview.png",
+      "sha256": "077c340eea9cac995ccf0ea1f8ca84accc2a887e659fe49834bcad63e780a304"
+    },
+    {
+      "path": "skills/codex/ppt-create/references/PPT.md",
+      "sha256": "f1a8158a094934cf0c85e92f59d5a8e1af2f426b8d7720c344594c09ca329809"
+    },
+    {
+      "path": "skills/codex/ppt-create/references/template-map.md",
+      "sha256": "feb5f26d1d159ccf9d06f0358f74febdbbfede8fa8146593f6ec19f1e0a74a64"
     },
     {
       "path": "skills/codex/pr-summary/CREDITS.md",
@@ -1739,7 +1836,7 @@
     },
     {
       "path": "skills/claude/hi/SKILL.md",
-      "sha256": "4467b7053a6e32af8c03c776deb70c169cc3b98923cb8368bcc29d86b733111a"
+      "sha256": "8c6a24b34720fb3fcecbb53d34821bb8f6acf2b48e2e90b154369fdf68295a20"
     },
     {
       "path": "skills/claude/implement/LICENSE",
@@ -1828,6 +1925,34 @@
     {
       "path": "skills/claude/modules/SKILL.md",
       "sha256": "af5b430cd2f3cf421099589dff9a47127177dcfa305c1e59b5dc53c71bbf0347"
+    },
+    {
+      "path": "skills/claude/ppt-create/LICENSE",
+      "sha256": "931936674956e3ac3685cc623d71cfeba372968a88d3acaa198b0873acc60a27"
+    },
+    {
+      "path": "skills/claude/ppt-create/SKILL.md",
+      "sha256": "44d409e08283e367cfc4f3ea7d8f8e4cf3747c9436bf05de73a28ae216643f7e"
+    },
+    {
+      "path": "skills/claude/ppt-create/assets/body-preview.png",
+      "sha256": "096d91149f07bb01030de89f769bf86c87f36fc7f7051b48161e43892db138c2"
+    },
+    {
+      "path": "skills/claude/ppt-create/assets/company-template.pptx",
+      "sha256": "ea2deab92fa177f02dc5de35a6ed61e51724513822fb0fb8b128b800b78714e6"
+    },
+    {
+      "path": "skills/claude/ppt-create/assets/cover-preview.png",
+      "sha256": "077c340eea9cac995ccf0ea1f8ca84accc2a887e659fe49834bcad63e780a304"
+    },
+    {
+      "path": "skills/claude/ppt-create/references/PPT.md",
+      "sha256": "f1a8158a094934cf0c85e92f59d5a8e1af2f426b8d7720c344594c09ca329809"
+    },
+    {
+      "path": "skills/claude/ppt-create/references/template-map.md",
+      "sha256": "feb5f26d1d159ccf9d06f0358f74febdbbfede8fa8146593f6ec19f1e0a74a64"
     },
     {
       "path": "skills/claude/pr-summary/CREDITS.md",

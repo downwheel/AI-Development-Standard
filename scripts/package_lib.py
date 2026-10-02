@@ -17,6 +17,11 @@ def sha(data):
     return hashlib.sha256(data).hexdigest()
 
 
+def is_office_lock(path):
+    """PowerPoint owner files are transient state, never distribution inputs."""
+    return path.name.startswith('~$') and path.suffix.lower() == '.pptx'
+
+
 def valid_name(name):
     return (isinstance(name, str) and 0 < len(name) <= 64
             and name == unicodedata.normalize('NFC', name)
@@ -42,7 +47,7 @@ def inventory(root=ROOT):
         paths = top.rglob('*') if top.is_dir() else [top]
         for path in paths:
             no_links(path)
-            if not path.is_file():
+            if not path.is_file() or is_office_lock(path):
                 continue
             rel = path.relative_to(root).as_posix()
             if path.name.startswith('.env') or path.suffix.lower() in {'.pem', '.key', '.pfx', '.pyc'} or '__pycache__' in path.parts:
@@ -74,8 +79,8 @@ def load_package(root=ROOT):
         raise ValueError('Unsupported distribution manifest')
     if not re.fullmatch(r'\d+\.\d+\.\d+', data.get('version', '')):
         raise ValueError('A package version is required')
-    if len(names) != 27 or len(set(names)) != 27 or any(not valid_name(n) for n in names):
-        raise ValueError('Expected the reviewed 27-skill selection')
+    if len(names) != 28 or len(set(names)) != 28 or 'ppt-create' not in names or any(not valid_name(n) for n in names):
+        raise ValueError('Expected the reviewed 28-skill selection including ppt-create')
     # Keep valid_name Unicode-aware for ownership checks of older installations.
     # New published commands must be portable across both host parsers.
     if any(not re.fullmatch(r'[a-z][a-z0-9]*(?:-[a-z0-9]+)*', name) for name in names):
@@ -106,10 +111,12 @@ def load_package(root=ROOT):
         if not flag:
             raise ValueError('Missing skill invocation policy: ' + name)
         implicit += flag[1] == 'true'
-        if (folder / 'LICENSE').read_bytes() != (root / 'LICENSE').read_bytes():
+        # Company-provided presentation assets do not inherit the upstream MIT grant.
+        notice = root / ('docs/COMPANY-TEMPLATE-NOTICE.md' if name == 'ppt-create' else 'LICENSE')
+        if (folder / 'LICENSE').read_bytes() != notice.read_bytes():
             raise ValueError('License notice missing or changed: ' + name)
-    if implicit != 11:
-        raise ValueError('Expected 11 implicit and 16 explicit skills')
+    if implicit != 12:
+        raise ValueError('Expected 12 implicit and 16 explicit skills')
     claude_files={p:h for p,h in actual.items() if p.startswith('skills/claude/')}
     if claude_files!=declared_files(data['claude_files']):
         raise ValueError('Claude skill manifest mismatch')
@@ -125,7 +132,8 @@ def load_package(root=ROOT):
             raise ValueError('Claude name/invocation policy mismatch: '+name)
         if not re.search(r'^description: .*[가-힣]',front[1],re.M) or (folder/'agents/openai.yaml').exists():
             raise ValueError('Invalid Claude metadata: '+name)
-        if (folder/'LICENSE').read_bytes()!=(root/'LICENSE').read_bytes():
+        notice = root / ('docs/COMPANY-TEMPLATE-NOTICE.md' if name == 'ppt-create' else 'LICENSE')
+        if (folder/'LICENSE').read_bytes()!=notice.read_bytes():
             raise ValueError('Claude license mismatch: '+name)
     return data
 

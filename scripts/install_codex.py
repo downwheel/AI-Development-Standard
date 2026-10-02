@@ -6,7 +6,7 @@ import os
 import re
 import shutil
 from datetime import datetime, timezone
-from package_lib import ROOT, legacy_findings, load_package, no_links, sha, valid_name
+from package_lib import ROOT, is_office_lock, legacy_findings, load_package, no_links, sha, valid_name
 
 START = '<!-- team-skills:managed:start -->'
 END = '<!-- team-skills:managed:end -->'
@@ -114,7 +114,7 @@ def main(edition='codex'):
             raise ValueError('Existing Skill is linked: '+name)
         expected=[]
         for src in (source_root/name).rglob('*'):
-            if not src.is_file():continue
+            if not src.is_file() or is_office_lock(src):continue
             target=dest/src.relative_to(source_root/name)
             check_profile_path(home, target)
             rel=target.relative_to(home).as_posix(); data=src.read_bytes(); files[rel]=sha(data); expected.append(target)
@@ -126,7 +126,7 @@ def main(edition='codex'):
             if current_bytes!=data: changed.append((target,data))
         if dest.exists():
             for p in dest.rglob('*'):check_profile_path(home,p)
-            extra=[p for p in dest.rglob('*') if p.is_file() and p not in expected]
+            extra=[p for p in dest.rglob('*') if p.is_file() and not is_office_lock(p) and p not in expected]
             for p in extra:
                 if owned.get(p.relative_to(home).as_posix())!=sha(observe(p)):
                     raise ValueError('Unowned or locally edited obsolete Skill file: '+str(p))

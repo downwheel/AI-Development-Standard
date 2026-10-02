@@ -1,0 +1,6 @@
+interface:
+  display_name: "ppt-create"
+  short_description: "회사 표준 템플릿으로 편집 가능한 발표자료를 작성하고 검수합니다."
+  default_prompt: "$ppt-create 제공한 자료를 회사 표준 PowerPoint 양식으로 만들어줘."
+policy:
+  allow_implicit_invocation: true
